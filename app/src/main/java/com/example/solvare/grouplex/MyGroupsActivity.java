@@ -73,30 +73,21 @@ public class MyGroupsActivity extends AppCompatActivity {
     {
         switch(item.getItemId())
         {
-            case R.id.about:
-                aboutGrouplex();
-                return true;
             case R.id.join:
                 joinGroup();
                 return true;
             case R.id.create:
                 createGroup();
                 return true;
-            case R.id.help:
-                helpUser();
-                return true;
             case R.id.settings:
                 settings();
                 return true;
-
+            case R.id.about:
+                about();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    private void aboutGrouplex() {
-        Intent intent = new Intent(MyGroupsActivity.this, AboutActivity.class);
-        startActivity(intent);
     }
 
     private void joinGroup() {
@@ -109,13 +100,13 @@ public class MyGroupsActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void helpUser() {
-        Intent intent = new Intent(MyGroupsActivity.this, HelpActivity.class);
+    private void settings() {
+        Intent intent = new Intent(MyGroupsActivity.this, UserSettingsActivity.class);
         startActivity(intent);
     }
 
-    private void settings() {
-        Intent intent = new Intent(MyGroupsActivity.this, UserSettingsActivity.class);
+    private void about() {
+        Intent intent = new Intent(MyGroupsActivity.this, AboutActivity.class);
         startActivity(intent);
     }
 

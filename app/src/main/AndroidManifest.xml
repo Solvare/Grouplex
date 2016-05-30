@@ -10,19 +10,19 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".LoginActivity"
+            android:label="Login"
             android:windowSoftInputMode="stateHidden">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".FirstActivity" />
         </activity>
         <activity
             android:name=".SignupActivity"
-            android:label="Signup">
+            android:label="Signup"
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".LoginActivity" />
+                android:value=".FirstActivity" />
         </activity>
         <activity
             android:name=".ForgotPasswordActivity"
@@ -48,7 +48,7 @@
         </activity>
         <activity
             android:name=".AboutActivity"
-            android:label="About">
+            android:label="About Grouplex">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MyGroupsActivity" />
@@ -61,14 +61,6 @@
                 android:value=".MyGroupsActivity" />
         </activity>
         <activity
-            android:name=".UserSettingsActivity"
-            android:label="User Settings"
-            android:parentActivityName=".MyGroupsActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.solvare.grouplex.MyGroupsActivity" />
-        </activity>
-        <activity
             android:name=".OpenSourceActivity"
             android:label="Open Source Credits">
             <meta-data
@@ -77,7 +69,8 @@
         </activity>
         <activity
             android:name=".ChatActivity"
-            android:label="CSE-2016">
+            android:label="CSE-2016"
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.solvare.grouplex.MyGroupsActivity" />
@@ -104,6 +97,21 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.solvare.grouplex.ChatActivity" />
         </activity>
+        <activity android:name=".FirstActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".UserSettingsActivity"
+            android:label="User Settings">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.solvare.grouplex.MyGroupsActivity" />
+        </activity>
+
     </application>
 
 </manifest>

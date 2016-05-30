@@ -2,7 +2,8 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="false">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -13,7 +14,8 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
         android:orientation="vertical"
-        tools:context="com.example.solvare.grouplex.LoginActivity">
+        tools:context="com.example.solvare.grouplex.LoginActivity"
+        android:weightSum="1">
 
         <TextView
             android:layout_width="match_parent"
@@ -41,7 +43,7 @@
             android:inputType="textEmailAddress"
             android:ems="12"
             android:id="@+id/editText1"
-            android:layout_marginTop="43dp"
+            android:layout_marginTop="50dp"
             android:layout_below="@+id/textView2"
             android:layout_gravity="center_horizontal"
             android:hint="Email" />
@@ -62,7 +64,7 @@
             android:text="Login"
             android:id="@+id/button"
             android:onClick="myGroups"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="50dp"
             android:layout_gravity="center_horizontal" />
 
         <TextView
@@ -73,21 +75,11 @@
             android:id="@+id/textView3"
             android:onClick="forgotPassword"
             android:layout_below="@+id/button"
-            android:layout_marginTop="39dp"
-            android:layout_gravity="center_horizontal" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="New User ? Signup Here"
-            android:id="@+id/textView4"
-            android:onClick="signup"
-            android:layout_below="@+id/textView3"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:textColor="#b37fe7" />
 
     </LinearLayout>
 
 </ScrollView>
+

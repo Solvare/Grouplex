@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -15,12 +16,17 @@ import java.util.List;
 
 public class ChatActivity extends AppCompatActivity {
 
+
+    private EditText editText1;
     private ArrayAdapter<String> messageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
+        editText1 = (EditText) findViewById(R.id.editText_chat);
+        editText1.requestFocus();
 
         String[] message = {
                 "Hello !!\nHow are you doing ??",
@@ -78,7 +84,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void groupSettings() {
-        Intent intent = new Intent(ChatActivity.this, GroupSettingsActivity.class);
-        startActivity(intent);
+        //Intent intent = new Intent(ChatActivity.this, GroupSettingsActivity.class);
+        //startActivity(intent);
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,8 +8,44 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:divider="@null"
+        android:layout_above="@+id/ll1"
+        android:stackFromBottom="true"
+        android:transcriptMode="alwaysScroll"
         android:id="@+id/listview_2" />
 
-</FrameLayout>
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+    <EditText
+        android:id="@+id/editText_chat"
+        android:layout_width="0dp"
+        android:capitalize="sentences"
+        android:padding="14dp"
+        android:layout_height="wrap_content"
+        android:hint="Put your message here....."
+        android:layout_weight="1"
+        android:background="#e7daf8"
+        android:textSize="18dp"
+        android:layout_marginBottom="6dp"
+        android:layout_marginLeft="5dp"
+        android:maxLines="6"
+        android:minLines="1"
+        android:scrollbars = "vertical"
+        android:inputType="textMultiLine" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_send_24dp"
+            android:text="Send"
+            android:layout_weight="0.05"
+            android:layout_marginTop="-10dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

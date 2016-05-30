@@ -2,19 +2,20 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="false">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
         android:orientation="vertical"
-        tools:context="com.example.solvare.grouplex.SignupActivity">
+        tools:context="com.example.solvare.grouplex.LoginActivity"
+        android:weightSum="1">
 
         <TextView
             android:layout_width="match_parent"
@@ -35,57 +36,29 @@
             android:layout_below="@+id/textView"
             android:layout_centerHorizontal="true"
             android:gravity="center_horizontal" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:id="@+id/editText3"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_group_work_24dp"
             android:layout_marginTop="50dp"
-            android:hint="Full Name" />
+            android:layout_weight="0.25" />
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:ems="10"
-            android:id="@+id/editText4"
-            android:layout_below="@+id/editText3"
-            android:layout_centerHorizontal="true"
-            android:hint="Email" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:ems="10"
-            android:id="@+id/editText5"
-            android:layout_below="@+id/editText4"
-            android:layout_alignLeft="@+id/editText4"
-            android:layout_alignStart="@+id/editText4"
-            android:hint="Password" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:ems="10"
-            android:id="@+id/editText6"
-            android:layout_below="@+id/editText5"
-            android:layout_centerHorizontal="true"
-            android:hint="Confirm Password" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Login"
+            android:onClick="login"
+            android:layout_marginTop="50dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:text="Signup"
-            android:id="@+id/button2"
-            android:layout_below="@+id/editText6"
-            android:onClick="myGroups"
-            android:layout_centerHorizontal="true"
+            android:onClick="signup"
             android:layout_marginTop="50dp" />
 
     </LinearLayout>
