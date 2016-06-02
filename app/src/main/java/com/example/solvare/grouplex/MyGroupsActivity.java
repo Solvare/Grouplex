@@ -44,7 +44,7 @@ public class MyGroupsActivity extends AppCompatActivity {
 
         List<String> yourGroups = new ArrayList<String>(Arrays.asList(groupsNames));
 
-        groupsAdapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.groups,R.id.group_name,yourGroups);
+        groupsAdapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.item_groups,R.id.group_name,yourGroups);
 
         ListView listview = (ListView) findViewById(R.id.listview_1);
         listview.setAdapter(groupsAdapter);
@@ -52,7 +52,6 @@ public class MyGroupsActivity extends AppCompatActivity {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                String forecast = groupsAdapter.getItem(position);
                 Intent intent = new Intent(MyGroupsActivity.this, ChatActivity.class);
                 startActivity(intent);
             }

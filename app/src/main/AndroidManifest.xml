@@ -26,7 +26,8 @@
         </activity>
         <activity
             android:name=".ForgotPasswordActivity"
-            android:label="Forgot Password">
+            android:label="Forgot Password"
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
@@ -34,14 +35,16 @@
         <activity android:name=".MyGroupsActivity" />
         <activity
             android:name=".JoinGroupActivity"
-            android:label="Join Group">
+            android:label="Join Group"
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MyGroupsActivity" />
         </activity>
         <activity
             android:name=".CreateGroupActivity"
-            android:label="Create Group">
+            android:label="Create Group"
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MyGroupsActivity" />
@@ -49,13 +52,6 @@
         <activity
             android:name=".AboutActivity"
             android:label="About Grouplex">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MyGroupsActivity" />
-        </activity>
-        <activity
-            android:name=".HelpActivity"
-            android:label="Help">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MyGroupsActivity" />
@@ -85,14 +81,6 @@
         <activity
             android:name=".GroupMembersActivity"
             android:label="Group Members">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.solvare.grouplex.ChatActivity" />
-        </activity>
-        <activity
-            android:name=".GroupSettingsActivity"
-            android:label="@string/title_activity_group_settings"
-            android:parentActivityName=".ChatActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.solvare.grouplex.ChatActivity" />

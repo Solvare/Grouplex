@@ -40,7 +40,7 @@ public class ChatActivity extends AppCompatActivity {
 
         List<String> yourMessages = new ArrayList<String>(Arrays.asList(message));
 
-        messageAdapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.chat,R.id.message,yourMessages);
+        messageAdapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.item_chat,R.id.message,yourMessages);
 
         ListView listview = (ListView) findViewById(R.id.listview_2);
         listview.setAdapter(messageAdapter);
