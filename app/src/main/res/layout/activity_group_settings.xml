@@ -3,12 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.solvare.grouplex.GroupMemberActivityActivity"
+    tools:context="com.example.solvare.grouplex.GroupSettingsActivity"
     android:orientation="vertical">
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/listview_group_members" />
+        android:entries="@array/group_settings_entries">
+    </ListView>
 
 </FrameLayout>

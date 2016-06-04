@@ -59,9 +59,6 @@ public class ChatActivity extends AppCompatActivity {
     {
         switch(item.getItemId())
         {
-            case R.id.info:
-                groupInfo();
-                return true;
             case R.id.members:
                 groupMembers();
                 return true;
@@ -73,18 +70,13 @@ public class ChatActivity extends AppCompatActivity {
         }
     }
 
-    private void groupInfo() {
-        Intent intent = new Intent(ChatActivity.this, GroupInfoActivity.class);
-        startActivity(intent);
-    }
-
     private void groupMembers() {
         Intent intent = new Intent(ChatActivity.this, GroupMembersActivity.class);
         startActivity(intent);
     }
 
     private void groupSettings() {
-        //Intent intent = new Intent(ChatActivity.this, GroupSettingsActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(ChatActivity.this, GroupSettingsActivity.class);
+        startActivity(intent);
     }
 }

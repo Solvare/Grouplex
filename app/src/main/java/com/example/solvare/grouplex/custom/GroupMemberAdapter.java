@@ -13,14 +13,14 @@ import android.widget.TextView;
 
 import com.example.solvare.grouplex.R;
 
-public class MyAdapter extends ArrayAdapter<Items> {
+public class GroupMemberAdapter extends ArrayAdapter<Items> {
 
     private final Context context;
     private final ArrayList<Items> itemsArrayList;
 
-    public MyAdapter(Context context, ArrayList<Items> itemsArrayList) {
+    public GroupMemberAdapter(Context context, ArrayList<Items> itemsArrayList) {
 
-        super(context, R.layout.item_about, itemsArrayList);
+        super(context, R.layout.item_group_members, itemsArrayList);
 
         this.context = context;
         this.itemsArrayList = itemsArrayList;
@@ -34,11 +34,11 @@ public class MyAdapter extends ArrayAdapter<Items> {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         // 2. Get rowView from inflater
-        View rowView = inflater.inflate(R.layout.item_about, parent, false);
+        View rowView = inflater.inflate(R.layout.item_group_members, parent, false);
 
         // 3. Get the two text view from the rowView
-        TextView labelView = (TextView) rowView.findViewById(R.id.header);
-        TextView valueView = (TextView) rowView.findViewById(R.id.detail);
+        TextView labelView = (TextView) rowView.findViewById(R.id.member_name);
+        TextView valueView = (TextView) rowView.findViewById(R.id.member_email);
 
         // 4. Set the text for textView
         labelView.setText(itemsArrayList.get(position).getTitle());

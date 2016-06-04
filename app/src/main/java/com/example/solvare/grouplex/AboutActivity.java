@@ -21,7 +21,7 @@ public class AboutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_about);
 
         // 1. pass context and data to the custom adapter
-        com.example.solvare.grouplex.custom.MyAdapter adapter = new com.example.solvare.grouplex.custom.MyAdapter(this, generateData());
+        com.example.solvare.grouplex.custom.AboutAdapter adapter = new com.example.solvare.grouplex.custom.AboutAdapter(this, generateData());
 
         // 2. Get ListView from activity_main.xml
         ListView listView = (ListView) findViewById(R.id.listview_about);
@@ -46,8 +46,8 @@ public class AboutActivity extends AppCompatActivity {
         ArrayList<com.example.solvare.grouplex.custom.Items> items = new ArrayList<>();
         items.add(new com.example.solvare.grouplex.custom.Items("Aim","To facilitate Official Group Chats."));
         items.add(new com.example.solvare.grouplex.custom.Items("Licence","Open Source"));
-        items.add(new com.example.solvare.grouplex.custom.Items("Developers", "Rishabh Ahuja - rishabhahuja279@gmail.com\nRajat Saxena - rajat24saxena@gmail.com"));
-        items.add(new com.example.solvare.grouplex.custom.Items("Contact Us", "solvesoftware@gmail.com"));
+        items.add(new com.example.solvare.grouplex.custom.Items("Developers", "Rishabh Ahuja\nRajat Saxena"));
+        items.add(new com.example.solvare.grouplex.custom.Items("Contact Us", "rishabhahuja279@gmail.com\nrajat24saxena@gmail.com"));
         items.add(new com.example.solvare.grouplex.custom.Items("Open Source Credits", "We thank every open-source developer for their contribution to the community."));
 
         return items;

@@ -68,8 +68,13 @@
     <string name="pref_header_security">Security</string>
     <string name="pref_full_name">full_name</string>
 
-    <string-array name="settings_entries">
+    <string-array name="user_settings_entries">
         <item>Change Full Name</item>
         <item>Change Password</item>
+    </string-array>
+
+    <string-array name="group_settings_entries">
+        <item>Change Group Name</item>
+        <item>Change Group Icon</item>
     </string-array>
 </resources>

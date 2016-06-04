@@ -72,13 +72,6 @@
                 android:value="com.example.solvare.grouplex.MyGroupsActivity" />
         </activity>
         <activity
-            android:name=".GroupInfoActivity"
-            android:label="Group Info">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.solvare.grouplex.ChatActivity" />
-        </activity>
-        <activity
             android:name=".GroupMembersActivity"
             android:label="Group Members">
             <meta-data
@@ -99,7 +92,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.solvare.grouplex.MyGroupsActivity" />
         </activity>
-
+        <activity android:name=".GroupSettingsActivity"
+            android:label="Group Settings">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.solvare.grouplex.ChatActivity" />
+        </activity>
     </application>
 
 </manifest>
