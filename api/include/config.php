@@ -4,7 +4,7 @@
  */
 
 $dsn = 'mysql:dbname=grouplex;host=localhost';
-$user = 'phpmyadmin';
-$pass = 'some_pass';
+$user = 'root';
+$pass = '';
 
 ?>

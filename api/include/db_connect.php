@@ -21,6 +21,7 @@ class DbConnect {
         try
         {
             $this->conn = new PDO($dsn, $user, $pass);
+
         }
         catch (PDOException $e)
         {

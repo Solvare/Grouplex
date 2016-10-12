@@ -164,8 +164,9 @@ $app->post('/:group_id/:user_id/post', function($group_id,$user_id) use ($app) {
         }
         else if($stmt->rowCount()==1)
         {
-            $chat = $app->request->post('chat');
+            $chat = $app->request->get('chat');
             $insrt = $conn->exec("INSERT INTO messages(group_id,chat) VALUES('$group_id','$chat')");
+			
             if($insrt==1)
             {
                 $response["error"] = false;
@@ -192,6 +193,7 @@ $app->post('/:group_id/:user_id/post', function($group_id,$user_id) use ($app) {
 // 5. searching for a group
 
 $app->get('/search/:query', function($query) {
+	global $app;
     $response = array();
     require_once dirname(__FILE__) . '../../include/db_connect.php';
     $db = new DbConnect();
@@ -218,9 +220,143 @@ $app->get('/search/:query', function($query) {
     
     $stmt = null;
     $conn = null;
-
+	
     echoRespnse(200, $response);
 });
+
+//following link is used for registration
+$app->post('/user/register',function() use ($app){
+	global $app;
+	$response=array();
+	require_once dirname(__FILE__) . '../../include/db_connect.php';
+	$db = new DbConnect();
+    $conn = $db->connect();
+	
+	$email=$app->request->get('email');
+	$password=$app->request->get('password');
+	$full_name=$app->request->get('full_name');
+	$user_exist=$conn->query("select user_id from users where email='$email'");
+	if($user_exist->rowCount()>0){
+		$response["error"]=true;
+		$response["message"]="The user is already registered";
+	}else{
+		
+		if($conn->query("INSERT INTO users(email,password,full_name,gcm_reg_id) VALUES( '$email','$password','$full_name','')")==TRUE)
+		{
+			$response["error"]=false;
+			$response["message"]="New user created";
+		}
+		else{
+			$response["error"]=true;
+			$respomse["message"]="An error occurred while registration";
+		}
+			
+	}
+    $conn = null;
+	$user_exist=null;
+	echoRespnse(200,$response);
+});
+
+
+//following link is used for user login
+$app->get('/user/login',function() use ($app){
+	$response=array();
+	require_once dirname(__FILE__) . '../../include/db_connect.php';
+	$db = new DbConnect();
+    $conn = $db->connect();
+	
+	$email=$app->request->get('email');
+	$password=$app->request->get('password');
+	$user_exist=$conn->query("select user_id from users where email='$email' AND password='$password'");
+	if($user_exist->rowCount()==1){
+		$response["error"]=false;
+		$response["message"]="user successfully logged in";
+	}else{
+		$response["error"]=true;
+		$response["message"]="user does not exist";
+	}
+    $conn = null;
+	echoRespnse(200,$response);
+});
+
+
+//link to create new group
+$app->post('/newgroup/:user_id',function($user_id) use ($app){
+	$response=array();
+	require_once dirname(__FILE__) . '../../include/db_connect.php';
+	$db = new DbConnect();
+    $conn = $db->connect();
+	
+	$user_exist=$conn->query("select user_id from users where user_id=$user_id");
+	if($user_exist->rowCount()>0){
+		$group_name=$app->request->get('group_name');
+		
+		$query=$conn->query("select group_id from groups where group_name='$group_name'");
+		if($query->rowCount()>0){
+			$response["error"]=true;
+			$response["message"]="group name already exist";
+		}else{
+			if($conn->query("Insert into groups(group_name,admin_id) VALUES('$group_name','$user_id')")==TRUE){			
+				$response["error"]=false;
+				$response["message"]="new group created";
+			}else{
+				$response["error"]=true;
+				$response["message"]="error occurred while creating group";
+			}
+		}
+	}
+	else{
+		$response["error"]=true;
+		$response["message"]="user does not exist";
+	}
+	$conn=null;
+	echoRespnse(200,$response);
+});
+
+
+//link through which user can join the group
+$app->post('/joingroup/:user_id',function($user_id) use ($app){
+	$response=array();
+	require_once dirname(__FILE__) . '../../include/db_connect.php';
+	$db = new DbConnect();
+    $conn = $db->connect();
+	
+	$user_exist=$conn->query("select user_id from users where user_id=$user_id");
+	if($user_exist->rowCount()>0){
+		$group_name=$app->request->get('group_name');
+		$query=$conn->query("select * from groups where group_name='$group_name'");
+		
+		if($query->rowCount()>0){
+			while($param=$query->fetch(PDO::FETCH_OBJ))
+			{
+				$group_id=$param->group_id;
+			}
+			$userjoin=$conn->query("select id from master where group_id=$group_id AND user_id=$user_id");
+			if($userjoin->rowCount()>0){
+				$response["error"]=true;
+				$response["message"]="user already joined the group";
+			}else{
+				if($conn->query("Insert into master(group_id,user_id) VALUES('$group_id','$user_id')")==TRUE){
+					$response["error"]=false;
+					$response["message"]="group joined";
+				}
+				else{
+					$response["error"]=true;
+					$response["message"]="error occurred while joining group";
+				}
+			}
+		}else{
+			$response["error"]=true;
+			$response["message"]="group does not exist";
+		}
+	}else{
+		$response["error"]=true;
+		$response["message"]="user does not exist";
+	}
+	$conn=null;
+	echoRespnse(200,$response);
+});
+
 
 /**
  * Echoing json response to client
