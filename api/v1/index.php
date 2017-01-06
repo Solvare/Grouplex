@@ -232,8 +232,8 @@ $app->post('/user/register',function() use ($app){
 	$db = new DbConnect();
     $conn = $db->connect();
 	
-	$email=$app->request->get('email');
-	$password=$app->request->get('password');
+	$email=$app->request->post('email');
+	$password=$app->request->post('password');
 	$full_name=$app->request->get('full_name');
 	$user_exist=$conn->query("select user_id from users where email='$email'");
 	if($user_exist->rowCount()>0){
@@ -259,14 +259,14 @@ $app->post('/user/register',function() use ($app){
 
 
 //following link is used for user login
-$app->get('/user/login',function() use ($app){
+$app->post('/user/login',function() use ($app){
 	$response=array();
 	require_once dirname(__FILE__) . '../../include/db_connect.php';
 	$db = new DbConnect();
     $conn = $db->connect();
 	
-	$email=$app->request->get('email');
-	$password=$app->request->get('password');
+	$email=$app->request->post('email');
+	$password=$app->request->post('password');
 	$user_exist=$conn->query("select user_id from users where email='$email' AND password='$password'");
 	if($user_exist->rowCount()==1){
 		$response["error"]=false;

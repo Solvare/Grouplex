@@ -2,20 +2,19 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="false">
+    android:layout_height="match_parent">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
         android:orientation="vertical"
-        tools:context="com.example.solvare.grouplex.LoginActivity"
-        android:weightSum="1">
+        tools:context="com.example.solvare.grouplex.SignupActivity">
 
         <TextView
             android:layout_width="match_parent"
@@ -40,46 +39,54 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:ems="12"
-            android:id="@+id/editText1"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/editText3"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
-            android:layout_below="@+id/textView2"
-            android:layout_gravity="center_horizontal"
+            android:hint="Full Name" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:ems="10"
+            android:id="@+id/editText4"
+            android:layout_below="@+id/editText3"
+            android:layout_centerHorizontal="true"
             android:hint="Email" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:ems="12"
-            android:id="@+id/editText2"
-            android:layout_below="@+id/editText"
-            android:layout_gravity="center_horizontal"
+            android:ems="10"
+            android:id="@+id/editText5"
+            android:layout_below="@+id/editText4"
+            android:layout_alignLeft="@+id/editText4"
+            android:layout_alignStart="@+id/editText4"
             android:hint="Password" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/editText6"
+            android:layout_below="@+id/editText5"
+            android:layout_centerHorizontal="true"
+            android:hint="Confirm Password" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login"
-            android:id="@+id/button"
-            android:onClick="myGroups"
-            android:layout_marginTop="50dp"
-            android:layout_gravity="center_horizontal" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Forgot Password"
-            android:id="@+id/textView3"
-            android:onClick="forgotPassword"
-            android:layout_below="@+id/button"
-            android:layout_marginTop="50dp"
-            android:layout_gravity="center_horizontal"
-            android:textColor="#b37fe7" />
+            android:text="Signup"
+            android:id="@+id/buttonRegister"
+            android:layout_below="@+id/editText6"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp" />
 
     </LinearLayout>
 
 </ScrollView>
-

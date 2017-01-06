@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.solvare.grouplex">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -92,12 +94,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.solvare.grouplex.MyGroupsActivity" />
         </activity>
-        <activity android:name=".GroupSettingsActivity"
+        <activity
+            android:name=".GroupSettingsActivity"
             android:label="Group Settings">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.solvare.grouplex.ChatActivity" />
         </activity>
+        <activity android:name=".LoginMessage"></activity>
     </application>
 
 </manifest>
