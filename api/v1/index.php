@@ -1,20 +1,23 @@
 <?php
 
-error_reporting(-1);
-ini_set('display_errors', 'On');
+error_reporting(E_ALL);
 
 require '.././libs/Slim/Slim.php';
+require dirname(__FILE__) . '../../include/salt_pass.php';
+require dirname(__FILE__) . '../../include/db_connect.php';
 
 \Slim\Slim::registerAutoloader();
 
 $app = new \Slim\Slim();
 
-
-// 1. fetching all groups of a particular user
-
-$app->get('/:user_id/groups', function($user_id) {
+/*------------------------------------------------------------------------------------*/
+//	1. fetching all groups of a particular user
+/*------------------------------------------------------------------------------------*/
+ 
+$app->get('/:user_id/groups', function($user_id)
+{
     $response = array();
-    require_once dirname(__FILE__) . '../../include/db_connect.php';
+
     $db = new DbConnect();
     $conn = $db->connect();
 
@@ -27,7 +30,6 @@ $app->get('/:user_id/groups', function($user_id) {
     }
     else
     {
-
         $stmt = $conn->query("SELECT group_name FROM master,groups WHERE master.user_id = $user_id AND groups.group_id = master.group_id");
         if($stmt->rowCount()==0)
         {
@@ -40,9 +42,7 @@ $app->get('/:user_id/groups', function($user_id) {
             $response["groups"] = array();
             foreach($stmt as $row)
             {
-                $tmp = array();
-                $tmp["group_name"] = $row["group_name"];
-                array_push($response["groups"], $tmp);
+                array_push($response["groups"], $row["group_name"]);
             }
         }  
     }
@@ -53,12 +53,14 @@ $app->get('/:user_id/groups', function($user_id) {
     echoRespnse(200, $response);
 });
 
+/*------------------------------------------------------------------------------------*/
+//	2. fetching all messages of a particular group
+/*------------------------------------------------------------------------------------*/
 
-// 2. fetching all messages of a particular group
-
-$app->get('/:group_id/messages', function($group_id) {
+$app->get('/:group_id/messages', function($group_id)
+{
     $response = array();
-    require_once dirname(__FILE__) . '../../include/db_connect.php';
+ 
     $db = new DbConnect();
     $conn = $db->connect();
 
@@ -71,7 +73,6 @@ $app->get('/:group_id/messages', function($group_id) {
     }
     else
     {
-
         $stmt = $conn->query("SELECT chat FROM messages WHERE group_id = $group_id");
         if($stmt->rowCount()==0)
         {
@@ -84,9 +85,7 @@ $app->get('/:group_id/messages', function($group_id) {
             $response["messages"] = array();
             foreach($stmt as $row)
             {
-                $tmp = array();
-                $tmp["chat"] = $row["chat"];
-                array_push($response["messages"], $tmp);
+                array_push($response["messages"], $row["chat"]);
             }
         }  
     }
@@ -97,12 +96,14 @@ $app->get('/:group_id/messages', function($group_id) {
     echoRespnse(200, $response);
 });
 
+/*------------------------------------------------------------------------------------*/
+//	3. fetching all members of a particular group
+/*------------------------------------------------------------------------------------*/
 
-// 3. fetching all members of a particular group
-
-$app->get('/:group_id/members', function($group_id) {
+$app->get('/:group_id/members', function($group_id)
+{
     $response = array();
-    require_once dirname(__FILE__) . '../../include/db_connect.php';
+  
     $db = new DbConnect();
     $conn = $db->connect();
 
@@ -115,15 +116,12 @@ $app->get('/:group_id/members', function($group_id) {
     }
     else
     {
-
         $stmt = $conn->query("SELECT full_name FROM master,users WHERE master.group_id = $group_id AND master.user_id = users.user_id");
         $response["error"] = false;
         $response["members"] = array();
         foreach($stmt as $row)
         {
-            $tmp = array();
-            $tmp["name"] = $row["full_name"];
-            array_push($response["members"], $tmp);
+            array_push($response["members"], $row["full_name"]);
         }
         
     }
@@ -134,20 +132,22 @@ $app->get('/:group_id/members', function($group_id) {
     echoRespnse(200, $response);
 });
 
+/*------------------------------------------------------------------------------------*/
+//	4. posting message to a particular group
+/*------------------------------------------------------------------------------------*/
 
-// 4. posting message to a particular group
-
-$app->post('/:group_id/:user_id/post', function($group_id,$user_id) use ($app) {
-   
+$app->post('/:group_id/:user_id/post', function($group_id,$user_id) use ($app)
+{   
     global $app;
     $response = array();
-    require_once dirname(__FILE__) . '../../include/db_connect.php';
+   
     $db = new DbConnect();
     $conn = $db->connect();
 
     //check if group exists or not
     $exist_group = $conn->query("SELECT group_id FROM groups WHERE group_id = $group_id");
     $exist_user = $conn->query("SELECT user_id FROM users WHERE user_id = $user_id");
+    
     if($exist_group->rowCount()==0 || $exist_user->rowCount()==0)
     {
         $response["error"] = true;
@@ -164,7 +164,7 @@ $app->post('/:group_id/:user_id/post', function($group_id,$user_id) use ($app) {
         }
         else if($stmt->rowCount()==1)
         {
-            $chat = $app->request->get('chat');
+            $chat = $app->request->post('chat');
             $insrt = $conn->exec("INSERT INTO messages(group_id,chat) VALUES('$group_id','$chat')");
 			
             if($insrt==1)
@@ -189,13 +189,15 @@ $app->post('/:group_id/:user_id/post', function($group_id,$user_id) use ($app) {
     echoRespnse(200, $response);
 });
 
+/*------------------------------------------------------------------------------------*/
+//  5. searching for a group
+/*------------------------------------------------------------------------------------*/
 
-// 5. searching for a group
-
-$app->get('/search/:query', function($query) {
+$app->get('/search/:query', function($query)
+{
 	global $app;
     $response = array();
-    require_once dirname(__FILE__) . '../../include/db_connect.php';
+   
     $db = new DbConnect();
     $conn = $db->connect();
 
@@ -211,9 +213,7 @@ $app->get('/search/:query', function($query) {
         $response["groups"] = array();
         foreach($stmt as $row)
         {
-            $tmp = array();
-            $tmp["group_name"] = $row["group_name"];
-            array_push($response["groups"], $tmp);
+            array_push($response["groups"], $row["group_name"]);
         }
      
     }
@@ -224,72 +224,123 @@ $app->get('/search/:query', function($query) {
     echoRespnse(200, $response);
 });
 
-//following link is used for registration
-$app->post('/user/register',function() use ($app){
+/*------------------------------------------------------------------------------------*/
+//	6. user registration
+/*------------------------------------------------------------------------------------*/
+
+$app->post('/user/register',function() use ($app)
+{
 	global $app;
 	$response=array();
-	require_once dirname(__FILE__) . '../../include/db_connect.php';
+
 	$db = new DbConnect();
     $conn = $db->connect();
 	
 	$email=$app->request->post('email');
 	$password=$app->request->post('password');
-	$full_name=$app->request->get('full_name');
-	$user_exist=$conn->query("select user_id from users where email='$email'");
-	if($user_exist->rowCount()>0){
-		$response["error"]=true;
-		$response["message"]="The user is already registered";
-	}else{
-		
-		if($conn->query("INSERT INTO users(email,password,full_name,gcm_reg_id) VALUES( '$email','$password','$full_name','')")==TRUE)
-		{
-			$response["error"]=false;
-			$response["message"]="New user created";
-		}
-		else{
-			$response["error"]=true;
-			$respomse["message"]="An error occurred while registration";
-		}
-			
-	}
+	$full_name=$app->request->post('full_name');
+    
+    if($email == null || $password == 'gow' || $full_name == null)
+    {
+        $response["error"]=true;
+        $response["message"]="Insufficient Info";
+    }
+    else
+    {
+        $user_exist=$conn->query("select user_id from users where email='$email'");
+        if($user_exist->rowCount()>0)
+        {
+            $response["error"]=true;
+            $response["message"]="The user is already registered";
+        }
+        else
+        {       
+            $pass_hash = PassHash::hash($password);
+            
+            if($conn->query("INSERT INTO users(email,password,full_name,gcm_reg_id) VALUES('$email','$pass_hash','$full_name','')")==TRUE)
+            {
+                $response["error"]=false;
+                $response["message"]="New user created";
+            }
+            else
+            {
+                $response["error"]=true;
+                $respomse["message"]="An error occurred while registration";
+            }
+        }
+    }
+	
     $conn = null;
 	$user_exist=null;
 	echoRespnse(200,$response);
 });
 
+/*------------------------------------------------------------------------------------*/
+//	7. user login
+/*------------------------------------------------------------------------------------*/
 
-//following link is used for user login
-$app->post('/user/login',function() use ($app){
+$app->post('/user/login',function() use ($app)
+{
 	$response=array();
-	require_once dirname(__FILE__) . '../../include/db_connect.php';
+
 	$db = new DbConnect();
     $conn = $db->connect();
 	
-	$email=$app->request->post('email');
+    $email=$app->request->post('email');
 	$password=$app->request->post('password');
-	$user_exist=$conn->query("select user_id from users where email='$email' AND password='$password'");
-	if($user_exist->rowCount()==1){
-		$response["error"]=false;
-		$response["message"]="user successfully logged in";
-	}else{
-		$response["error"]=true;
-		$response["message"]="user does not exist";
-	}
+	
+    if($email == 'gow' || $password == 'gow')
+    {
+        $response["error"]=true;
+        $response["message"]="Insufficient Info";
+    }
+    else
+    {
+        $user_exist=$conn->query("select user_id,email,full_name,password as passhash from users where email='$email'");
+    	if($user_exist->rowCount()==1)
+    	{						
+    		$row = $user_exist->fetch();		
+    		$passhash = $row['passhash'];
+    		if(PassHash::check_password($passhash, $password))
+    		{
+    			$response["error"]=false;
+    			$response["message"]="user successfully logged in";
+    			$response["user_id"]=$row['user_id'];
+    			$response["email"]=$row['email'];
+    			$response["full_name"]=$row['full_name'];
+    		}
+    		else
+    		{
+    			$response["error"]=true;
+    			$response["message"]="incorrect password";	
+    		}
+    	}
+    	else
+    	{
+    		$response["error"]=true;
+    		$response["message"]="user does not exist";
+    	}
+    }
     $conn = null;
+    $user_exist = null;
+
 	echoRespnse(200,$response);
 });
 
+/*------------------------------------------------------------------------------------*/
+//	8. creating a new group
+/*------------------------------------------------------------------------------------*/
 
-//link to create new group
-$app->post('/newgroup/:user_id',function($user_id) use ($app){
+$app->post('/newgroup/:user_id',function($user_id) use ($app)
+{
 	$response=array();
-	require_once dirname(__FILE__) . '../../include/db_connect.php';
+	
 	$db = new DbConnect();
     $conn = $db->connect();
 	
 	$user_exist=$conn->query("select user_id from users where user_id=$user_id");
 	if($user_exist->rowCount()>0){
-		$group_name=$app->request->get('group_name');
+		$group_name=$app->request->post('group_name');
 		
 		$query=$conn->query("select group_id from groups where group_name='$group_name'");
 		if($query->rowCount()>0){
@@ -313,11 +364,13 @@ $app->post('/newgroup/:user_id',function($user_id) use ($app){
 	echoRespnse(200,$response);
 });
 
+/*------------------------------------------------------------------------------------*/
+//	9. joining a group
+/*------------------------------------------------------------------------------------*/
 
-//link through which user can join the group
 $app->post('/joingroup/:user_id',function($user_id) use ($app){
 	$response=array();
-	require_once dirname(__FILE__) . '../../include/db_connect.php';
+
 	$db = new DbConnect();
     $conn = $db->connect();
 	
@@ -375,4 +428,5 @@ function echoRespnse($status_code, $response) {
 }
 
 $app->run();
+
 ?>

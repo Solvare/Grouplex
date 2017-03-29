@@ -5,6 +5,6 @@
 
 $dsn = 'mysql:dbname=grouplex;host=localhost';
 $user = 'root';
-$pass = '';
+$pass = 'pass123';
 
 ?>
