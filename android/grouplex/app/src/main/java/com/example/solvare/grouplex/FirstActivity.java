@@ -21,7 +21,7 @@ public class FirstActivity extends AppCompatActivity {
         setContentView(R.layout.activity_first);
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         boolean hasLoggedIn=sharedPreferences.getBoolean(LOGGEDIN_SHARED_PREF,false);
-        if(hasLoggedIn){
+        if(SharedPrefManager.getInstance(this).isLoggedIn()){
             finish();
             startActivity(new Intent(this,MyGroupsActivity.class));
             return;

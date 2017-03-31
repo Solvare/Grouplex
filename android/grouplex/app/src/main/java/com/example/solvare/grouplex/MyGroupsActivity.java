@@ -37,38 +37,28 @@ import static com.example.solvare.grouplex.R.id.recyclerView;
 
 public class MyGroupsActivity extends AppCompatActivity {
 
-    //private ArrayAdapter<String> groupsAdapter;
-    private List<GroupMembers> mData;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_groups);
-       recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this); // (Context context, int spanCount)
         mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(mLinearLayoutManagerVertical);
-        /*recyclerView.addItemDecoration(new
-
-                SimpleDividerItemDecoration(this)
-
-        );*/
-
         recyclerView.setItemAnimator(new
 
                 DefaultItemAnimator()
 
-        ); // Even if we dont use it then also our items shows default animation. #Check Docs
-
-        //mData=new ArrayList<>();
-
+        );
         setUpRecyclerView();
     }
 
     private void setUpRecyclerView() {
-
 
 
         StringRequest stringRequest = new StringRequest(Urls.URL_GROUPS,
@@ -89,23 +79,19 @@ public class MyGroupsActivity extends AppCompatActivity {
                     }
                 });
 
-        //Creating request queue
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        //Adding request to the queue
-        requestQueue.add(stringRequest);
-
-
+        RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
 
     }
+
     GroupMembers members = new GroupMembers();
+
     private void parseData(String jsonStr) throws JSONException {
 
         ArrayList<GroupMembers> dataList = new ArrayList<>();
         ArrayList<String> names = new ArrayList<String>();
         ArrayList<String> levels = new ArrayList<String>();
         JSONObject jsonObj = new JSONObject(jsonStr);
-        //Log.d("TAG-CHECK", jsonStr);
-        JSONArray jsonarray=jsonObj.getJSONArray("groups");
+        JSONArray jsonarray = jsonObj.getJSONArray("groups");
         for (int i = 0; i < jsonarray.length(); i++) {
             JSONObject jsonobject = jsonarray.getJSONObject(i);
             names.add(jsonobject.getString("name"));
@@ -113,101 +99,45 @@ public class MyGroupsActivity extends AppCompatActivity {
         }
         members.set_groupnames(names);
         members.setLevel(levels);
-        //int a=members.getLevel().size();
-        //Log.d("OUTPUT",Integer.toString(a));
-        String[] level=new String[members.getLevel().size()];
-        String[] groupsNames=new String[members.get_groupnames().size()];
+        /*String[] level = new String[members.getLevel().size()];
+        String[] groupsNames = new String[members.get_groupnames().size()];
 
-        for(int i=0;i<members.getLevel().size();i++){
+        for (int i = 0; i < members.getLevel().size(); i++) {
 
-            level[i]=members.getLevel().get(i);
-            //Log.d("myTag2", "This is my message");
+            level[i] = members.getLevel().get(i);
         }
-        for(int i=0;i<members.get_groupnames().size();i++){
-            groupsNames[i]=members.get_groupnames().get(i);
-        }
+        for (int i = 0; i < members.get_groupnames().size(); i++) {
+            groupsNames[i] = members.get_groupnames().get(i);
+        }*/
         for (int i = 0; i < members.get_groupnames().size(); i++) {
 
             members.s_set_groupnames(members.get_groupnames().get(i));
             members.s_setLevel(members.getLevel().get(i));
-            //Log.d("OUTPUT",members.get_groupnames().get(i));
             dataList.add(members);
-
-
-
         }
-        /*for (int i = 0; i < members.get_groupnames().size(); i++) {
-
-            //Log.d("1",members.s_get_groupnames());
-            //Log.d("2",members.s_getLevel());
-            Log.d("OUTPUT", String.valueOf(dataList.get(i)));
-
-
-            //int size=dataList.size();
-            //Log.d("SIZE", Integer.toString(size));
-
-        }*/
-        int size=dataList.size();
+        int size = dataList.size();
         Log.d("SIZE", Integer.toString(size));
         adapter = new GroupMemberAdapter(this, getData(dataList));
         recyclerView.setAdapter(adapter);
 
     }
-    public  ArrayList<GroupMembers> getData(ArrayList<GroupMembers> list) {
+
+    public ArrayList<GroupMembers> getData(ArrayList<GroupMembers> list) {
         ArrayList<GroupMembers> dataList = new ArrayList<>();
-//---------------------------------------------------------------------------
-        dataList=list;
-        /*String[] groupsNames = {
-                "CS_402","CS-203"
-        };
-        String[] level={
-            "Admin","Admin"
-        };*/
-
-
-        //int a=members.getLevel().size();
-        //String b=String(a);
-        //Log.d("OUTPUT",Integer.toString(a));
-        /*String[] level1=new String[members.getLevel().size()];
-        String[] groupsNames1=new String[members.get_groupnames().size()];
-
-        for(int i=0;i<members.getLevel().size();i++){
-
-             level1[i]=members.getLevel().get(i);
-            Log.d("myTag2", "This is my message");
-        }
-        for(int i=0;i<members.get_groupnames().size();i++){
-            groupsNames[i]=members.get_groupnames().get(i);
-        }*/
-
-//--------------------------------------------------------------------------------------
-
-        /*for (int i = 0; i < groupsNames.length; i++) {
-
-            members.s_set_groupnames(groupsNames[i]);
-            members.s_setLevel(level[i]);
-
-            dataList.add(members);
-            //int size=dataList.size();
-            //Log.d("SIZE", Integer.toString(size));
-
-        }*/
+        dataList = list;
         return dataList;
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            //exitByBackKey();
             logout();
-            //moveTaskToBack(false);
-
             return true;
         }
         return super.onKeyDown(keyCode, event);
     }
 
 
-    private void logout(){
+    private void logout() {
         //Creating an alert dialog to confirm logout
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setMessage("Are you sure you want to logout?");
@@ -251,18 +181,15 @@ public class MyGroupsActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.home_menu, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch(item.getItemId())
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.join:
                 joinGroup();
                 return true;

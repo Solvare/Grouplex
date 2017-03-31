@@ -33,24 +33,14 @@ public class GroupMemberAdapter extends RecyclerView.Adapter<GroupMemberAdapter.
         MyViewHolder holder = new MyViewHolder(view);
         return holder;
     }
-
     @Override
     public void onBindViewHolder(GroupMemberAdapter.MyViewHolder holder, int position) {
         GroupMembers members = mData.get(position);
-        Log.d("HELLO", "hello");
-        /*for(int i=0;i<members.get_groupnames().size();i++){
-            //names=names+members.get_groupnames().get(i);
-            //levels=levels+members.getLevel().get(i);
-            //Log.d("Group-Names", members.get_groupnames().get(i));
-            holder.groupname.setText(members.get_groupnames().get(i));
-            holder.level.setText(members.getLevel().get(i));
-        }*/
         holder.setData(members, position);
     }
 
     @Override
     public int getItemCount() {
-
         return mData.size();
     }
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -65,8 +55,6 @@ public class GroupMemberAdapter extends RecyclerView.Adapter<GroupMemberAdapter.
             level=(TextView)itemView.findViewById(R.id.your_level);
         }
         public void setData(GroupMembers members,int position){
-            //this.imageView.setImageResource(members.getImageID());
-            Log.d("OUTPUT",members.get_groupnames().get(position));
             this.groupname.setText(members.get_groupnames().get(position));
             this.level.setText(members.getLevel().get(position));
             this.position=position;
