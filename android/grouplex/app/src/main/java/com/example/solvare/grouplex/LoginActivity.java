@@ -39,6 +39,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        boolean hasLoggedIn=sharedPreferences.getBoolean(LOGGEDIN_SHARED_PREF,false);
+        if(hasLoggedIn){
+            finish();
+            startActivity(new Intent(this,MyGroupsActivity.class));
+            return;
+        }
         et1=(EditText)findViewById(R.id.editText1);
         et2=(EditText)findViewById(R.id.editText2);
         buttonlogin=(Button)findViewById(R.id.buttonlogin);
@@ -73,21 +80,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             JSONObject jsonObject = new JSONObject(response);
                             finalresponse_mssg =jsonObject.getString("error");
                             Toast.makeText(getApplicationContext(),jsonObject.getString("message"),Toast.LENGTH_LONG).show();
+                            if(finalresponse_mssg.equalsIgnoreCase(LOGIN_SUCCESS)){
+                                SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putBoolean(LOGGEDIN_SHARED_PREF,true);
+                                editor.putString(EMAIL_SHARED_PREF,email);
+                                editor.commit();
+                                Intent intent = new Intent(LoginActivity.this,MyGroupsActivity.class);
+                                startActivity(intent);
+                            }else{
+                                Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_LONG).show();
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        if(finalresponse_mssg.equalsIgnoreCase(LOGIN_SUCCESS)){
-                            SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putBoolean(LOGGEDIN_SHARED_PREF,true);
-                            editor.putString(EMAIL_SHARED_PREF,email);
-                            editor.commit();
 
-                            Intent intent = new Intent(LoginActivity.this,MyGroupsActivity.class);
-                            startActivity(intent);
-                        }else{
-                            Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_LONG).show();
-                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -107,32 +114,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
-
-    /*public void myGroups(View view)
-    {
-        EditText et1,et2;
-        et1 = (EditText) findViewById(R.id.editText1);
-        et2 = (EditText) findViewById(R.id.editText2);
-        if(!android.util.Patterns.EMAIL_ADDRESS.matcher(et1.getText().toString()).matches())
-        {
-            et1.setError("Invalid Email");
-            return;
-        }
-        else if(et2.getText().toString().length()==0)
-        {
-            et2.setError("Password cannot be Blank");
-            return;
-        }
-        else
-        {
-            Intent intent = new Intent(LoginActivity.this, MyGroupsActivity.class);
-            startActivity(intent);
-        }
-    }*/
-
-
-
-
     public void forgotPassword(View view)
     {
         Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);

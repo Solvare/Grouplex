@@ -14,8 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GroupMembersActivity extends AppCompatActivity {
-
-    @Override
+    /* @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_members);
@@ -31,7 +30,7 @@ public class GroupMembersActivity extends AppCompatActivity {
 
     }
 
-    private ArrayList<com.example.solvare.grouplex.custom.Items> generateData(){
+    /*private ArrayList<com.example.solvare.grouplex.custom.Items> generateData(){
         ArrayList<com.example.solvare.grouplex.custom.Items> items = new ArrayList<>();
         items.add(new com.example.solvare.grouplex.custom.Items("Sarthak Garg","sarthak.garg@gmail.com"));
         items.add(new com.example.solvare.grouplex.custom.Items("Varun Garg","varun.garg@gmail.com"));
@@ -44,5 +43,5 @@ public class GroupMembersActivity extends AppCompatActivity {
         items.add(new com.example.solvare.grouplex.custom.Items("Vikas Dixit", "vikas.dixit@gmail.com"));
         items.add(new com.example.solvare.grouplex.custom.Items("Vivek Bharti", "vivek.bharti@gmail.com"));
         return items;
-    }
+    }*/
 }

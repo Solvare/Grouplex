@@ -15,7 +15,7 @@ import java.util.List;
 
 public class AboutActivity extends AppCompatActivity {
 
-    @Override
+    /*@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
@@ -42,7 +42,7 @@ public class AboutActivity extends AppCompatActivity {
             }
         });
     }
-    private ArrayList<com.example.solvare.grouplex.custom.Items> generateData(){
+    /*private ArrayList<com.example.solvare.grouplex.custom.Items> generateData(){
         ArrayList<com.example.solvare.grouplex.custom.Items> items = new ArrayList<>();
         items.add(new com.example.solvare.grouplex.custom.Items("Aim","To facilitate Official Group Chats."));
         items.add(new com.example.solvare.grouplex.custom.Items("Licence","Open Source"));
@@ -51,5 +51,5 @@ public class AboutActivity extends AppCompatActivity {
         items.add(new com.example.solvare.grouplex.custom.Items("Open Source Credits", "We thank every open-source developer for their contribution to the community."));
 
         return items;
-    }
+    }*/
 }

@@ -13,8 +13,8 @@ import android.widget.TextView;
 
 import com.example.solvare.grouplex.R;
 
-public class AboutAdapter extends ArrayAdapter<Items> {
-
+public class AboutAdapter {
+/*
     private final Context context;
     private final ArrayList<Items> itemsArrayList;
 
@@ -46,5 +46,5 @@ public class AboutAdapter extends ArrayAdapter<Items> {
 
         // 5. retrn rowView
         return rowView;
-    }
+    }*/
 }
