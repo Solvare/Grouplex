@@ -42,9 +42,12 @@ $app->get('/:user_id/groups', function($user_id)
             $response["groups"] = array();
             foreach($stmt as $row)
             {
+                $gname = $row['group_name'];
+                $members = $conn->query("SELECT count(user_id) AS members FROM master WHERE group_id IN (SELECT group_id FROM groups WHERE group_name='$gname')");
                 $tmp = array();
                 $tmp["name"] = $row["group_name"];
                 $tmp["level"] = ($user_id == $row["admin_id"] ? "admin" : "member");
+                $tmp["members"] = $members->fetch()['members'];
                 //$tmp["image"] = "http://"."$_SERVER[HTTP_HOST]"."/grouplex/api/images/".$row["image"];
                 array_push($response["groups"], $tmp);
             }

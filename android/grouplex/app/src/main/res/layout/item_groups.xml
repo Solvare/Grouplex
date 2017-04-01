@@ -23,6 +23,7 @@
             android:layout_width="0dp"
             android:layout_weight="7"
             android:paddingTop="15dp"
+            android:paddingLeft="15dp"
             android:paddingBottom="15dp"
             android:orientation="vertical">
 
@@ -35,14 +36,6 @@
                 android:textAppearance="?android:textAppearanceLarge"
                 android:text="CSE-2016"/>
 
-            <TextView
-                android:id="@+id/your_level"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-condensed"
-                android:textColor="#000000"
-                android:textAppearance="?android:textAppearanceSmall"
-                android:text="Admin"/>
         </LinearLayout>
 
         <LinearLayout
@@ -53,17 +46,17 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/last_activity_date"
+                android:id="@+id/your_level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textColor="#000000"
                 android:fontFamily="sans-serif-condensed"
                 android:textAppearance="?android:textAppearanceSmall"
-                android:text="Yesterday"/>
+                android:text="Admin"/>
 
             <TextView
-                android:id="@+id/unread_message"
+                android:id="@+id/total_members"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

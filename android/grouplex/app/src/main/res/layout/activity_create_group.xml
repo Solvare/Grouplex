@@ -16,69 +16,23 @@
         tools:context="com.example.solvare.grouplex.CreateGroupActivity">
 
         <EditText
-        android:layout_width="274dp"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/editText8"
-        android:layout_marginTop="52dp"
-        android:hint="Choose Group Name"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/button4"
-        android:layout_alignEnd="@+id/button4"
+            android:layout_width="274dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/group_name"
+            android:layout_marginTop="52dp"
+            android:hint="Choose Group Name"
+            android:layout_alignParentTop="true"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Type Of Group:"
-            android:id="@+id/textView12"
-            android:layout_marginTop="52dp"
-            android:layout_below="@+id/editText8"
-            android:layout_alignLeft="@+id/editText8"
-            android:layout_alignStart="@+id/editText8"
-            android:gravity="center_horizontal"
-            android:layout_marginBottom="10dp" />
-
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal">
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Open-Group"
-            android:id="@+id/radioButton"
-            android:name="tog"
-            android:checked="true"
-            android:layout_below="@+id/textView12"
-            android:layout_alignLeft="@+id/textView12"
-            android:layout_alignStart="@+id/textView12" />
-
-        <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Close-Group"
-        android:id="@+id/radioButton2"
-        android:name="tog"
-        android:checked="false"
-            android:layout_below="@+id/radioButton"
-            android:layout_alignRight="@+id/radioButton"
-            android:layout_alignEnd="@+id/radioButton" />
-
-        </RadioGroup>
 
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Create Group"
-            android:id="@+id/button4"
-            android:onClick="myGroups"
-            android:layout_below="@+id/radioButton2"
+            android:id="@+id/button_create_group"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
             android:layout_gravity="center_horizontal" />
