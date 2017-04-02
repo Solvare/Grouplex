@@ -26,7 +26,7 @@ import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText et1,et2;
+    private EditText login_email,login_password;
     private Button buttonlogin;
     private Boolean loggedin=false;
     public static final String KEY_EMAIL = "email";
@@ -46,8 +46,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             startActivity(new Intent(this,MyGroupsActivity.class));
             return;
         }
-        et1=(EditText)findViewById(R.id.editText1);
-        et2=(EditText)findViewById(R.id.editText2);
+        login_email=(EditText)findViewById(R.id.editText_login_email);
+        login_password=(EditText)findViewById(R.id.editText_login_password);
         buttonlogin=(Button)findViewById(R.id.buttonlogin);
         buttonlogin.setOnClickListener(this);
     }
@@ -68,8 +68,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
     private void login(){
         final String response_mssg = null;
-        final String email= et1.getText().toString().trim();
-        final String password = et2.getText().toString().trim();
+        final String email= login_email.getText().toString().trim();
+        final String password = login_password.getText().toString().trim();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.URL_LOGIN,
                 new Response.Listener<String>() {
                     @Override

@@ -13,6 +13,8 @@ public class GroupMembers {
     private String s_level;
     private ArrayList<String> group_name;
     private String s_group_name;
+    private ArrayList<String> num_members;
+    private String s_num_members;
 
     /*public ArrayList<String> getLevel() {
 
@@ -91,6 +93,24 @@ public class GroupMembers {
     }
 
 
+    public ArrayList<String> getNumMembers() {
+
+        return num_members;
+    }
+    public void setNumMembers(ArrayList<String> num_members){
+
+        this.num_members=num_members;
+    }
+
+    public String s_getNumMembers() {
+
+        return s_num_members;
+    }
+
+    public void s_setNumMembers(String s_num_members){
+
+        this.s_num_members=s_num_members;
+    }
 
 
 

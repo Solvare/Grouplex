@@ -17,7 +17,7 @@ import java.util.List;
 public class ChatActivity extends AppCompatActivity {
 
 
-    private EditText editText1;
+    private EditText chat;
     private ArrayAdapter<String> messageAdapter;
 
     @Override
@@ -25,8 +25,8 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        editText1 = (EditText) findViewById(R.id.editText_chat);
-        editText1.requestFocus();
+        chat = (EditText) findViewById(R.id.editText_chat);
+        chat.requestFocus();
 
         String[] message = {
                 "Hello !!\nHow are you doing ??",

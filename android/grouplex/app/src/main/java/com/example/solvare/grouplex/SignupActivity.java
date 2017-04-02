@@ -26,16 +26,16 @@ import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private EditText et3, et4, et5, et6;
+    private EditText signup_fullName, signup_email, signup_password, signup_confPassword;
     private Button buttonRegister;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        et3 = (EditText) findViewById(R.id.editText3);
-        et4 = (EditText) findViewById(R.id.editText4);
-        et5 = (EditText) findViewById(R.id.editText5);
-        et6 = (EditText) findViewById(R.id.editText6);
+        signup_fullName = (EditText) findViewById(R.id.editText_signup_fullName);
+        signup_email = (EditText) findViewById(R.id.editText_signup_email);
+        signup_password = (EditText) findViewById(R.id.editText_signup_password);
+        signup_confPassword = (EditText) findViewById(R.id.editText_signup_confPassword);
         buttonRegister=(Button)findViewById(R.id.buttonRegister);
         buttonRegister.setOnClickListener(this);
     }
@@ -44,24 +44,24 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         String email = null;
         String password= null;
 
-        if (et3.getText().toString().length() == 0) {
-            et3.setError("Name cannot be Blank");
+        if (signup_fullName.getText().toString().length() == 0) {
+            signup_fullName.setError("Name cannot be Blank");
         }
         else{
-            full_name=et3.getText().toString().trim();
+            full_name=signup_fullName.getText().toString().trim();
         }
-        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(et4.getText().toString()).matches()) {
-            et4.setError("Invalid Email");
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(signup_email.getText().toString()).matches()) {
+            signup_email.setError("Invalid Email");
         }else {
-            email=et4.getText().toString().trim();//final ??
+            email=signup_email.getText().toString().trim();//final ??
         }
-        if (et5.getText().toString().length() < 6) {
-            et5.setError("Password should be atleast 6 characters");
-        }else if (!et6.getText().toString().equals(et5.getText().toString()))
+        if (signup_password.getText().toString().length() < 6) {
+            signup_password.setError("Password should be atleast 6 characters");
+        }else if (!signup_confPassword.getText().toString().equals(signup_password.getText().toString()))
         {
-            et6.setError("Passwords didn't match !");
+            signup_confPassword.setError("Passwords didn't match !");
         }else{
-            password=et5.getText().toString().trim();
+            password=signup_password.getText().toString().trim();
         }
         final String finalPassword = password;
         final String finalEmail = email;

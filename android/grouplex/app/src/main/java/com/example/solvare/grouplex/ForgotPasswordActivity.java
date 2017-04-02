@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
@@ -12,15 +13,23 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
+
+        final Button button = (Button) findViewById(R.id.button_mail);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                sendMail();
+            }
+        });
+
     }
 
-    public void loginAgain(View view)
+    public void sendMail()
     {
-        EditText et7;
-        et7 = (EditText) findViewById(R.id.editText7);
-        if(!android.util.Patterns.EMAIL_ADDRESS.matcher(et7.getText().toString()).matches())
+        EditText fp_email;
+        fp_email = (EditText) findViewById(R.id.editText_fp_email);
+        if(!android.util.Patterns.EMAIL_ADDRESS.matcher(fp_email.getText().toString()).matches())
         {
-            et7.setError("Invalid Email");
+            fp_email.setError("Invalid Email");
         }
         else
         {

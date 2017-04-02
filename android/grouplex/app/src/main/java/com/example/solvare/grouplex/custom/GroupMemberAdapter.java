@@ -45,7 +45,7 @@ public class GroupMemberAdapter extends RecyclerView.Adapter<GroupMemberAdapter.
     }
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView groupname,level;
+        TextView groupname,level,num_members;
         int position;
         GroupMembers members;
 
@@ -53,10 +53,12 @@ public class GroupMemberAdapter extends RecyclerView.Adapter<GroupMemberAdapter.
             super(itemView);
             groupname=(TextView)itemView.findViewById(R.id.group_name);
             level=(TextView)itemView.findViewById(R.id.your_level);
+            num_members=(TextView)itemView.findViewById(R.id.total_members);
         }
         public void setData(GroupMembers members,int position){
             this.groupname.setText(members.get_groupnames().get(position));
             this.level.setText(members.getLevel().get(position));
+            this.num_members.setText(members.getNumMembers().get(position));
             this.position=position;
             this.members=members;
         }

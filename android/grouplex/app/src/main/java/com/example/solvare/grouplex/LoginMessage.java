@@ -12,8 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import static com.example.solvare.grouplex.R.id.textView;
-
 public class LoginMessage extends AppCompatActivity {
 
     private TextView txtView;

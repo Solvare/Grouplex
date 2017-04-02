@@ -6,13 +6,14 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import com.example.solvare.grouplex.SharedPrefManager;
 
 import static com.example.solvare.grouplex.LoginActivity.LOGGEDIN_SHARED_PREF;
 import static com.example.solvare.grouplex.LoginActivity.SHARED_PREF_NAME;
 
-public class FirstActivity extends AppCompatActivity {
+public class FirstActivity extends AppCompatActivity implements View.OnClickListener{
 
     //public static final String SHARED_PREF_NAME = "myloginapp";
     @Override
@@ -26,14 +27,36 @@ public class FirstActivity extends AppCompatActivity {
             startActivity(new Intent(this,MyGroupsActivity.class));
             return;
         }
+
+        Button buttonLogin = (Button)findViewById(R.id.button_chooseLogin);
+        buttonLogin.setOnClickListener(this);
+
+        Button buttonSignup = (Button)findViewById(R.id.button_chooseSignup);
+        buttonSignup.setOnClickListener(this);
     }
 
-    public void login(View view)
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+
+            case R.id.button_chooseLogin:
+                login();
+                break;
+
+            case R.id.button_chooseSignup:
+                signup();
+                break;
+        }
+
+    }
+
+    public void login()
     {
         Intent intent = new Intent(FirstActivity.this, LoginActivity.class);
         startActivity(intent);
     }
-    public void signup(View view)
+    public void signup()
     {
         Intent intent = new Intent(FirstActivity.this, SignupActivity.class);
         startActivity(intent);

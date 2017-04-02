@@ -90,15 +90,18 @@ public class MyGroupsActivity extends AppCompatActivity {
         ArrayList<GroupMembers> dataList = new ArrayList<>();
         ArrayList<String> names = new ArrayList<String>();
         ArrayList<String> levels = new ArrayList<String>();
+        ArrayList<String> num_members = new ArrayList<String>();
         JSONObject jsonObj = new JSONObject(jsonStr);
         JSONArray jsonarray = jsonObj.getJSONArray("groups");
         for (int i = 0; i < jsonarray.length(); i++) {
             JSONObject jsonobject = jsonarray.getJSONObject(i);
             names.add(jsonobject.getString("name"));
             levels.add(jsonobject.getString("level"));
+            num_members.add(jsonobject.getString("members"));
         }
         members.set_groupnames(names);
         members.setLevel(levels);
+        members.setNumMembers(num_members);
         /*String[] level = new String[members.getLevel().size()];
         String[] groupsNames = new String[members.get_groupnames().size()];
 
@@ -113,6 +116,7 @@ public class MyGroupsActivity extends AppCompatActivity {
 
             members.s_set_groupnames(members.get_groupnames().get(i));
             members.s_setLevel(members.getLevel().get(i));
+            members.s_setNumMembers(members.getNumMembers().get(i));
             dataList.add(members);
         }
         int size = dataList.size();
