@@ -44,6 +44,11 @@ public class MyGroupsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_groups);
+        if(!SharedPrefManager.getInstance(this).isLoggedIn()){
+            finish();
+            startActivity(new Intent(this,LoginActivity.class));
+            return;
+        }
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
@@ -150,19 +155,7 @@ public class MyGroupsActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
 
-                        //Getting out sharedpreferences
-                        SharedPreferences preferences = getSharedPreferences(LoginActivity.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-                        //Getting editor
-                        SharedPreferences.Editor editor = preferences.edit();
-
-                        //Puting the value false for loggedin
-                        editor.putBoolean(LoginActivity.LOGGEDIN_SHARED_PREF, false);
-
-                        //Putting blank value to email
-                        editor.putString(LoginActivity.EMAIL_SHARED_PREF, "");
-
-                        //Saving the sharedpreferences
-                        editor.commit();
+                        SharedPrefManager.getInstance(getApplicationContext()).logout();
 
                         //Starting login activity
                         Intent intent = new Intent(MyGroupsActivity.this, FirstActivity.class);

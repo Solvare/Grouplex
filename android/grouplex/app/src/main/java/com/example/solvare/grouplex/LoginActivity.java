@@ -29,8 +29,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText login_email,login_password;
     private Button buttonlogin;
     private Boolean loggedin=false;
-    public static final String KEY_EMAIL = "email";
-    public static final String KEY_PASSWORD = "password";
     public static final String LOGIN_SUCCESS = "false";
     public static final String SHARED_PREF_NAME = "myloginapp";
     public static final String EMAIL_SHARED_PREF = "email";
@@ -39,9 +37,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        boolean hasLoggedIn=sharedPreferences.getBoolean(LOGGEDIN_SHARED_PREF,false);
-        if(hasLoggedIn){
+        if(SharedPrefManager.getInstance(this).isLoggedIn()){
             finish();
             startActivity(new Intent(this,MyGroupsActivity.class));
             return;
@@ -81,13 +77,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             finalresponse_mssg =jsonObject.getString("error");
                             Toast.makeText(getApplicationContext(),jsonObject.getString("message"),Toast.LENGTH_LONG).show();
                             if(finalresponse_mssg.equalsIgnoreCase(LOGIN_SUCCESS)){
-                                SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putBoolean(LOGGEDIN_SHARED_PREF,true);
-                                editor.putString(EMAIL_SHARED_PREF,email);
-                                editor.commit();
+                                SharedPrefManager.getInstance(getApplicationContext()).userLogin(jsonObject.getInt("user_id")
+                                        ,jsonObject.getString("full_name"),jsonObject.getString("email")
+                                );
                                 Intent intent = new Intent(LoginActivity.this,MyGroupsActivity.class);
                                 startActivity(intent);
+                                finish();
                             }else{
                                 Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_LONG).show();
                             }

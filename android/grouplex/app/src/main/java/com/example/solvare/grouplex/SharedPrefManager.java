@@ -16,12 +16,9 @@ public class SharedPrefManager {
     private static SharedPrefManager mInstance;
     private static Context mCtx;
     public static final String SHARED_PREF_NAME = "myloginapp";
-    public static final String EMAIL_SHARED_PREF = "email";
-    public static final String LOGGEDIN_SHARED_PREF = "loggedin";
     public static final String KEY_EMAIL = "email";
-    public static final String KEY_PASSWORD = "password";
     public static final String KEY_USERID="user_id";
-    public static final String LOGIN_SUCCESS = "false";
+    public static final String KEY_USERNAME="user_id";
 
     private SharedPrefManager(Context context) {
         mCtx = context;
@@ -33,12 +30,13 @@ public class SharedPrefManager {
         }
         return mInstance;
     }
-    public boolean userLogin(String email){
+    public boolean userLogin(int id,String username,String email){
         SharedPreferences sharedPreferences=mCtx.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor=sharedPreferences.edit();
 
-        //editor.putInt(KEY_USERID,id);
+        editor.putInt(KEY_USERID,id);
         editor.putString(KEY_EMAIL,email);
+        editor.putString(KEY_USERNAME,username);
         editor.apply();
         return true;
     }
