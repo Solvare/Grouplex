@@ -1,4 +1,4 @@
-package com.example.solvare.grouplex;
+package com.example.solvare.grouplex.startup;
 
 import android.content.Context;
 

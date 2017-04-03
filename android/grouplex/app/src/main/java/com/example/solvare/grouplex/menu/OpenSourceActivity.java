@@ -1,8 +1,10 @@
-package com.example.solvare.grouplex;
+package com.example.solvare.grouplex.menu;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.solvare.grouplex.R;
 
 public class OpenSourceActivity extends AppCompatActivity {
 

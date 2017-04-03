@@ -1,4 +1,4 @@
-package com.example.solvare.grouplex;
+package com.example.solvare.grouplex.group;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +12,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import com.example.solvare.grouplex.R;
 
 public class GroupMembersActivity extends AppCompatActivity {
     /* @Override

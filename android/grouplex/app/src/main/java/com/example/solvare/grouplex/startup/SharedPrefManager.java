@@ -1,4 +1,4 @@
-package com.example.solvare.grouplex;
+package com.example.solvare.grouplex.startup;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -6,7 +6,8 @@ import android.content.SharedPreferences;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-import com.example.solvare.grouplex.RequestHandler;
+import com.example.solvare.grouplex.startup.RequestHandler;
+
 
 /**
  * Created by rishabh on 25/3/17.

@@ -1,4 +1,4 @@
-package com.example.solvare.grouplex;
+package com.example.solvare.grouplex.startup;
 
 
 import android.content.Intent;
@@ -23,6 +23,9 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import com.example.solvare.grouplex.R;
+import com.example.solvare.grouplex.constant.Urls;
 
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener{
 

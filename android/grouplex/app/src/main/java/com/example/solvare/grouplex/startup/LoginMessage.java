@@ -1,4 +1,4 @@
-package com.example.solvare.grouplex;
+package com.example.solvare.grouplex.startup;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import com.example.solvare.grouplex.R;
 
 public class LoginMessage extends AppCompatActivity {
 

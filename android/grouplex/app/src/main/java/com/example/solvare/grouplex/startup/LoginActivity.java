@@ -1,4 +1,4 @@
-package com.example.solvare.grouplex;
+package com.example.solvare.grouplex.startup;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -24,10 +25,14 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.example.solvare.grouplex.R;
+import com.example.solvare.grouplex.constant.Urls;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText login_email,login_password;
     private Button buttonlogin;
+    private TextView signup_page, forgot_password;
     private Boolean loggedin=false;
     public static final String LOGIN_SUCCESS = "false";
     public static final String SHARED_PREF_NAME = "myloginapp";
@@ -44,8 +49,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         login_email=(EditText)findViewById(R.id.editText_login_email);
         login_password=(EditText)findViewById(R.id.editText_login_password);
+
         buttonlogin=(Button)findViewById(R.id.buttonlogin);
         buttonlogin.setOnClickListener(this);
+
+        signup_page=(TextView) findViewById(R.id.textView_signup);
+        signup_page.setOnClickListener(this);
+
+        forgot_password=(TextView) findViewById(R.id.textView_forgotPassword);
+        forgot_password.setOnClickListener(this);
     }
     public void onResume(){
         super.onResume();
@@ -58,10 +70,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
     @Override
     public void onClick(View v) {
-        if(v==buttonlogin){
-            login();
-        }
+        if(v==buttonlogin) login();
+        else if(v==signup_page) signup();
+        else if(v==forgot_password) forgot();
     }
+
+    public void signup()
+    {
+        Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+        startActivity(intent);
+    }
+
+    public void forgot()
+    {
+        Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+        startActivity(intent);
+    }
+
     private void login(){
         final String response_mssg = null;
         final String email= login_email.getText().toString().trim();
@@ -107,11 +132,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         };
         RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
-    }
-    public void forgotPassword(View view)
-    {
-        Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
-        startActivity(intent);
     }
 
 

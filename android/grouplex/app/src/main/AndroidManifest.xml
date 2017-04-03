@@ -11,97 +11,92 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".LoginActivity"
-            android:label="Login"
+            android:name=".startup.LoginActivity"
             android:windowSoftInputMode="stateHidden">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".FirstActivity" />
-        </activity>
-        <activity
-            android:name=".SignupActivity"
-            android:label="Signup"
-            android:windowSoftInputMode="stateHidden">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".FirstActivity" />
-        </activity>
-        <activity
-            android:name=".ForgotPasswordActivity"
-            android:label="Forgot Password"
-            android:windowSoftInputMode="stateHidden">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".LoginActivity" />
-        </activity>
-        <activity android:name=".MyGroupsActivity" />
-        <activity
-            android:name=".JoinGroupActivity"
-            android:label="Join Group"
-            android:windowSoftInputMode="stateHidden">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MyGroupsActivity" />
-        </activity>
-        <activity
-            android:name=".CreateGroupActivity"
-            android:label="Create Group"
-            android:windowSoftInputMode="stateHidden">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MyGroupsActivity" />
-        </activity>
-        <activity
-            android:name=".AboutActivity"
-            android:label="About Grouplex">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MyGroupsActivity" />
-        </activity>
-        <activity
-            android:name=".OpenSourceActivity"
-            android:label="Open Source Credits">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.solvare.grouplex.AboutActivity" />
-        </activity>
-        <activity
-            android:name=".ChatActivity"
-            android:label="CSE-2016"
-            android:windowSoftInputMode="stateHidden">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.solvare.grouplex.MyGroupsActivity" />
-        </activity>
-        <activity
-            android:name=".GroupMembersActivity"
-            android:label="Group Members">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.solvare.grouplex.ChatActivity" />
-        </activity>
-        <activity android:name=".FirstActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".UserSettingsActivity"
+            android:name=".startup.SignupActivity"
+            android:label="Signup"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".startup.LoginActivity" />
+        </activity>
+        <activity
+            android:name=".startup.ForgotPasswordActivity"
+            android:label="Forgot Password"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".startup.LoginActivity" />
+        </activity>
+        <activity android:name=".startup.MyGroupsActivity" />
+        <activity
+            android:name=".menu.JoinGroupActivity"
+            android:label="Join Group"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="startup.MyGroupsActivity" />
+        </activity>
+        <activity
+            android:name=".menu.CreateGroupActivity"
+            android:label="Create Group"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".startup.MyGroupsActivity" />
+        </activity>
+        <activity
+            android:name=".menu.AboutActivity"
+            android:label="About Grouplex">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".startup.MyGroupsActivity" />
+        </activity>
+        <activity
+            android:name=".menu.OpenSourceActivity"
+            android:label="Open Source Credits">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".menu.AboutActivity" />
+        </activity>
+        <activity
+            android:name=".group.ChatActivity"
+            android:label="CSE-2016"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".startup.MyGroupsActivity" />
+        </activity>
+        <activity
+            android:name=".group.GroupMembersActivity"
+            android:label="Group Members">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".group.ChatActivity" />
+        </activity>
+        <activity android:name=".startup.FirstActivity">
+        </activity>
+        <activity
+            android:name=".menu.UserSettingsActivity"
             android:label="User Settings">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.solvare.grouplex.MyGroupsActivity" />
+                android:value=".startup.MyGroupsActivity" />
         </activity>
         <activity
-            android:name=".GroupSettingsActivity"
+            android:name=".group.GroupSettingsActivity"
             android:label="Group Settings">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.solvare.grouplex.ChatActivity" />
+                android:value=".group.ChatActivity" />
         </activity>
-        <activity android:name=".LoginMessage"></activity>
+        <activity android:name=".startup.LoginMessage"></activity>
     </application>
 
 </manifest>

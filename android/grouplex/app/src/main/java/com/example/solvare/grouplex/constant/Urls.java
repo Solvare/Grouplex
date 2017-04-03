@@ -1,4 +1,4 @@
-package com.example.solvare.grouplex;
+package com.example.solvare.grouplex.constant;
 
 /**
  * Created by rishabh on 6/1/17.

@@ -1,4 +1,4 @@
-package com.example.solvare.grouplex;
+package com.example.solvare.grouplex.startup;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,10 +8,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.solvare.grouplex.SharedPrefManager;
+import com.example.solvare.grouplex.startup.SharedPrefManager;
+import com.example.solvare.grouplex.R;
 
-import static com.example.solvare.grouplex.LoginActivity.LOGGEDIN_SHARED_PREF;
-import static com.example.solvare.grouplex.LoginActivity.SHARED_PREF_NAME;
+import static com.example.solvare.grouplex.startup.LoginActivity.LOGGEDIN_SHARED_PREF;
+import static com.example.solvare.grouplex.startup.LoginActivity.SHARED_PREF_NAME;
 
 public class FirstActivity extends AppCompatActivity implements View.OnClickListener{
 

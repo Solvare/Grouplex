@@ -1,4 +1,4 @@
-package com.example.solvare.grouplex;
+package com.example.solvare.grouplex.startup;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,9 +22,16 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import com.example.solvare.grouplex.R;
+import com.example.solvare.grouplex.constant.Urls;
 import com.example.solvare.grouplex.custom.GroupMemberAdapter;
 import com.example.solvare.grouplex.custom.GroupMembers;
 import com.example.solvare.grouplex.custom.SimpleDividerItemDecoration;
+import com.example.solvare.grouplex.menu.AboutActivity;
+import com.example.solvare.grouplex.menu.CreateGroupActivity;
+import com.example.solvare.grouplex.menu.JoinGroupActivity;
+import com.example.solvare.grouplex.menu.UserSettingsActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -158,7 +165,7 @@ public class MyGroupsActivity extends AppCompatActivity {
                         SharedPrefManager.getInstance(getApplicationContext()).logout();
 
                         //Starting login activity
-                        Intent intent = new Intent(MyGroupsActivity.this, FirstActivity.class);
+                        Intent intent = new Intent(MyGroupsActivity.this, LoginActivity.class);
                         startActivity(intent);
                     }
                 });

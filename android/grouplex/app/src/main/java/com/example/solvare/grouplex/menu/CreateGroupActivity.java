@@ -1,4 +1,4 @@
-package com.example.solvare.grouplex;
+package com.example.solvare.grouplex.menu;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +19,10 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import com.example.solvare.grouplex.R;
+import com.example.solvare.grouplex.constant.Urls;
+import com.example.solvare.grouplex.startup.RequestHandler;
 
 public class CreateGroupActivity extends AppCompatActivity implements View.OnClickListener {
 
