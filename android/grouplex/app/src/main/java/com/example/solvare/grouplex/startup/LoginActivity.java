@@ -42,11 +42,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        if(SharedPrefManager.getInstance(this).isLoggedIn()){
-            finish();
-            startActivity(new Intent(this,MyGroupsActivity.class));
-            return;
-        }
+
         login_email=(EditText)findViewById(R.id.editText_login_email);
         login_password=(EditText)findViewById(R.id.editText_login_password);
 

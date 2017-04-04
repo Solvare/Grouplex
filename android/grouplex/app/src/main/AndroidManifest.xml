@@ -12,11 +12,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".startup.LoginActivity"
+            android:label="Login"
             android:windowSoftInputMode="stateHidden">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".startup.SignupActivity"
@@ -80,8 +77,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".group.ChatActivity" />
         </activity>
-        <activity android:name=".startup.FirstActivity">
-        </activity>
+        <activity android:name=".startup.FirstActivity"></activity>
         <activity
             android:name=".menu.UserSettingsActivity"
             android:label="User Settings">
@@ -96,7 +92,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".group.ChatActivity" />
         </activity>
-        <activity android:name=".startup.LoginMessage"></activity>
+        <activity android:name=".startup.LoginMessage" />
+        <activity
+            android:name=".startup.LauncherActivity"
+            android:theme="@android:style/Theme.NoDisplay">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
