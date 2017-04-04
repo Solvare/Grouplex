@@ -40,7 +40,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import static com.example.solvare.grouplex.R.id.recyclerView;
+import static com.example.solvare.grouplex.startup.SharedPrefManager.KEY_ID;
+import static com.example.solvare.grouplex.startup.SharedPrefManager.SHARED_PREF_NAME;
 
 public class MyGroupsActivity extends AppCompatActivity {
 
@@ -71,9 +74,10 @@ public class MyGroupsActivity extends AppCompatActivity {
     }
 
     private void setUpRecyclerView() {
-
-
-        StringRequest stringRequest = new StringRequest(Urls.URL_GROUPS,
+        SharedPreferences sharedPreferences =getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
+        String id=sharedPreferences.getString(KEY_ID,null);
+        final String URL_GROUPS=Urls.ROOT_URL+id+"/groups";
+        StringRequest stringRequest = new StringRequest(URL_GROUPS,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

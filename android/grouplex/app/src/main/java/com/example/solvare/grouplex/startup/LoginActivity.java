@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -98,8 +99,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             finalresponse_mssg =jsonObject.getString("error");
                             Toast.makeText(getApplicationContext(),jsonObject.getString("message"),Toast.LENGTH_LONG).show();
                             if(finalresponse_mssg.equalsIgnoreCase(LOGIN_SUCCESS)){
-                                SharedPrefManager.getInstance(getApplicationContext()).userLogin(jsonObject.getInt("user_id")
-                                        ,jsonObject.getString("full_name"),jsonObject.getString("email")
+                                SharedPrefManager.getInstance(getApplicationContext()).userLogin(jsonObject.getString("email")
+                                        ,jsonObject.getString("full_name"),jsonObject.getString("user_id")
                                 );
                                 Intent intent = new Intent(LoginActivity.this,MyGroupsActivity.class);
                                 startActivity(intent);

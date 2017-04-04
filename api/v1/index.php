@@ -314,7 +314,7 @@ $app->post('/user/login',function() use ($app)
             {
                 $response["error"]=false;
                 $response["message"]="user successfully logged in";
-                $response["user_id"]=$row['user_id'];
+                $response["user_id"]=(int)$row['user_id'];
                 $response["email"]=$row['email'];
                 $response["full_name"]=$row['full_name'];
             }
