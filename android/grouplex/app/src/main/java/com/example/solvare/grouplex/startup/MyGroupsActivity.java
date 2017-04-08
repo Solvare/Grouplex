@@ -15,19 +15,15 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 
 import com.example.solvare.grouplex.R;
 import com.example.solvare.grouplex.constant.Urls;
-import com.example.solvare.grouplex.custom.GroupMemberAdapter;
-import com.example.solvare.grouplex.custom.GroupMembers;
-import com.example.solvare.grouplex.custom.SimpleDividerItemDecoration;
+import com.example.solvare.grouplex.custom.MyGroupsAdapter;
+import com.example.solvare.grouplex.custom.MyGroups;
 import com.example.solvare.grouplex.menu.AboutActivity;
 import com.example.solvare.grouplex.menu.CreateGroupActivity;
 import com.example.solvare.grouplex.menu.JoinGroupActivity;
@@ -38,10 +34,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
-import static com.example.solvare.grouplex.R.id.recyclerView;
 import static com.example.solvare.grouplex.startup.SharedPrefManager.KEY_ID;
 import static com.example.solvare.grouplex.startup.SharedPrefManager.SHARED_PREF_NAME;
 
@@ -99,11 +93,11 @@ public class MyGroupsActivity extends AppCompatActivity {
 
     }
 
-    GroupMembers members = new GroupMembers();
+    MyGroups groups = new MyGroups();
 
     private void parseData(String jsonStr) throws JSONException {
 
-        ArrayList<GroupMembers> dataList = new ArrayList<>();
+        ArrayList<MyGroups> dataList = new ArrayList<>();
         ArrayList<String> names = new ArrayList<String>();
         ArrayList<String> levels = new ArrayList<String>();
         ArrayList<String> num_members = new ArrayList<String>();
@@ -115,9 +109,9 @@ public class MyGroupsActivity extends AppCompatActivity {
             levels.add(jsonobject.getString("level"));
             num_members.add(jsonobject.getString("members"));
         }
-        members.set_groupnames(names);
-        members.setLevel(levels);
-        members.setNumMembers(num_members);
+        groups.set_groupnames(names);
+        groups.setLevel(levels);
+        groups.setNumMembers(num_members);
         /*String[] level = new String[members.getLevel().size()];
         String[] groupsNames = new String[members.get_groupnames().size()];
 
@@ -128,22 +122,22 @@ public class MyGroupsActivity extends AppCompatActivity {
         for (int i = 0; i < members.get_groupnames().size(); i++) {
             groupsNames[i] = members.get_groupnames().get(i);
         }*/
-        for (int i = 0; i < members.get_groupnames().size(); i++) {
+        for (int i = 0; i < groups.get_groupnames().size(); i++) {
 
-            members.s_set_groupnames(members.get_groupnames().get(i));
-            members.s_setLevel(members.getLevel().get(i));
-            members.s_setNumMembers(members.getNumMembers().get(i));
-            dataList.add(members);
+            groups.s_set_groupnames(groups.get_groupnames().get(i));
+            groups.s_setLevel(groups.getLevel().get(i));
+            groups.s_setNumMembers(groups.getNumMembers().get(i));
+            dataList.add(groups);
         }
         int size = dataList.size();
         Log.d("SIZE", Integer.toString(size));
-        adapter = new GroupMemberAdapter(this, getData(dataList));
+        adapter = new MyGroupsAdapter(this, getData(dataList));
         recyclerView.setAdapter(adapter);
 
     }
 
-    public ArrayList<GroupMembers> getData(ArrayList<GroupMembers> list) {
-        ArrayList<GroupMembers> dataList = new ArrayList<>();
+    public ArrayList<MyGroups> getData(ArrayList<MyGroups> list) {
+        ArrayList<MyGroups> dataList = new ArrayList<>();
         dataList = list;
         return dataList;
     }

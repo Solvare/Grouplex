@@ -1,57 +1,93 @@
 package com.example.solvare.grouplex.menu;
 
+import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import android.widget.Toast;
 
 import com.example.solvare.grouplex.R;
+import com.example.solvare.grouplex.custom.About;
+import com.example.solvare.grouplex.custom.AboutAdapter;
+import com.example.solvare.grouplex.custom.RecyclerTouchListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AboutActivity extends AppCompatActivity {
+    private List<About> aboutList = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private AboutAdapter mAdapter;
 
-    /*@Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
 
-        // 1. pass context and data to the custom adapter
-        com.example.solvare.grouplex.custom.AboutAdapter adapter = new com.example.solvare.grouplex.custom.AboutAdapter(this, generateData());
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view_about);
 
-        // 2. Get ListView from activity_main.xml
-        ListView listView = (ListView) findViewById(R.id.listview_about);
-
-        // 3. setListAdapter
-        listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mAdapter = new AboutAdapter(aboutList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+        recyclerView.setAdapter(mAdapter);
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-
-                if(position == 4) {
-                    Intent intent = new Intent(AboutActivity.this, OpenSourceActivity.class);
-                    startActivity(intent);
+            public void onClick(View view, int position) {
+                About about = aboutList.get(position);
+                if(about.getHeading() == "Open Source Credits")
+                {
+                    openSource();
                 }
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
 
             }
-        });
-    }
-    /*private ArrayList<com.example.solvare.grouplex.custom.Items> generateData(){
-        ArrayList<com.example.solvare.grouplex.custom.Items> items = new ArrayList<>();
-        items.add(new com.example.solvare.grouplex.custom.Items("Aim","To facilitate Official Group Chats."));
-        items.add(new com.example.solvare.grouplex.custom.Items("Licence","Open Source"));
-        items.add(new com.example.solvare.grouplex.custom.Items("Developers", "Rishabh Ahuja\nRajat Saxena"));
-        items.add(new com.example.solvare.grouplex.custom.Items("Contact Us", "rishabhahuja279@gmail.com\nrajat24saxena@gmail.com"));
-        items.add(new com.example.solvare.grouplex.custom.Items("Open Source Credits", "We thank every open-source developer for their contribution to the community."));
 
-        return items;
-    }*/
+        }));
+
+        prepareAboutData();
+    }
+
+    private void prepareAboutData() {
+        About about = new About("Aim", "To facilitate Official Group Chats.");
+        aboutList.add(about);
+
+        about = new About("Licence", "Open Source");
+        aboutList.add(about);
+
+        about = new About("Developers", "Rishabh Ahuja\nRajat Saxena");
+        aboutList.add(about);
+
+        about = new About("Contact Us", "rishabhahuja279@gmail.com\nrajat24saxena@gmail.com");
+        aboutList.add(about);
+
+        about = new About("Version", "1.8");
+        aboutList.add(about);
+
+        about = new About("Open Source Credits", "Tap Here !!");
+        aboutList.add(about);
+
+
+        mAdapter.notifyDataSetChanged();
+    }
+
+    public void openSource()
+    {
+        Intent intent = new Intent(AboutActivity.this, OpenSourceActivity.class);
+        startActivity(intent);
+    }
 }

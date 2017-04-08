@@ -6,10 +6,10 @@ import com.example.solvare.grouplex.R;
 
 import java.util.ArrayList;
 
-public class GroupMembers {
+public class MyGroups {
 
     private ArrayList<String> level;
-    private ArrayList<GroupMembers> groupmembers;
+    private ArrayList<MyGroups> groups;
     private String s_level;
     private ArrayList<String> group_name;
     private String s_group_name;
@@ -49,13 +49,13 @@ public class GroupMembers {
     public void setgroup_names(ArrayList<String> group_name){
         this.group_name=group_name;
     }*/
-    public ArrayList<GroupMembers> getMembers() {
+    public ArrayList<MyGroups> getGroups() {
 
-        return groupmembers;
+        return groups;
     }
-    public void setMembers(ArrayList<GroupMembers> groupmembers){
+    public void setGroups(ArrayList<MyGroups> groups){
 
-        this.groupmembers=groupmembers;
+        this.groups=groups;
     }
     public ArrayList<String> getLevel() {
 

@@ -19,17 +19,44 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1. Udacity"/>
+            android:layout_marginBottom="16dp"
+            android:textColor="#000000"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:text="Udacity" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#c0c0c0"
+            android:layout_marginBottom="16dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2. Stack Overflow"/>
+            android:layout_marginBottom="16dp"
+            android:textColor="#000000"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:text="Stack Overflow"/>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#c0c0c0"
+            android:layout_marginBottom="16dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3. UI Idea from WhatsApp"/>
+            android:layout_marginBottom="16dp"
+            android:textColor="#000000"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:text="Android Hive"/>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#c0c0c0"
+            android:layout_marginBottom="16dp"/>
 
     </LinearLayout>
 

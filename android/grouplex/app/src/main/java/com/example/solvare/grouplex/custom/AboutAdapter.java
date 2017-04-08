@@ -1,50 +1,51 @@
 package com.example.solvare.grouplex.custom;
- 
-import java.util.ArrayList;
 
-import android.content.ClipData;
-import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.solvare.grouplex.R;
 
-public class AboutAdapter {
-/*
-    private final Context context;
-    private final ArrayList<Items> itemsArrayList;
+import java.util.List;
 
-    public AboutAdapter(Context context, ArrayList<Items> itemsArrayList) {
+public class AboutAdapter extends RecyclerView.Adapter<AboutAdapter.MyViewHolder> {
 
-        super(context, R.layout.item_about, itemsArrayList);
+    private List<About> aboutList;
 
-        this.context = context;
-        this.itemsArrayList = itemsArrayList;
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        public TextView heading, content;
+
+        public MyViewHolder(View view) {
+            super(view);
+            heading = (TextView) view.findViewById(R.id.textview_about_heading);
+            content = (TextView) view.findViewById(R.id.textview_about_content);
+        }
+    }
+
+
+    public AboutAdapter(List<About> aboutList) {
+        this.aboutList = aboutList;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_about, parent, false);
 
-        // 1. Create inflater
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        return new MyViewHolder(itemView);
+    }
 
-        // 2. Get rowView from inflater
-        View rowView = inflater.inflate(R.layout.item_about, parent, false);
+    @Override
+    public void onBindViewHolder(MyViewHolder holder, int position) {
+        About about = aboutList.get(position);
+        holder.heading.setText(about.getHeading());
+        holder.content.setText(about.getContent());
+    }
 
-        // 3. Get the two text view from the rowView
-        TextView labelView = (TextView) rowView.findViewById(R.id.header);
-        TextView valueView = (TextView) rowView.findViewById(R.id.detail);
-
-        // 4. Set the text for textView
-        labelView.setText(itemsArrayList.get(position).getTitle());
-        valueView.setText(itemsArrayList.get(position).getDescription());
-
-        // 5. retrn rowView
-        return rowView;
-    }*/
+    @Override
+    public int getItemCount() {
+        return aboutList.size();
+    }
 }

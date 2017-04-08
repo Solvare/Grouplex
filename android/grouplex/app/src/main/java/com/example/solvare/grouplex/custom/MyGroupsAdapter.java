@@ -17,26 +17,26 @@ import android.widget.TextView;
 
 import com.example.solvare.grouplex.R;
 
-public class GroupMemberAdapter extends RecyclerView.Adapter<GroupMemberAdapter.MyViewHolder> {
+public class MyGroupsAdapter extends RecyclerView.Adapter<MyGroupsAdapter.MyViewHolder> {
 
-    List<GroupMembers> mData;
+    List<MyGroups> mData;
     private Context context;
 
-    public GroupMemberAdapter(Context context, List<GroupMembers> data) {
+    public MyGroupsAdapter(Context context, List<MyGroups> data) {
         super();
         this.context = context;
         this.mData = data;
     }
     @Override
-    public GroupMemberAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyGroupsAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_groups, parent, false);
         MyViewHolder holder = new MyViewHolder(view);
         return holder;
     }
     @Override
-    public void onBindViewHolder(GroupMemberAdapter.MyViewHolder holder, int position) {
-        GroupMembers members = mData.get(position);
-        holder.setData(members, position);
+    public void onBindViewHolder(MyGroupsAdapter.MyViewHolder holder, int position) {
+        MyGroups groups = mData.get(position);
+        holder.setData(groups, position);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class GroupMemberAdapter extends RecyclerView.Adapter<GroupMemberAdapter.
 
         TextView groupname,level,num_members;
         int position;
-        GroupMembers members;
+        MyGroups groups;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -55,12 +55,12 @@ public class GroupMemberAdapter extends RecyclerView.Adapter<GroupMemberAdapter.
             level=(TextView)itemView.findViewById(R.id.your_level);
             num_members=(TextView)itemView.findViewById(R.id.total_members);
         }
-        public void setData(GroupMembers members,int position){
-            this.groupname.setText(members.get_groupnames().get(position));
-            this.level.setText(members.getLevel().get(position));
-            this.num_members.setText(members.getNumMembers().get(position));
+        public void setData(MyGroups groups,int position){
+            this.groupname.setText(groups.get_groupnames().get(position));
+            this.level.setText(groups.getLevel().get(position));
+            this.num_members.setText(groups.getNumMembers().get(position));
             this.position=position;
-            this.members=members;
+            this.groups=groups;
         }
     }
 
