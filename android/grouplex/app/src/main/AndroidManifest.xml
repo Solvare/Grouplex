@@ -38,7 +38,7 @@
             android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="startup.MyGroupsActivity" />
+                android:value=".startup.MyGroupsActivity" />
         </activity>
         <activity
             android:name=".menu.CreateGroupActivity"

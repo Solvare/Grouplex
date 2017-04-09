@@ -1,6 +1,8 @@
 package com.example.solvare.grouplex.menu;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -24,6 +26,9 @@ import com.example.solvare.grouplex.R;
 import com.example.solvare.grouplex.constant.Urls;
 import com.example.solvare.grouplex.startup.RequestHandler;
 
+import static com.example.solvare.grouplex.startup.SharedPrefManager.KEY_ID;
+import static com.example.solvare.grouplex.startup.SharedPrefManager.SHARED_PREF_NAME;
+
 public class CreateGroupActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button buttonCreateGroup;
@@ -38,10 +43,13 @@ public class CreateGroupActivity extends AppCompatActivity implements View.OnCli
 
     public void createGroup()
     {
+        SharedPreferences sharedPreferences =getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        final String user_id=sharedPreferences.getString(KEY_ID,null);
+
         EditText group_name;
         group_name = (EditText) findViewById(R.id.group_name);
         final String groupName = group_name.getText().toString().trim();
-        final String user_id = "1"; //static for now
+        //final String user_id = "1"; //static for now
         if(groupName.length()==0)
         {
             group_name.setError("Group Name cannot be Blank");

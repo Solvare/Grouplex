@@ -199,10 +199,10 @@ $app->post('/message', function() use ($app)
 });
 
 /*------------------------------------------------------------------------------------*/
-//  5. searching for a group
+//  5. searching for a group (by name)
 /*------------------------------------------------------------------------------------*/
 
-$app->get('/search/:query', function($query)
+$app->get('/search/name/:query', function($query)
 {
     global $app;
     $response = array();
@@ -233,8 +233,40 @@ $app->get('/search/:query', function($query)
     echoRespnse(200, $response);
 });
 
+
 /*------------------------------------------------------------------------------------*/
-//  6. user registration
+//  6. searching for a group (by id)
+/*------------------------------------------------------------------------------------*/
+
+$app->get('/search/id/:gid', function($gid)
+{
+    global $app;
+    $response = array();
+   
+    $db = new DbConnect();
+    $conn = $db->connect();
+
+    $stmt = $conn->query("SELECT group_name FROM groups WHERE group_id = '$gid'");
+    if($stmt->rowCount()==0)
+    {
+        $response["error"] = true;
+        $response["message"] = "No group found";
+    }
+    else
+    {
+	$row = $stmt->fetch();        
+	$response["error"] = false;
+        $response["group"] = $row["group_name"];
+    }
+   
+    $stmt = null;
+    $conn = null;
+    
+    echoRespnse(200, $response);
+});
+
+/*------------------------------------------------------------------------------------*/
+//  7. user registration
 /*------------------------------------------------------------------------------------*/
 
 $app->post('/user/register',function() use ($app)
@@ -249,7 +281,7 @@ $app->post('/user/register',function() use ($app)
     $password=$app->request->post('password');
     $full_name=$app->request->post('full_name');
     
-    if($email == null || $password == 'gow' || $full_name == null)
+    if($email == null || $password == 'null' || $full_name == null)
     {
         $response["error"]=true;
         $response["message"]="Insufficient Info";
@@ -285,7 +317,7 @@ $app->post('/user/register',function() use ($app)
 });
 
 /*------------------------------------------------------------------------------------*/
-//  7. user login
+//  8. user login
 /*------------------------------------------------------------------------------------*/
 
 $app->post('/user/login',function() use ($app)
@@ -298,7 +330,7 @@ $app->post('/user/login',function() use ($app)
     $email=$app->request->post('email');
     $password=$app->request->post('password');
     
-    if($email == 'gow' || $password == 'gow')
+    if($email == 'null' || $password == 'gow')
     {
         $response["error"]=true;
         $response["message"]="Insufficient Info";
@@ -337,7 +369,7 @@ $app->post('/user/login',function() use ($app)
 });
 
 /*------------------------------------------------------------------------------------*/
-//  8. creating a new group
+//  9. creating a new group
 /*------------------------------------------------------------------------------------*/
 
 $app->post('/creategroup',function() use ($app)
@@ -383,7 +415,7 @@ $app->post('/creategroup',function() use ($app)
 });
 
 /*------------------------------------------------------------------------------------*/
-//  9. joining a group
+//  10. joining a group
 /*------------------------------------------------------------------------------------*/
 
 $app->post('/joingroup',function() use ($app)
@@ -434,7 +466,7 @@ $app->post('/joingroup',function() use ($app)
 });
 
 /*------------------------------------------------------------------------------------*/
-//  10. Upload Group Image
+//  11. Upload Group Image
 /*------------------------------------------------------------------------------------*/
 
 $app->post('/image', function() use ($app)
