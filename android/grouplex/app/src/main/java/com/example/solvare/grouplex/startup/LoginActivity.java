@@ -43,7 +43,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         login_email=(EditText)findViewById(R.id.editText_login_email);
         login_password=(EditText)findViewById(R.id.editText_login_password);
 

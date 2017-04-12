@@ -238,7 +238,7 @@ $app->get('/search/name/:query', function($query)
 //  6. searching for a group (by id)
 /*------------------------------------------------------------------------------------*/
 
-$app->get('/search/id/:gid', function($gid)
+$app->get('/search/name/:query', function($query)
 {
     global $app;
     $response = array();
@@ -246,25 +246,28 @@ $app->get('/search/id/:gid', function($gid)
     $db = new DbConnect();
     $conn = $db->connect();
 
-    $stmt = $conn->query("SELECT group_name FROM groups WHERE group_id = '$gid'");
+    $stmt = $conn->query("SELECT group_name FROM groups WHERE group_name LIKE '%$query%'");
     if($stmt->rowCount()==0)
     {
         $response["error"] = true;
-        $response["message"] = "No group found";
+        $response["message"] = "No groups found";
     }
     else
     {
-	$row = $stmt->fetch();        
-	$response["error"] = false;
-        $response["group"] = $row["group_name"];
+        $response["error"] = false;
+        $response["groups"] = array();
+        foreach($stmt as $row)
+        {
+            array_push($response["groups"], $row["group_name"]);
+        }
+     
     }
-   
+    
     $stmt = null;
     $conn = null;
     
     echoRespnse(200, $response);
 });
-
 /*------------------------------------------------------------------------------------*/
 //  7. user registration
 /*------------------------------------------------------------------------------------*/
