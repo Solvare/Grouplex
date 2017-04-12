@@ -237,8 +237,7 @@ $app->get('/search/name/:query', function($query)
 /*------------------------------------------------------------------------------------*/
 //  6. searching for a group (by id)
 /*------------------------------------------------------------------------------------*/
-
-$app->get('/search/name/:query', function($query)
+$app->get('/search/', function()
 {
     global $app;
     $response = array();
@@ -246,7 +245,7 @@ $app->get('/search/name/:query', function($query)
     $db = new DbConnect();
     $conn = $db->connect();
 
-    $stmt = $conn->query("SELECT group_name FROM groups WHERE group_name LIKE '%$query%'");
+    $stmt = $conn->query("SELECT group_name FROM groups");
     if($stmt->rowCount()==0)
     {
         $response["error"] = true;
