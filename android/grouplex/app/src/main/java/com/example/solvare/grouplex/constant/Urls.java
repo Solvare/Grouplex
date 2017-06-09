@@ -14,4 +14,5 @@ public class Urls {
     public static final String URL_LOGIN=ROOT_URL+"user/login";
     public static final String URL_CREATE_GROUP=ROOT_URL+"creategroup";
     public static final String URL_SEARCH=ROOT_URL+"search";
+    public static final String URL_CHANGE_NAME=ROOT_URL+"update/uname";
 }

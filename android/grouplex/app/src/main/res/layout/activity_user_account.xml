@@ -14,7 +14,7 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
         android:orientation="vertical"
-        tools:context="com.example.solvare.grouplex.menu.OpenSourceActivity">
+        tools:context="com.example.solvare.grouplex.menu.UserAccountActivity">
 
         <TextView
             android:layout_width="wrap_content"
@@ -22,7 +22,9 @@
             android:layout_marginBottom="16dp"
             android:textColor="#000000"
             android:textAppearance="?android:textAppearanceMedium"
-            android:text="Udacity" />
+            android:onClick="onClick"
+            android:clickable="true"
+            android:text="Change Name" />
 
         <View
             android:layout_width="fill_parent"
@@ -36,21 +38,9 @@
             android:layout_marginBottom="16dp"
             android:textColor="#000000"
             android:textAppearance="?android:textAppearanceMedium"
-            android:text="Stack Overflow"/>
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="#c0c0c0"
-            android:layout_marginBottom="16dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:textColor="#000000"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:text="Android Hive"/>
+            android:onClick="onClick"
+            android:clickable="true"
+            android:text="Change Password"/>
 
         <View
             android:layout_width="fill_parent"

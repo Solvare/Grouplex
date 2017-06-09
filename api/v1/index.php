@@ -565,6 +565,101 @@ $app->post('/image', function() use ($app)
 });
 
 
+/*------------------------------------------------------------------------------------*/
+//  12. Update User Name
+/*------------------------------------------------------------------------------------*/
+
+$app->post('/update/uname', function() use($app) {
+          
+    $db = new DbConnect();
+    $conn = $db->connect();
+
+    $user_id = $app->request->post('user_id');
+    $new_uname = $app->request->post('new_uname');
+	
+    $response = array();
+	
+    $user_exist=$conn->query("select user_id from users where user_id=$user_id");
+    if($user_exist->rowCount()>0)
+    {
+        $query = $conn->query("UPDATE users SET full_name='$new_uname' WHERE user_id=$user_id");
+        
+        if($query->rowCount()==1){
+            $response["error"]=false;
+            $response["message"]="user full name updated";            
+        }
+        else{
+            $response["error"]=true;
+            $response["message"]="name unchanged OR some other problem occured";
+        }
+    }
+	
+    else{
+        $response["error"]=true;
+        $response["message"]="user does not exist";
+    }
+    $conn = null;
+    $user_exist = null;
+    $query = null;
+
+    echoRespnse(200, $response);
+
+});
+        
+/*------------------------------------------------------------------------------------*/
+//  13. Update User Password
+/*------------------------------------------------------------------------------------*/
+
+$app->put('/update/upass', function() use($app) {
+          
+                
+    $db = new DbConnect();
+    $conn = $db->connect();
+
+    $user_id = $app->request->put('user_id');
+    $cur_upass = $app->request->put('cur_upass');
+    $new_upass = $app->request->put('new_upass');
+
+    $response = array();
+
+    $user_exist=$conn->query("select password AS passhash from users where user_id=$user_id");
+    if($user_exist->rowCount()>0)
+    {
+        $row = $user_exist->fetch();        
+        $passhash = $row['passhash'];
+        if(PassHash::check_password($passhash, $cur_upass))
+        {
+            $pass_hash = PassHash::hash($new_upass);
+            $query = $conn->query("UPDATE users SET password = $pass_hash where user_id=$user_id");
+            if($query->rowCount()>0){
+                $response["error"]=false;
+                $response["message"]="user password updated";            
+            }
+            else
+            {
+                $response["error"]=true;
+                $response["message"]="some problem occured";
+            }
+        }
+        else
+        {
+            $response["error"]=true;
+            $response["message"]="current password incorrect";
+        }
+    }    
+    else
+    {
+        $response["error"]=true;
+        $response["message"]="user does not exist";
+    }
+    $conn = null;
+    $user_exist = null;
+    $query = null;
+    echoRespnse(200, $response);
+});
+
+
+
 /**
  * Echoing json response to client
  * @param String $status_code Http response code

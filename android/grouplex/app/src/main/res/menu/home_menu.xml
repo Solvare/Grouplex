@@ -9,8 +9,8 @@
     <item android:id="@+id/create"
         android:title="Create Group"
         app:showAsAction="never"/>
-    <item android:id="@+id/settings"
-        android:title="User Settings"
+    <item android:id="@+id/account"
+        android:title="User Account"
         app:showAsAction="never"/>
     <item android:id="@+id/about"
         android:title="About Grouplex"

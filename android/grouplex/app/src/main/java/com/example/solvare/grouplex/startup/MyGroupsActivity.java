@@ -11,7 +11,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,7 +26,7 @@ import com.example.solvare.grouplex.custom.MyGroups;
 import com.example.solvare.grouplex.menu.AboutActivity;
 import com.example.solvare.grouplex.menu.CreateGroupActivity;
 import com.example.solvare.grouplex.menu.JoinGroupActivity;
-import com.example.solvare.grouplex.menu.UserSettingsActivity;
+import com.example.solvare.grouplex.menu.UserAccountActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -142,6 +141,7 @@ public class MyGroupsActivity extends AppCompatActivity {
         return dataList;
     }
 
+    /*
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             logout();
@@ -149,12 +149,12 @@ public class MyGroupsActivity extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
-
+    */
 
     private void logout() {
         //Creating an alert dialog to confirm logout
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage("Are you sure you want to logout?");
+        alertDialogBuilder.setMessage("Are you sure you want to logout ?");
         alertDialogBuilder.setPositiveButton("Yes",
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -198,8 +198,8 @@ public class MyGroupsActivity extends AppCompatActivity {
             case R.id.create:
                 createGroup();
                 return true;
-            case R.id.settings:
-                settings();
+            case R.id.account:
+                account();
                 return true;
             case R.id.about:
                 about();
@@ -221,8 +221,8 @@ public class MyGroupsActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void settings() {
-        Intent intent = new Intent(MyGroupsActivity.this, UserSettingsActivity.class);
+    private void account() {
+        Intent intent = new Intent(MyGroupsActivity.this, UserAccountActivity.class);
         startActivity(intent);
     }
 

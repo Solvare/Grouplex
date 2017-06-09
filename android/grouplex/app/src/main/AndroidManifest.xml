@@ -14,8 +14,7 @@
             android:name=".startup.LoginActivity"
             android:label="Login"
             android:logo="@drawable/ic_launcher"
-            android:windowSoftInputMode="stateHidden">
-        </activity>
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity
             android:name=".startup.SignupActivity"
             android:label="Signup"
@@ -78,12 +77,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".group.ChatActivity" />
         </activity>
+        <activity android:name=".startup.FirstActivity"></activity>
         <activity
-            android:name=".startup.FirstActivity">
-        </activity>
-        <activity
-            android:name=".menu.UserSettingsActivity"
-            android:label="User Settings">
+            android:name=".menu.UserAccountActivity"
+            android:label="User Account">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".startup.MyGroupsActivity" />
@@ -101,8 +98,15 @@
             android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".menu.ChangeNameActivity"
+                  android:label="Change Name">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".menu.UserAccountActivity" />
         </activity>
     </application>
 
