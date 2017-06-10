@@ -1,7 +1,6 @@
-package com.example.solvare.grouplex.menu;
+package com.example.solvare.grouplex.menu.account;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,8 +16,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.solvare.grouplex.R;
 import com.example.solvare.grouplex.constant.Urls;
-import com.example.solvare.grouplex.startup.ForgotPasswordActivity;
-import com.example.solvare.grouplex.startup.LoginActivity;
 import com.example.solvare.grouplex.startup.RequestHandler;
 
 import org.json.JSONException;
@@ -39,22 +36,21 @@ public class ChangeNameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_name);
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        final SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         String old_user_name = sharedPreferences.getString(KEY_USERNAME, null);
-        //String old_user_name = "ede";
         new_name = (EditText) findViewById(R.id.editText_change_name);
         new_name.setText(old_user_name);
+        new_name.setSelection(new_name.getText().length());
         final Button button = (Button) findViewById(R.id.button_change_name);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                changeName();
+                changeName(sharedPreferences);
             }
         });
     }
 
-    public void changeName() {
+    public void changeName(final SharedPreferences sharedPreferences) {
 
-        final SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         final String user_id = sharedPreferences.getString(KEY_ID, null);
 
         String full_name = null;
@@ -71,13 +67,12 @@ public class ChangeNameActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            if(jsonObject.getString("error")=="false")
+                            if(jsonObject.getString("error").equalsIgnoreCase("false"))
                             {
                                 //Getting editor
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
-
                                 editor.putString(KEY_USERNAME, finalFull_name);
-                                editor.commit();
+                                editor.apply();
                             }
                             Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
                         } catch (JSONException e) {

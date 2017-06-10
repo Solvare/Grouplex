@@ -18,8 +18,8 @@ public class SharedPrefManager {
     private static Context mCtx;
     public static final String SHARED_PREF_NAME = "myloginapp";
     public static final String KEY_EMAIL = "email";
-    public static final String KEY_ID="user_id";
-    public static final String KEY_USERNAME="full_name";
+    public static final String KEY_ID = "user_id";
+    public static final String KEY_USERNAME = "full_name";
 
     private SharedPrefManager(Context context) {
         mCtx = context;

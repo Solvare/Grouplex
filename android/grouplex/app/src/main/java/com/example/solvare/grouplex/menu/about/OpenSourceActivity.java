@@ -1,4 +1,4 @@
-package com.example.solvare.grouplex.menu;
+package com.example.solvare.grouplex.menu.about;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

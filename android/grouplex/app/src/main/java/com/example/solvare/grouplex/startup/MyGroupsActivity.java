@@ -23,10 +23,11 @@ import com.example.solvare.grouplex.R;
 import com.example.solvare.grouplex.constant.Urls;
 import com.example.solvare.grouplex.custom.MyGroupsAdapter;
 import com.example.solvare.grouplex.custom.MyGroups;
-import com.example.solvare.grouplex.menu.AboutActivity;
+import com.example.solvare.grouplex.menu.about.AboutActivity;
 import com.example.solvare.grouplex.menu.CreateGroupActivity;
 import com.example.solvare.grouplex.menu.JoinGroupActivity;
-import com.example.solvare.grouplex.menu.UserAccountActivity;
+import com.example.solvare.grouplex.menu.account.UserAccountActivity;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;

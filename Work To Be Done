@@ -12,3 +12,6 @@ Group member
 Security
 Validation - Client(Floating Labels) + Server
 All strings in string.xml
+Remove all warnings
+CHECK public vs private vs final in all variable names.
+Improve shared preference

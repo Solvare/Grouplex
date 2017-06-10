@@ -49,18 +49,18 @@
                 android:value=".startup.MyGroupsActivity" />
         </activity>
         <activity
-            android:name=".menu.AboutActivity"
+            android:name=".menu.about.AboutActivity"
             android:label="About Grouplex">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".startup.MyGroupsActivity" />
         </activity>
         <activity
-            android:name=".menu.OpenSourceActivity"
+            android:name=".menu.about.OpenSourceActivity"
             android:label="Open Source Credits">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".menu.AboutActivity" />
+                android:value=".menu.about.AboutActivity" />
         </activity>
         <activity
             android:name=".group.ChatActivity"
@@ -79,7 +79,7 @@
         </activity>
         <activity android:name=".startup.FirstActivity"></activity>
         <activity
-            android:name=".menu.UserAccountActivity"
+            android:name=".menu.account.UserAccountActivity"
             android:label="User Account">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -102,11 +102,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".menu.ChangeNameActivity"
+        <activity android:name=".menu.account.ChangeNameActivity"
                   android:label="Change Name">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".menu.UserAccountActivity" />
+                android:value=".menu.account.UserAccountActivity" />
         </activity>
     </application>
 
