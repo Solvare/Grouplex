@@ -610,15 +610,15 @@ $app->post('/update/uname', function() use($app) {
 //  13. Update User Password
 /*------------------------------------------------------------------------------------*/
 
-$app->put('/update/upass', function() use($app) {
+$app->post('/update/upass', function() use($app) {
           
                 
     $db = new DbConnect();
     $conn = $db->connect();
 
-    $user_id = $app->request->put('user_id');
-    $cur_upass = $app->request->put('cur_upass');
-    $new_upass = $app->request->put('new_upass');
+    $user_id = $app->request->post('user_id');
+    $cur_upass = $app->request->post('cur_upass');
+    $new_upass = $app->request->post('new_upass');
 
     $response = array();
 
@@ -630,15 +630,15 @@ $app->put('/update/upass', function() use($app) {
         if(PassHash::check_password($passhash, $cur_upass))
         {
             $pass_hash = PassHash::hash($new_upass);
-            $query = $conn->query("UPDATE users SET password = $pass_hash where user_id=$user_id");
-            if($query->rowCount()>0){
+            $query = $conn->query("UPDATE users SET password = '$pass_hash' where user_id=$user_id");
+            if($query->rowCount()==1){
                 $response["error"]=false;
                 $response["message"]="user password updated";            
             }
             else
             {
                 $response["error"]=true;
-                $response["message"]="some problem occured";
+                $response["message"]="password unchanged OR some problem occured";
             }
         }
         else

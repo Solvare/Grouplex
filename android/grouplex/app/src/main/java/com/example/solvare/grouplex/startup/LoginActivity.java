@@ -86,7 +86,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void login(){
         final String response_mssg = null;
         final String email= login_email.getText().toString().trim();
-        final String password = login_password.getText().toString().trim();
+        final String password = login_password.getText().toString();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.URL_LOGIN,
                 new Response.Listener<String>() {
                     @Override

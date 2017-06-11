@@ -64,7 +64,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         {
             signup_confPassword.setError("Passwords didn't match !");
         }else{
-            password=signup_password.getText().toString().trim();
+            password=signup_password.getText().toString();
         }
         final String finalPassword = password;
         final String finalEmail = email;

@@ -16,14 +16,23 @@
         android:gravity="center"
         tools:context="com.example.solvare.grouplex.menu.ChangeNameActivity">
 
+        <!--android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_change_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:gravity="center"-->
+
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="text"
             android:ems="10"
             android:id="@+id/editText_change_name"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="60dp"
             android:hint="Full Name" />
+
+        <!--/android.support.design.widget.TextInputLayout-->
 
         <Button
             android:layout_width="wrap_content"

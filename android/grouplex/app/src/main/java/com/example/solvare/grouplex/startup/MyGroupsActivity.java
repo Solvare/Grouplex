@@ -166,6 +166,7 @@ public class MyGroupsActivity extends AppCompatActivity {
                         //Starting login activity
                         Intent intent = new Intent(MyGroupsActivity.this, LoginActivity.class);
                         startActivity(intent);
+                        finish();
                     }
                 });
 

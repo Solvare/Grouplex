@@ -28,54 +28,51 @@ import static com.example.solvare.grouplex.startup.SharedPrefManager.KEY_ID;
 import static com.example.solvare.grouplex.startup.SharedPrefManager.KEY_USERNAME;
 import static com.example.solvare.grouplex.startup.SharedPrefManager.SHARED_PREF_NAME;
 
-public class ChangeNameActivity extends AppCompatActivity {
+public class ChangePasswordActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_change_name);
+        setContentView(R.layout.activity_change_password);
 
-        final SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        String old_name = sharedPreferences.getString(KEY_USERNAME, null);
-
-        final EditText new_name = (EditText) findViewById(R.id.editText_change_name);
-        new_name.setText(old_name);
-        new_name.setSelection(new_name.getText().length());
-
-        Button button = (Button) findViewById(R.id.button_change_name);
+        Button button = (Button) findViewById(R.id.button_change_pass);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                changeName(sharedPreferences, new_name);
+                changePassword();
             }
         });
     }
 
-    public void changeName(final SharedPreferences sharedPreferences, EditText new_name) {
+    public void changePassword() {
 
+        final SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         final String user_id = sharedPreferences.getString(KEY_ID, null);
-        String full_name = null;
 
-        if (new_name.getText().toString().length() == 0) {
-            new_name.setError("Name cannot be Blank");
-        }
-        else {
-            full_name = new_name.getText().toString().trim();
-        }
-        final String finalFull_name = full_name;
+        EditText cur_pass = (EditText) findViewById(R.id.editText_cur_pass);
+        EditText new_pass = (EditText) findViewById(R.id.editText_new_pass);
+        EditText conf_pass = (EditText) findViewById(R.id.editText_conf_pass);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.URL_CHANGE_NAME,
+        if (cur_pass.getText().toString().length() == 0) {
+            cur_pass.setError("Current Password cannot be Blank");
+        }
+
+        else if (new_pass.getText().toString().length() < 6) {
+            new_pass.setError("New Password should be atleast 6 characters");
+        }
+
+        else if(!conf_pass.getText().toString().equals(new_pass.getText().toString())){
+            conf_pass.setError("Passwords didn't match !");
+        }
+
+        final String final_cur_pass=cur_pass.getText().toString();
+        final String final_new_pass=new_pass.getText().toString();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.URL_CHANGE_PASS,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            if(jsonObject.getString("error").equalsIgnoreCase("false"))
-                            {
-                                //Getting editor
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString(KEY_USERNAME, finalFull_name);
-                                editor.apply();
-                            }
                             Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -92,7 +89,8 @@ public class ChangeNameActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("user_id", user_id);
-                params.put("new_uname", finalFull_name);
+                params.put("cur_upass", final_cur_pass);
+                params.put("new_upass", final_new_pass);
                 return params;
             }
         };

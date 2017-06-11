@@ -18,7 +18,7 @@
             android:padding="16dp"
             android:textColor="#000000"
             android:textAppearance="?android:textAppearanceMedium"
-            android:onClick="onClick"
+            android:onClick="changeName"
             android:clickable="true"
             android:background="?android:attr/selectableItemBackground"
             android:text="Change Name" />
@@ -35,7 +35,7 @@
             android:padding="16dp"
             android:textColor="#000000"
             android:textAppearance="?android:textAppearanceMedium"
-            android:onClick="onClick"
+            android:onClick="changePassword"
             android:clickable="true"
             android:background="?android:attr/selectableItemBackground"
             android:text="Change Password"/>

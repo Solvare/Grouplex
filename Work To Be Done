@@ -1,4 +1,4 @@
-http://www.androidhive.info/2015/09/android-material-design-floating-labels-for-edittext/
+http://www.androidhive.info/2015/09/android-material-design-floating-labels-for-edittext/ = Change Name/Password
 user_id more dynamic
 group icon
 User Settings - Change Full Name, Change Password
@@ -14,4 +14,8 @@ Validation - Client(Floating Labels) + Server
 All strings in string.xml
 Remove all warnings
 CHECK public vs private vs final in all variable names.
-Improve shared preference
+Logs
+SQLite
+Material Design
+Login Spinner(like gbuonline)
+After Sign-up, redirect to Login

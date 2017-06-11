@@ -16,9 +16,16 @@ public class UserAccountActivity extends AppCompatActivity{
 
     }
 
-    public void onClick(View v)
+    public void changeName(View v)
     {
         Intent intent = new Intent(UserAccountActivity.this, ChangeNameActivity.class);
         startActivity(intent);
     }
+
+    public void changePassword(View v)
+    {
+        Intent intent = new Intent(UserAccountActivity.this, ChangePasswordActivity.class);
+        startActivity(intent);
+    }
+
 }
