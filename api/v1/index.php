@@ -283,7 +283,7 @@ $app->post('/user/register',function() use ($app)
     $password=$app->request->post('password');
     $full_name=$app->request->post('full_name');
     
-    if($email == null || $password == 'null' || $full_name == null)
+    if($email == null || $password == null || $full_name == null)
     {
         $response["error"]=true;
         $response["message"]="Insufficient Info";
@@ -332,7 +332,7 @@ $app->post('/user/login',function() use ($app)
     $email=$app->request->post('email');
     $password=$app->request->post('password');
     
-    if($email == 'null' || $password == 'gow')
+    if($email == 'null' || $password == 'null')
     {
         $response["error"]=true;
         $response["message"]="Insufficient Info";

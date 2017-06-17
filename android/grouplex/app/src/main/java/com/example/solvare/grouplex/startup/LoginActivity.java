@@ -3,10 +3,15 @@ package com.example.solvare.grouplex.startup;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -31,6 +36,7 @@ import com.example.solvare.grouplex.constant.Urls;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private TextInputLayout inputLayoutEmail, inputLayoutPassword;
     private EditText login_email,login_password;
     private Button buttonlogin;
     private TextView signup_page, forgot_password;
@@ -39,12 +45,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public static final String SHARED_PREF_NAME = "myloginapp";
     public static final String EMAIL_SHARED_PREF = "email";
     public static final String LOGGEDIN_SHARED_PREF = "loggedin";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         login_email=(EditText)findViewById(R.id.editText_login_email);
         login_password=(EditText)findViewById(R.id.editText_login_password);
+
+        inputLayoutEmail=(TextInputLayout) findViewById(R.id.input_layout_login_email);
+        inputLayoutPassword=(TextInputLayout) findViewById(R.id.input_layout_login_password);
 
         buttonlogin=(Button)findViewById(R.id.buttonlogin);
         buttonlogin.setOnClickListener(this);
@@ -54,6 +65,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         forgot_password=(TextView) findViewById(R.id.textView_forgotPassword);
         forgot_password.setOnClickListener(this);
+
+        login_email.addTextChangedListener(new MyTextWatcher(login_email));
+        login_password.addTextChangedListener(new MyTextWatcher(login_password));
     }
     public void onResume(){
         super.onResume();
@@ -84,9 +98,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void login(){
+
+        boolean dev_mode = true;
+
+        if(!dev_mode)
+        {
+            if (!validateEmail()) {
+                return;
+            }
+
+            if (!validatePassword()) {
+                return;
+            }
+        }
+
         final String response_mssg = null;
         final String email= login_email.getText().toString().trim();
         final String password = login_password.getText().toString();
+
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.URL_LOGIN,
                 new Response.Listener<String>() {
                     @Override
@@ -130,5 +159,66 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
     }
 
+    private boolean validateEmail() {
+        String email = login_email.getText().toString().trim();
+
+        if (email.isEmpty() || !isValidEmail(email)) {
+            inputLayoutEmail.setError("Enter valid email address");
+            requestFocus(login_email);
+            return false;
+        } else {
+            inputLayoutEmail.setErrorEnabled(false);
+        }
+
+        return true;
+    }
+
+    private boolean validatePassword() {
+        if (login_password.getText().toString().isEmpty()) {
+            inputLayoutPassword.setError("Enter your password");
+            requestFocus(login_password);
+            return false;
+        } else {
+            inputLayoutPassword.setErrorEnabled(false);
+        }
+
+        return true;
+    }
+
+    private static boolean isValidEmail(String email) {
+        return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    private void requestFocus(View view) {
+        if (view.requestFocus()) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+    }
+
+    private class MyTextWatcher implements TextWatcher {
+
+        private View view;
+
+        private MyTextWatcher(View view) {
+            this.view = view;
+        }
+
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        public void afterTextChanged(Editable editable) {
+            switch (view.getId()) {
+                case R.id.editText_login_email:
+                    validateEmail();
+                    break;
+                case R.id.editText_login_password:
+                    validatePassword();
+                    break;
+            }
+        }
+    }
 
 }

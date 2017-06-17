@@ -37,14 +37,12 @@
             android:id="@+id/input_layout_login_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:gravity="center">
+            android:layout_marginTop="30dp">
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:ems="12"
                 android:id="@+id/editText_login_email"
                 android:layout_gravity="center_horizontal"
                 android:hint="Email" />
@@ -55,14 +53,12 @@
             android:id="@+id/input_layout_login_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:gravity="center">
+            android:layout_marginTop="15dp">
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:ems="12"
                 android:id="@+id/editText_login_password"
                 android:layout_gravity="center_horizontal"
                 android:hint="Password" />
@@ -70,7 +66,7 @@
         </android.support.design.widget.TextInputLayout>
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Login"
             android:id="@+id/buttonlogin"
@@ -81,21 +77,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="New User? Signup Here"
-            android:id="@+id/textView_signup"
-            android:layout_marginTop="50dp"
-            android:layout_gravity="center_horizontal"
-            android:textColor="#ff0000" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Forgot Password"
             android:id="@+id/textView_forgotPassword"
             android:layout_marginTop="50dp"
             android:layout_gravity="center_horizontal"
             android:textColor="#b37fe7" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="New User? Signup Here"
+            android:id="@+id/textView_signup"
+            android:layout_marginTop="50dp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#ff0000" />
 
     </LinearLayout>
 

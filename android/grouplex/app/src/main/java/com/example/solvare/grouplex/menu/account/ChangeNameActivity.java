@@ -2,6 +2,7 @@ package com.example.solvare.grouplex.menu.account;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -30,6 +31,10 @@ import static com.example.solvare.grouplex.startup.SharedPrefManager.SHARED_PREF
 
 public class ChangeNameActivity extends AppCompatActivity {
 
+    private TextInputLayout inputLayoutName;
+    private EditText new_name;
+    private Button button;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,30 +43,28 @@ public class ChangeNameActivity extends AppCompatActivity {
         final SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         String old_name = sharedPreferences.getString(KEY_USERNAME, null);
 
-        final EditText new_name = (EditText) findViewById(R.id.editText_change_name);
+        new_name = (EditText) findViewById(R.id.editText_change_name);
         new_name.setText(old_name);
         new_name.setSelection(new_name.getText().length());
 
-        Button button = (Button) findViewById(R.id.button_change_name);
+        inputLayoutName = (TextInputLayout) findViewById(R.id.input_layout_change_name);
+
+        button = (Button) findViewById(R.id.button_change_name);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                changeName(sharedPreferences, new_name);
+                changeName(sharedPreferences);
             }
         });
     }
 
-    public void changeName(final SharedPreferences sharedPreferences, EditText new_name) {
+    public void changeName(final SharedPreferences sharedPreferences) {
 
-        final String user_id = sharedPreferences.getString(KEY_ID, null);
-        String full_name = null;
+    if (!validateName()) {
+        return;
+    }
 
-        if (new_name.getText().toString().length() == 0) {
-            new_name.setError("Name cannot be Blank");
-        }
-        else {
-            full_name = new_name.getText().toString().trim();
-        }
-        final String finalFull_name = full_name;
+    final String user_id = sharedPreferences.getString(KEY_ID, null);
+    final String finalFull_name = new_name.getText().toString().trim();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.URL_CHANGE_NAME,
                 new Response.Listener<String>() {
@@ -69,8 +72,7 @@ public class ChangeNameActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            if(jsonObject.getString("error").equalsIgnoreCase("false"))
-                            {
+                            if (jsonObject.getString("error").equalsIgnoreCase("false")) {
                                 //Getting editor
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putString(KEY_USERNAME, finalFull_name);
@@ -99,4 +101,16 @@ public class ChangeNameActivity extends AppCompatActivity {
 
         RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
     }
+
+    private boolean validateName() {
+        if (new_name.getText().toString().trim().isEmpty()) {
+            inputLayoutName.setError("Enter your full name");
+            return false;
+        } else {
+            inputLayoutName.setErrorEnabled(false);
+        }
+
+        return true;
+    }
+
 }

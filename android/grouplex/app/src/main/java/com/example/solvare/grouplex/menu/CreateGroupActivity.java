@@ -3,6 +3,7 @@ package com.example.solvare.grouplex.menu;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -32,68 +33,79 @@ import static com.example.solvare.grouplex.startup.SharedPrefManager.SHARED_PREF
 public class CreateGroupActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button buttonCreateGroup;
+    private EditText group_name;
+    private TextInputLayout inputLayoutGroupName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_group);
+
+        group_name = (EditText) findViewById(R.id.editText_group_name);
+        inputLayoutGroupName = (TextInputLayout) findViewById(R.id.input_layout_create_group);
+
         buttonCreateGroup=(Button)findViewById(R.id.button_create_group);
         buttonCreateGroup.setOnClickListener(this);
     }
 
     public void createGroup()
     {
+        if (!validateName()) {
+            return;
+        }
+
+        final String finalGroup_name = group_name.getText().toString().trim();
+
         SharedPreferences sharedPreferences =getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         final String user_id=sharedPreferences.getString(KEY_ID,null);
 
-        EditText group_name;
-        group_name = (EditText) findViewById(R.id.group_name);
-        final String groupName = group_name.getText().toString().trim();
-        //final String user_id = "1"; //static for now
-        if(groupName.length()==0)
-        {
-            group_name.setError("Group Name cannot be Blank");
-            return;
-        }
-        else
-        {
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.URL_CREATE_GROUP,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            try {
-                                JSONObject jsonObject = new JSONObject(response);
-                                Toast.makeText(getApplicationContext(),jsonObject.getString("message"),Toast.LENGTH_LONG).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.URL_CREATE_GROUP,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            Toast.makeText(getApplicationContext(),jsonObject.getString("message"),Toast.LENGTH_LONG).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
-                        }
-                    }){
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String,String> params = new HashMap<>();
-                    params.put("group_name", groupName);
-                    params.put("user_id", user_id);
-                    return params;
-                }
-            };
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
+                    }
+                }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<>();
+                params.put("group_name", finalGroup_name);
+                params.put("user_id", user_id);
+                return params;
+            }
+        };
 
-            RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
-            //Intent intent = new Intent(CreateGroupActivity.this, MyGroupsActivity.class);
-            //startActivity(intent);
+        RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
+        //Intent intent = new Intent(CreateGroupActivity.this, MyGroupsActivity.class);
+        //startActivity(intent);
         }
-    }
 
     @Override
     public void onClick(View v) {
         if(v==buttonCreateGroup){
             createGroup();
         }
+    }
+
+    private boolean validateName() {
+        if (group_name.getText().toString().trim().isEmpty()) {
+            inputLayoutGroupName.setError("Enter group name");
+            return false;
+        } else {
+            inputLayoutGroupName.setErrorEnabled(false);
+        }
+
+        return true;
     }
 }
