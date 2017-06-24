@@ -1,23 +1,23 @@
-http://www.androidhive.info/2015/09/android-material-design-floating-labels-for-edittext/
 user_id more dynamic
 group icon
 posting of message 
 search group
 forgot password 
 Email confirmation 
-Group Settings - Change Group Name, Show Group ID
+Group Settings - Change Group Name, Show Group ID, About Group
 Notification
+Firebase
 Group member
 Security
-Validation - Client(Floating Labels) + Server
+Validation - Server
 All strings in string.xml
 Remove all warnings
 CHECK public vs private vs final in all variable names.
 Logs
 SQLite
 Material Design
+Coloring
 Spinners(like gbuonline, whatsapp{updating...})
 After Sign-up, redirect to MyGroups
 Comments !!!
-Coloring
 DB foreign key connections

@@ -23,6 +23,7 @@ import com.example.solvare.grouplex.R;
 import com.example.solvare.grouplex.constant.Urls;
 import com.example.solvare.grouplex.custom.MyGroupsAdapter;
 import com.example.solvare.grouplex.custom.MyGroups;
+import com.example.solvare.grouplex.menu.JoinGroupNewActivity;
 import com.example.solvare.grouplex.menu.about.AboutActivity;
 import com.example.solvare.grouplex.menu.CreateGroupActivity;
 import com.example.solvare.grouplex.menu.JoinGroupActivity;

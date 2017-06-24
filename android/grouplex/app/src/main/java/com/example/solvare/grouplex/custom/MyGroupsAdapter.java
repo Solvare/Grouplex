@@ -43,6 +43,7 @@ public class MyGroupsAdapter extends RecyclerView.Adapter<MyGroupsAdapter.MyView
     public int getItemCount() {
         return mData.size();
     }
+
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView groupname,level,num_members;
@@ -55,6 +56,7 @@ public class MyGroupsAdapter extends RecyclerView.Adapter<MyGroupsAdapter.MyView
             level=(TextView)itemView.findViewById(R.id.your_level);
             num_members=(TextView)itemView.findViewById(R.id.total_members);
         }
+
         public void setData(MyGroups groups,int position){
             this.groupname.setText(groups.get_groupnames().get(position));
             this.level.setText(groups.getLevel().get(position));

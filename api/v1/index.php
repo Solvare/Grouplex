@@ -199,7 +199,7 @@ $app->post('/message', function() use ($app)
 });
 
 /*------------------------------------------------------------------------------------*/
-//  5. searching for a group (by name)
+//  5. searching for a group (old)
 /*------------------------------------------------------------------------------------*/
 
 $app->get('/search/name/:query', function($query)
@@ -235,17 +235,16 @@ $app->get('/search/name/:query', function($query)
 
 
 /*------------------------------------------------------------------------------------*/
-//  6. searching for a group (by id)
+//  6. searching for a group (new)
 /*------------------------------------------------------------------------------------*/
-$app->get('/search/', function()
+$app->get('/search/:user_id', function($user_id)
 {
-    global $app;
     $response = array();
    
     $db = new DbConnect();
     $conn = $db->connect();
 
-    $stmt = $conn->query("SELECT group_name FROM groups");
+    $stmt = $conn->query("SELECT groups.group_id, group_name, count(user_id) AS num_members FROM groups,master WHERE (groups.group_id=master.group_id) AND groups.group_id NOT IN (SELECT group_id FROM master WHERE user_id = $user_id) GROUP BY groups.group_id");
     if($stmt->rowCount()==0)
     {
         $response["error"] = true;
@@ -257,7 +256,11 @@ $app->get('/search/', function()
         $response["groups"] = array();
         foreach($stmt as $row)
         {
-            array_push($response["groups"], $row["group_name"]);
+            $grp = array();
+            $grp['id'] = $row["group_id"];
+            $grp['name'] = $row["group_name"];
+            $grp['members'] = $row["num_members"];
+            array_push($response["groups"], $grp);
         }
      
     }

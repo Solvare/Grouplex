@@ -104,17 +104,27 @@
         </activity>
         <activity
             android:name=".menu.account.ChangeNameActivity"
-            android:label="Change Name">
+            android:label="Change Name"
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".menu.account.UserAccountActivity" />
         </activity>
         <activity
             android:name=".menu.account.ChangePasswordActivity"
-            android:label="Change Password">
+            android:label="Change Password"
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".menu.account.UserAccountActivity" />
+        </activity>
+        <activity
+            android:name=".menu.JoinGroupNewActivity"
+            android:label="Join Group"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".startup.MyGroupsActivity" />
         </activity>
     </application>
 
