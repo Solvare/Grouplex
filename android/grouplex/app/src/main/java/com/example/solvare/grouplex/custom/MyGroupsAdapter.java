@@ -1,18 +1,12 @@
 package com.example.solvare.grouplex.custom;
  
-import java.util.ArrayList;
 import java.util.List;
 
-import android.content.ClipData;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.solvare.grouplex.R;
@@ -29,7 +23,7 @@ public class MyGroupsAdapter extends RecyclerView.Adapter<MyGroupsAdapter.MyView
     }
     @Override
     public MyGroupsAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_groups, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_my_groups, parent, false);
         MyViewHolder holder = new MyViewHolder(view);
         return holder;
     }

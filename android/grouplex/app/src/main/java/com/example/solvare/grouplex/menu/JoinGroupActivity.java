@@ -62,14 +62,17 @@ public class JoinGroupActivity extends AppCompatActivity{
                                 arrayListMem.add(jsonarray.getJSONObject(i).getString("members"));
                                 adapter = new ArrayAdapter<>(
                                         JoinGroupActivity.this,
-                                        android.R.layout.simple_list_item_1,
+                                        R.layout.item_join_group, R.id.text1,
                                         arrayList);
                                 lv.setAdapter(adapter);
                                 lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                     @Override
                                     public void onItemClick(AdapterView<?> parent, View view, int position,
                                                             long id) {
-                                        addGroup(arrayListId.get(position),uid);
+                                        //Toast.makeText(getApplicationContext(),lv.getItemAtPosition(position).toString(),Toast.LENGTH_SHORT).show();
+                                        String sel_grp = lv.getItemAtPosition(position).toString();
+                                        int index = arrayList.indexOf(sel_grp);
+                                        addGroup(arrayListId.get(index),uid);
                                     }
                                 });
                             }

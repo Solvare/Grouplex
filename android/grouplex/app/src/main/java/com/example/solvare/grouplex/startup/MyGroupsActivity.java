@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -103,38 +105,62 @@ public class MyGroupsActivity extends AppCompatActivity {
         ArrayList<String> levels = new ArrayList<String>();
         ArrayList<String> num_members = new ArrayList<String>();
         JSONObject jsonObj = new JSONObject(jsonStr);
-        JSONArray jsonarray = jsonObj.getJSONArray("groups");
-        for (int i = 0; i < jsonarray.length(); i++) {
-            JSONObject jsonobject = jsonarray.getJSONObject(i);
-            names.add(jsonobject.getString("name"));
-            levels.add(jsonobject.getString("level"));
-            num_members.add(jsonobject.getString("members"));
+
+        if(jsonObj.getString("error").equalsIgnoreCase("true"))
+        {
+            if(jsonObj.getString("message").equalsIgnoreCase("no associated groups"))
+            {
+                setContentView(R.layout.activity_no_groups);
+                Button button_join = (Button) findViewById(R.id.button_dir_join_group);
+                Button button_create = (Button) findViewById(R.id.button_dir_create_group);
+                button_join.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        joinGroup();
+                    }
+                });
+                button_create.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        createGroup();
+                    }
+                });
+                return;
+            }
         }
-        groups.set_groupnames(names);
-        groups.setLevel(levels);
-        groups.setNumMembers(num_members);
-        /*String[] level = new String[members.getLevel().size()];
-        String[] groupsNames = new String[members.get_groupnames().size()];
 
-        for (int i = 0; i < members.getLevel().size(); i++) {
+        else
+        {
+            JSONArray jsonarray = jsonObj.getJSONArray("groups");
+            for (int i = 0; i < jsonarray.length(); i++) {
+                JSONObject jsonobject = jsonarray.getJSONObject(i);
+                names.add(jsonobject.getString("name"));
+                levels.add(jsonobject.getString("level"));
+                num_members.add(jsonobject.getString("members"));
+            }
+            groups.set_groupnames(names);
+            groups.setLevel(levels);
+            groups.setNumMembers(num_members);
+            /*String[] level = new String[members.getLevel().size()];
+            String[] groupsNames = new String[members.get_groupnames().size()];
 
-            level[i] = members.getLevel().get(i);
+            for (int i = 0; i < members.getLevel().size(); i++) {
+
+                level[i] = members.getLevel().get(i);
+            }
+            for (int i = 0; i < members.get_groupnames().size(); i++) {
+                groupsNames[i] = members.get_groupnames().get(i);
+            }*/
+            for (int i = 0; i < groups.get_groupnames().size(); i++) {
+
+                groups.s_set_groupnames(groups.get_groupnames().get(i));
+                groups.s_setLevel(groups.getLevel().get(i));
+                groups.s_setNumMembers(groups.getNumMembers().get(i));
+                dataList.add(groups);
+            }
+            int size = dataList.size();
+            Log.d("SIZE", Integer.toString(size));
+            adapter = new MyGroupsAdapter(this, getData(dataList));
+            recyclerView.setAdapter(adapter);
         }
-        for (int i = 0; i < members.get_groupnames().size(); i++) {
-            groupsNames[i] = members.get_groupnames().get(i);
-        }*/
-        for (int i = 0; i < groups.get_groupnames().size(); i++) {
-
-            groups.s_set_groupnames(groups.get_groupnames().get(i));
-            groups.s_setLevel(groups.getLevel().get(i));
-            groups.s_setNumMembers(groups.getNumMembers().get(i));
-            dataList.add(groups);
-        }
-        int size = dataList.size();
-        Log.d("SIZE", Integer.toString(size));
-        adapter = new MyGroupsAdapter(this, getData(dataList));
-        recyclerView.setAdapter(adapter);
-
     }
 
     public ArrayList<MyGroups> getData(ArrayList<MyGroups> list) {
