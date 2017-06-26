@@ -26,6 +26,7 @@ $app->get('/:user_id/groups', function($user_id)
     if($exist->rowCount()==0)
     {
         $response["error"] = true;
+		$response["errorId"] = 1;
         $response["message"] = "No such user exists";
     }
     else
@@ -34,6 +35,7 @@ $app->get('/:user_id/groups', function($user_id)
         if($stmt->rowCount()==0)
         {
             $response["error"] = true;
+		    $response["errorId"] = 2; 
             $response["message"] = "No associated groups";
         }
         else
@@ -306,6 +308,9 @@ $app->post('/user/register',function() use ($app)
             if($conn->query("INSERT INTO users(email,password,full_name,gcm_reg_id) VALUES('$email','$pass_hash','$full_name','')")==TRUE)
             {
                 $response["error"]=false;
+                $response["user_id"]=$conn->lastInsertId();
+                $response["email"]=$email;
+                $response["full_name"]=$full_name;
                 $response["message"]="New user created";
             }
             else

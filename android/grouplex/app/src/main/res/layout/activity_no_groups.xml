@@ -21,13 +21,14 @@
             android:layout_marginTop="60dp"
             android:gravity="center_horizontal"
             android:textStyle="bold"
-            android:text="No Groups Found !!" />
+            android:textSize="20dp"
+            android:text="Welcome to Grouplex !!" />
 
         <Button
             android:id="@+id/button_dir_join_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="80dp"
             android:text="Join Group"
             android:onClick="joinGroup" />
 

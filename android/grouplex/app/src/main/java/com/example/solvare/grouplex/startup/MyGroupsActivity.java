@@ -108,7 +108,7 @@ public class MyGroupsActivity extends AppCompatActivity {
 
         if(jsonObj.getString("error").equalsIgnoreCase("true"))
         {
-            if(jsonObj.getString("message").equalsIgnoreCase("no associated groups"))
+            if(jsonObj.getInt("errorId")==2)
             {
                 setContentView(R.layout.activity_no_groups);
                 Button button_join = (Button) findViewById(R.id.button_dir_join_group);

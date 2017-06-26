@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,6 +42,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button buttonlogin;
     private TextView signup_page, forgot_password;
     private Boolean loggedin=false;
+    public static final int REQUEST_EXIT = 1;
     public static final String LOGIN_SUCCESS = "false";
     public static final String SHARED_PREF_NAME = "myloginapp";
     public static final String EMAIL_SHARED_PREF = "email";
@@ -69,6 +71,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         login_email.addTextChangedListener(new MyTextWatcher(login_email));
         login_password.addTextChangedListener(new MyTextWatcher(login_password));
     }
+
     public void onResume(){
         super.onResume();
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
@@ -78,6 +81,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             startActivity(intent);
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == REQUEST_EXIT) {
+            if (resultCode == RESULT_OK) {
+                this.finish();
+
+            }
+        }
+    }
+
     @Override
     public void onClick(View v) {
         if(v==buttonlogin) login();
@@ -88,7 +103,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void signup()
     {
         Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_EXIT);
     }
 
     public void forgot()
@@ -112,7 +127,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         }
 
-        final String response_mssg = null;
         final String email= login_email.getText().toString().trim();
         final String password = login_password.getText().toString();
 
@@ -120,9 +134,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        String finalresponse_mssg= response_mssg;
-                        try {
 
+                        try {
+                            String finalresponse_mssg;
                             JSONObject jsonObject = new JSONObject(response);
                             finalresponse_mssg =jsonObject.getString("error");
                             Toast.makeText(getApplicationContext(),jsonObject.getString("message"),Toast.LENGTH_LONG).show();

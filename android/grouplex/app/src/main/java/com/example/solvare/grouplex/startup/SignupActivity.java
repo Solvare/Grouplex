@@ -37,6 +37,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     private TextInputLayout inputLayoutName, inputLayoutEmail, inputLayoutPassword, inputLayoutConfPassword;
     private EditText signup_fullName, signup_email, signup_password, signup_confPassword;
     private Button buttonRegister;
+    public static final String LOGIN_SUCCESS = "false";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,9 +91,21 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onResponse(String response) {
                         try {
+                            String finalresponse_mssg;
                             JSONObject jsonObject = new JSONObject(response);
-                            Toast.makeText(getApplicationContext(),jsonObject.getString("message"),Toast.LENGTH_LONG).show();
-                        } catch (JSONException e) {
+                            finalresponse_mssg = jsonObject.getString("error");
+                            Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
+                            if (finalresponse_mssg.equalsIgnoreCase(LOGIN_SUCCESS)) {
+                                SharedPrefManager.getInstance(getApplicationContext()).userLogin(jsonObject.getString("email")
+                                        , jsonObject.getString("full_name"), jsonObject.getString("user_id")
+                                );
+                                Intent intent = new Intent(SignupActivity.this, MyGroupsActivity.class);
+                                startActivity(intent);
+                                setResult(RESULT_OK, null);
+                                finish();
+                            }
+                        }
+                        catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
