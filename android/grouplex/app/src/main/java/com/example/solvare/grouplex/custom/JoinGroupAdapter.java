@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +53,7 @@ public class JoinGroupAdapter extends RecyclerView.Adapter<JoinGroupAdapter.MyVi
 
         public void setData(JoinGroup groups,int position){
             this.name.setText(groups.getNames().get(position));
+            Log.d("SIZRAJAT", Integer.toString(mData.size()));
             this.members.setText(groups.getMembers().get(position) + " members");
             this.position=position;
             this.groups=groups;

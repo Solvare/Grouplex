@@ -159,8 +159,8 @@ public class MyGroupsActivity extends AppCompatActivity {
                 groups.s_setNumMembers(groups.getNumMembers().get(i));
                 dataList.add(groups);
             }
-            int size = dataList.size();
-            Log.d("SIZE", Integer.toString(size));
+            //int size = dataList.size();
+            //Log.d("SIZE", Integer.toString(size));
             adapter = new MyGroupsAdapter(this, getData(dataList));
             recyclerView.setAdapter(adapter);
         }

@@ -20,7 +20,8 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_first);finish();
+        setContentView(R.layout.activity_first);
+        finish();
         if(SharedPrefManager.getInstance(this).isLoggedIn()){
             finish();
             startActivity(new Intent(this,MyGroupsActivity.class));

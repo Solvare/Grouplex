@@ -29,6 +29,7 @@ public class Urls {
 
     public static final String ROOT_URL="http://grouplex.esy.es/api/v1/";
 
+    public static final String URL_READ_MESSAGE=ROOT_URL+"1/messages";
     public static final String URL_REGISTER=ROOT_URL+"user/register";
     public static final String URL_LOGIN=ROOT_URL+"user/login";
     public static final String URL_CREATE_GROUP=ROOT_URL+"creategroup";

@@ -6,6 +6,7 @@ import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +61,8 @@ public class MyGroupsAdapter extends RecyclerView.Adapter<MyGroupsAdapter.MyView
 
         public void setData(MyGroups groups,int position){
             this.groupname.setText(groups.get_groupnames().get(position));
+            Log.d("Messages",groups.get_groupnames().get(position));
+
             this.level.setText(groups.getLevel().get(position));
             this.num_members.setText(groups.getNumMembers().get(position));
             this.position=position;
