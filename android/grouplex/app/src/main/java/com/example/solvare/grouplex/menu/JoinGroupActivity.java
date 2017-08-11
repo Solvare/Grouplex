@@ -48,8 +48,8 @@ public class JoinGroupActivity extends AppCompatActivity{
         final ArrayList<String> arrayListMem = new ArrayList<>();
         SharedPreferences sharedPreferences =getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         final String uid=sharedPreferences.getString(KEY_ID,null);
-        final String URL_SEARCH=Urls.ROOT_URL+"/search/"+uid;
-        StringRequest stringRequest = new StringRequest(URL_SEARCH,
+        Urls url = new Urls(this);
+        StringRequest stringRequest = new StringRequest(url.URL_SEARCH,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

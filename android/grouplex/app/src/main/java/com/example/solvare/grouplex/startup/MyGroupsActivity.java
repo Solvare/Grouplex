@@ -71,10 +71,13 @@ public class MyGroupsActivity extends AppCompatActivity {
     }
 
     private void setUpRecyclerView() {
-        SharedPreferences sharedPreferences =getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
-        String id=sharedPreferences.getString(KEY_ID,null);
-        final String URL_GROUPS=Urls.ROOT_URL+id+"/groups";
-        StringRequest stringRequest = new StringRequest(URL_GROUPS,
+
+        //SharedPreferences sharedPreferences =getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
+        //String id=sharedPreferences.getString(KEY_ID,null);
+        //final String URL_GROUPS=Urls.ROOT_URL+id+"/groups";
+
+        Urls url = new Urls(this);
+        StringRequest stringRequest = new StringRequest(url.URL_GROUPS,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
