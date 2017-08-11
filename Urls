@@ -1,0 +1,9 @@
+GET:/(user-id)/groups
+GET:/(group-id)/messages
+GET:/(group-id)/members
+POST:/(group-id)/(user-id)/post
+GET:/search/query
+
+Url Schema:http://127.0.0.1/grouplex/api/v1
+
+
