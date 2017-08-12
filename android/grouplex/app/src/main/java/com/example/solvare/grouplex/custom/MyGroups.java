@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class MyGroups {
 
-    private ArrayList<String> ids;
+    public ArrayList<String> ids;
     private String id;
     private ArrayList<String> level;
     private ArrayList<MyGroups> groups;
@@ -33,39 +33,7 @@ public class MyGroups {
     public void setId(String id) {
         this.id = id;
     }
-/*public ArrayList<String> getLevel() {
 
-        return level;
-    }
-    public void setLevel(ArrayList<String> level){
-
-        this.level=level;
-    }
-    public ArrayList<String> get_groupnames(){
-
-        return group_name;
-    }
-    public void set_groupnames(ArrayList<String> group_name){
-
-        this.group_name=group_name;
-    }*/
-
-
-
-    /*public int getImageID() {
-        return imageID;
-    }
-
-    public void setImageID(int imageID) {
-        this.imageID = imageID;
-    }
-
-    public ArrayList<String> getgroup_names(){
-        return  group_name;
-    }
-    public void setgroup_names(ArrayList<String> group_name){
-        this.group_name=group_name;
-    }*/
     public ArrayList<MyGroups> getGroups() {
 
         return groups;

@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.solvare.grouplex.R;
+import com.example.solvare.grouplex.constant.Urls;
+import com.example.solvare.grouplex.startup.MyGroupsActivity;
 
 public class MyGroupsAdapter extends RecyclerView.Adapter<MyGroupsAdapter.MyViewHolder> {
 
@@ -70,10 +72,16 @@ public class MyGroupsAdapter extends RecyclerView.Adapter<MyGroupsAdapter.MyView
         }
         @Override
         public void onClick(View v){
+
             int position =getAdapterPosition();
             MyGroups groups=this.mData.get(position);
             Intent intent = new Intent(this.ctx,MessageDetails.class);
+            Log.d("position1",Integer.toString(Integer.parseInt(groups.getIds().get(position))));
+            int groupId=Integer.parseInt(groups.getIds().get(position));
+            intent.putExtra("integerValue",groupId);
             this.ctx.startActivity(intent);
+            Urls url = new Urls();
+            url.setGroupId(groupId);
 
         }
     }

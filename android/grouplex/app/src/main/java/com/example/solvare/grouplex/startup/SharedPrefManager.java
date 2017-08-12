@@ -20,6 +20,7 @@ public class SharedPrefManager {
     public static final String KEY_EMAIL = "email";
     public static final String KEY_ID = "user_id";
     public static final String KEY_USERNAME = "full_name";
+    public static final String KEY_GROUPID = "group_id";
 
     private SharedPrefManager(Context context) {
         mCtx = context;

@@ -24,6 +24,7 @@ import com.android.volley.toolbox.StringRequest;
 
 import com.example.solvare.grouplex.R;
 import com.example.solvare.grouplex.constant.Urls;
+import com.example.solvare.grouplex.custom.MessageDetails;
 import com.example.solvare.grouplex.custom.MyGroupsAdapter;
 import com.example.solvare.grouplex.custom.MyGroups;
 import com.example.solvare.grouplex.menu.JoinGroupNewActivity;
@@ -47,6 +48,7 @@ public class MyGroupsActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
+    public ArrayList<String> ids= new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,13 +71,10 @@ public class MyGroupsActivity extends AppCompatActivity {
 
         );
         setUpRecyclerView();
+
     }
 
     private void setUpRecyclerView() {
-
-        //SharedPreferences sharedPreferences =getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
-        //String id=sharedPreferences.getString(KEY_ID,null);
-        //final String URL_GROUPS=Urls.ROOT_URL+id+"/groups";
 
         Urls url = new Urls(this);
         StringRequest stringRequest = new StringRequest(url.URL_GROUPS,
@@ -105,12 +104,12 @@ public class MyGroupsActivity extends AppCompatActivity {
     private void parseData(String jsonStr) throws JSONException {
 
         ArrayList<MyGroups> dataList = new ArrayList<>();
-        //ArrayList<String> ids= new ArrayList<>();
+        //ArrayList<String> id = new ArrayList<>();
         ArrayList<String> names = new ArrayList<String>();
         ArrayList<String> levels = new ArrayList<String>();
         ArrayList<String> num_members = new ArrayList<String>();
         JSONObject jsonObj = new JSONObject(jsonStr);
-
+        //Log.d("rishabh",jsonStr);
         if(jsonObj.getString("error").equalsIgnoreCase("true"))
         {
             if(jsonObj.getInt("errorId")==2)
@@ -137,34 +136,25 @@ public class MyGroupsActivity extends AppCompatActivity {
             JSONArray jsonarray = jsonObj.getJSONArray("groups");
             for (int i = 0; i < jsonarray.length(); i++) {
                 JSONObject jsonobject = jsonarray.getJSONObject(i);
-                //ids.add(jsonobject.getString("id"));
+                ids.add(jsonobject.getString("id"));
                 names.add(jsonobject.getString("name"));
                 levels.add(jsonobject.getString("level"));
                 num_members.add(jsonobject.getString("members"));
             }
-            //groups.setIds(ids);
+            groups.setIds(ids);
             groups.set_groupnames(names);
             groups.setLevel(levels);
             groups.setNumMembers(num_members);
-            /*String[] level = new String[members.getLevel().size()];
-            String[] groupsNames = new String[members.get_groupnames().size()];
 
-            for (int i = 0; i < members.getLevel().size(); i++) {
-
-                level[i] = members.getLevel().get(i);
-            }
-            for (int i = 0; i < members.get_groupnames().size(); i++) {
-                groupsNames[i] = members.get_groupnames().get(i);
-            }*/
             for (int i = 0; i < groups.get_groupnames().size(); i++) {
 
                 groups.s_set_groupnames(groups.get_groupnames().get(i));
                 groups.s_setLevel(groups.getLevel().get(i));
                 groups.s_setNumMembers(groups.getNumMembers().get(i));
+                groups.setId(groups.getIds().get(i));
                 dataList.add(groups);
             }
-            //int size = dataList.size();
-            //Log.d("SIZE", Integer.toString(size));
+            //Log.d("Elements", ids.get(0));
             adapter = new MyGroupsAdapter(this, getData(dataList));
             recyclerView.setAdapter(adapter);
         }
@@ -175,16 +165,6 @@ public class MyGroupsActivity extends AppCompatActivity {
         dataList = list;
         return dataList;
     }
-
-    /*
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            logout();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-    */
 
     private void logout() {
         //Creating an alert dialog to confirm logout
