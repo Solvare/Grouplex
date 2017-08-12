@@ -31,7 +31,7 @@ $app->get('/:user_id/groups', function($user_id)
     }
     else
     {
-        $stmt = $conn->query("SELECT group_name,admin_id,image FROM master,groups WHERE master.user_id = $user_id AND groups.group_id = master.group_id");
+        $stmt = $conn->query("SELECT groups.group_id,group_name,admin_id,image FROM master,groups WHERE master.user_id = $user_id AND groups.group_id = master.group_id");
         if($stmt->rowCount()==0)
         {
             $response["error"] = true;
@@ -43,11 +43,12 @@ $app->get('/:user_id/groups', function($user_id)
             $response["error"] = false;
             $response["groups"] = array();
             foreach($stmt as $row)
-            {
-                $gname = $row['group_name'];
+            {	                
+		$gname = $row['group_name'];
                 $members = $conn->query("SELECT count(user_id) AS members FROM master WHERE group_id IN (SELECT group_id FROM groups WHERE group_name='$gname')");
                 $tmp = array();
-                $tmp["name"] = $row["group_name"];
+		$tmp["id"] = $row["group_id"];                
+		$tmp["name"] = $row["group_name"];
                 $tmp["level"] = ($user_id == $row["admin_id"] ? "admin" : "member");
                 $tmp["members"] = $members->fetch()['members'];
                 //$tmp["image"] = "http://"."$_SERVER[HTTP_HOST]"."/grouplex/api/images/".$row["image"];
@@ -663,6 +664,33 @@ $app->post('/update/upass', function() use($app) {
     $conn = null;
     $user_exist = null;
     $query = null;
+    echoRespnse(200, $response);
+});
+
+
+/*------------------------------------------------------------------------------------*/
+//  14. Send OTP
+/*------------------------------------------------------------------------------------*/
+
+$app->get('/otp', function() {
+          
+                
+    $db = new DbConnect();
+    $conn = $db->connect();
+
+    //$user_email = $app->request->post('user_email');
+
+    $response = array();
+	
+	// The message
+	$message = "Line 1\r\nLine 2\r\nLine 3";
+
+	// In case any of our lines are larger than 70 characters, we should use wordwrap()
+	$message = wordwrap($message, 70, "\r\n");
+
+	// Send
+	mail('sunny0rajat@gmail.com', 'My Subject', $message);    
+
     echoRespnse(200, $response);
 });
 
