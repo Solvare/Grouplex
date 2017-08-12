@@ -1,5 +1,6 @@
 package com.example.solvare.grouplex.startup;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -104,6 +105,7 @@ public class MyGroupsActivity extends AppCompatActivity {
     private void parseData(String jsonStr) throws JSONException {
 
         ArrayList<MyGroups> dataList = new ArrayList<>();
+        //ArrayList<String> ids= new ArrayList<>();
         ArrayList<String> names = new ArrayList<String>();
         ArrayList<String> levels = new ArrayList<String>();
         ArrayList<String> num_members = new ArrayList<String>();
@@ -135,10 +137,12 @@ public class MyGroupsActivity extends AppCompatActivity {
             JSONArray jsonarray = jsonObj.getJSONArray("groups");
             for (int i = 0; i < jsonarray.length(); i++) {
                 JSONObject jsonobject = jsonarray.getJSONObject(i);
+                //ids.add(jsonobject.getString("id"));
                 names.add(jsonobject.getString("name"));
                 levels.add(jsonobject.getString("level"));
                 num_members.add(jsonobject.getString("members"));
             }
+            //groups.setIds(ids);
             groups.set_groupnames(names);
             groups.setLevel(levels);
             groups.setNumMembers(num_members);

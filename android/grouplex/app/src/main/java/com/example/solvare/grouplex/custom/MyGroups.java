@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 public class MyGroups {
 
+    private ArrayList<String> ids;
+    private String id;
     private ArrayList<String> level;
     private ArrayList<MyGroups> groups;
     private String s_level;
@@ -16,7 +18,22 @@ public class MyGroups {
     private ArrayList<String> num_members;
     private String s_num_members;
 
-    /*public ArrayList<String> getLevel() {
+    public ArrayList<String> getIds() {
+        return ids;
+    }
+
+    public void setIds(ArrayList<String> ids) {
+        this.ids = ids;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+/*public ArrayList<String> getLevel() {
 
         return level;
     }

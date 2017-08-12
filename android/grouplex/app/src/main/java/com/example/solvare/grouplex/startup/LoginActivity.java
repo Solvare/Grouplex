@@ -1,5 +1,6 @@
 package com.example.solvare.grouplex.startup;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -130,6 +131,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         final String email= login_email.getText().toString().trim();
         final String password = login_password.getText().toString();
 
+        final ProgressDialog progress = new ProgressDialog(this);
+        progress.setTitle("Loading");
+        progress.setMessage("Wait while loading...");
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.show();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.URL_LOGIN,
                 new Response.Listener<String>() {
                     @Override
@@ -139,8 +145,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             String finalresponse_mssg;
                             JSONObject jsonObject = new JSONObject(response);
                             finalresponse_mssg =jsonObject.getString("error");
-                            Toast.makeText(getApplicationContext(),jsonObject.getString("message"),Toast.LENGTH_LONG).show();
+
+                            //Toast.makeText(getApplicationContext(),jsonObject.getString("message"),Toast.LENGTH_LONG).show();
                             if(finalresponse_mssg.equalsIgnoreCase(LOGIN_SUCCESS)){
+                                progress.dismiss();
                                 SharedPrefManager.getInstance(getApplicationContext()).userLogin(jsonObject.getString("email")
                                         ,jsonObject.getString("full_name"),jsonObject.getString("user_id")
                                 );
@@ -148,7 +156,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 startActivity(intent);
                                 finish();
                             }else{
-                                Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_LONG).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

@@ -1,5 +1,6 @@
 package com.example.solvare.grouplex.custom;
 
+import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -47,11 +48,17 @@ public class MessageDetails extends AppCompatActivity {
     }
     private void setUpRecyclerView(){
         Urls url = new Urls(this);
+        final ProgressDialog progress = new ProgressDialog(this);
+        progress.setTitle("Loading");
+        progress.setMessage("Wait while loading...");
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.show();
         StringRequest stringRequest = new StringRequest(url.URL_READ_MESSAGE,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
+                            progress.dismiss();
                             parseData(response);
                         } catch (JSONException e) {
                             e.printStackTrace();
