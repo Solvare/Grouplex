@@ -22,8 +22,6 @@ public class Urls {
     public String URL_READ_MESSAGE;
     public static int groupId;
 
-
-
     public Urls(){
     }
 
@@ -55,4 +53,5 @@ public class Urls {
     public static final String URL_JOIN_GROUP=ROOT_URL+"joingroup";
     public static final String URL_CHANGE_NAME=ROOT_URL+"update/uname";
     public static final String URL_CHANGE_PASS=ROOT_URL+"update/upass";
+    public static final String URL_POST_MESSAGE=ROOT_URL+"/message";
 }
