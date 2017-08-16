@@ -41,12 +41,14 @@ public class Urls {
         Urls.groupId = groupId;
     }
     public String readUrl(){
-        URL_READ_MESSAGE="http://192.168.43.140:8081/api/v1/"+getGroupId()+"/messages";
+        //URL_READ_MESSAGE="http://192.168.43.140:8081/api/v1/"+getGroupId()+"/messages";
+        URL_READ_MESSAGE="http://grouplex.000webhostapp.com/api/v1/"+getGroupId()+"/messages";
         return URL_READ_MESSAGE;
     }
 
+    public static final String ROOT_URL="http://grouplex.000webhostapp.com/api/v1/";
     //public static final String ROOT_URL="http://grouplex.esy.es/api/v1/";
-    public static final String ROOT_URL="http://192.168.43.140:8081/api/v1/";
+    //public static final String ROOT_URL="http://192.168.43.140:8081/api/v1/";
     public static final String URL_REGISTER=ROOT_URL+"user/register";
     public static final String URL_LOGIN=ROOT_URL+"user/login";
     public static final String URL_CREATE_GROUP=ROOT_URL+"creategroup";

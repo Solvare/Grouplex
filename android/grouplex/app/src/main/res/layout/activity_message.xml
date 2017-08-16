@@ -31,22 +31,7 @@
                 android:padding="16dp"
                 android:text="Steve Jobs co-founded Apple Computers with Steve Wozniak. Under Jobs' guidance, the company pioneered a series of revolutionary technologies, including the iPhone and iPad."
                 android:textColor="#000" />
-            <!--ImageView
-                android:id="@+id/imageView11"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="-15dp"
-                android:layout_marginTop="6.5dp"
-                android:layout_weight="1"
-                android:src="@drawable/arrow_bg1" />
 
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="0dp"
-                android:layout_weight="3"
-                android:src="@drawable/rajat" /-->
         </LinearLayout>
 
     </RelativeLayout>

@@ -122,6 +122,7 @@ public class MessageDetails extends AppCompatActivity implements View.OnClickLis
             Log.d("MYTAG",Integer.toString(dataList.size()));
             adapter = new MessagesAdapter(this, getData(dataList));
             recyclerView.setAdapter(adapter);
+            recyclerView.scrollToPosition(dataList.size()-1);
 
         }
     }
