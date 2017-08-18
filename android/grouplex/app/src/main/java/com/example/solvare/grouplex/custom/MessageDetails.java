@@ -57,6 +57,9 @@ public class MessageDetails extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_messages);
 
+        Bundle extras = getIntent().getExtras();
+        this.setTitle(extras.getString("groupName"));
+
         post=(ImageButton)findViewById(R.id.post);
         post.setOnClickListener(this);
         message=(EditText)findViewById(R.id.message);

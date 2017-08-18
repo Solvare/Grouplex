@@ -1,5 +1,6 @@
 package com.example.solvare.grouplex.menu;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -59,10 +60,16 @@ public class CreateGroupActivity extends AppCompatActivity implements View.OnCli
         SharedPreferences sharedPreferences =getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         final String user_id=sharedPreferences.getString(KEY_ID,null);
 
+        final ProgressDialog progress = new ProgressDialog(this);
+        progress.setMessage("Creating...");
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.show();
+
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.URL_CREATE_GROUP,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        progress.dismiss();
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             Toast.makeText(getApplicationContext(),jsonObject.getString("message"),Toast.LENGTH_LONG).show();

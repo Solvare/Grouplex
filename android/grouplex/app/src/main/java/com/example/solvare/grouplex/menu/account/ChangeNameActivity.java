@@ -1,5 +1,6 @@
 package com.example.solvare.grouplex.menu.account;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.design.widget.TextInputLayout;
@@ -66,10 +67,16 @@ public class ChangeNameActivity extends AppCompatActivity {
     final String user_id = sharedPreferences.getString(KEY_ID, null);
     final String finalFull_name = new_name.getText().toString().trim();
 
+        final ProgressDialog progress = new ProgressDialog(this);
+        progress.setMessage("Updating...");
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.show();
+
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.URL_CHANGE_NAME,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        progress.dismiss();
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             if (jsonObject.getString("error").equalsIgnoreCase("false")) {

@@ -1,5 +1,6 @@
 package com.example.solvare.grouplex.menu;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -49,10 +50,17 @@ public class JoinGroupActivity extends AppCompatActivity{
         SharedPreferences sharedPreferences =getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         final String uid=sharedPreferences.getString(KEY_ID,null);
         Urls url = new Urls(this);
+
+        final ProgressDialog progress = new ProgressDialog(this);
+        progress.setMessage("Loading...");
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.show();
+
         StringRequest stringRequest = new StringRequest(url.URL_SEARCH,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        progress.dismiss();
                         try {
                             JSONObject jsonObj = new JSONObject(response);
                             JSONArray jsonarray = jsonObj.getJSONArray("groups");
@@ -128,10 +136,16 @@ public class JoinGroupActivity extends AppCompatActivity{
 
     void addGroup(final String gr_id, final String us_id)
     {
+        final ProgressDialog progress = new ProgressDialog(this);
+        progress.setMessage("Joining...");
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.show();
+
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.URL_JOIN_GROUP,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        progress.dismiss();
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             Toast.makeText(getApplicationContext(),jsonObject.getString("message"),Toast.LENGTH_LONG).show();

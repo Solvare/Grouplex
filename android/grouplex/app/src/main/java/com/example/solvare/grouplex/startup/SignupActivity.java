@@ -1,6 +1,7 @@
 package com.example.solvare.grouplex.startup;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -37,7 +38,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     private TextInputLayout inputLayoutName, inputLayoutEmail, inputLayoutPassword, inputLayoutConfPassword;
     private EditText signup_fullName, signup_email, signup_password, signup_confPassword;
     private Button buttonRegister;
-    public static final String LOGIN_SUCCESS = "false";
+    public static final String SIGNUP_SUCCESS = "false";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +87,11 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         final String finalEmail = signup_email.getText().toString().trim();
         final String finalPassword = signup_password.getText().toString();
 
+        final ProgressDialog progress = new ProgressDialog(this);
+        progress.setMessage("Signing-Up...");
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.show();
+
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.URL_REGISTER,
                 new Response.Listener<String>() {
                     @Override
@@ -95,7 +101,8 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                             JSONObject jsonObject = new JSONObject(response);
                             finalresponse_mssg = jsonObject.getString("error");
                             Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
-                            if (finalresponse_mssg.equalsIgnoreCase(LOGIN_SUCCESS)) {
+                            if (finalresponse_mssg.equalsIgnoreCase(SIGNUP_SUCCESS)) {
+                                progress.dismiss();
                                 SharedPrefManager.getInstance(getApplicationContext()).userLogin(jsonObject.getString("email")
                                         , jsonObject.getString("full_name"), jsonObject.getString("user_id")
                                 );

@@ -1,4 +1,4 @@
-Sending Admin
+Sending only by Admin
 Email,Forgot Password
 Errors
 Security Api(Private Urls,client validation)
@@ -12,7 +12,9 @@ Welcoming Screen
 Multiple Taps error 
 DB foreign key connections
 Coloring,Material Desiign 
-
+Put mail api in v1 folder/inside index.php/create .htacess for send_mail.php to remove .php from URL
+Refresh MyGroups' Recycler view data on back button to MyGroups
+Chat Activity UI problems (2)
 --------------------------------------
 user_id more dynamic
 group icon
