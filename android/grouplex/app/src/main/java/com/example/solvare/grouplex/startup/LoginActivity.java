@@ -132,6 +132,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         final String password = login_password.getText().toString();
 
         final ProgressDialog progress = new ProgressDialog(this);
+        //progress.setTitle("Loading");
         progress.setMessage("Logging-In...");
         progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
         progress.show();
@@ -140,7 +141,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
+                        progress.dismiss();
                         try {
                             String finalresponse_mssg;
                             JSONObject jsonObject = new JSONObject(response);
@@ -148,7 +149,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                             Toast.makeText(getApplicationContext(),jsonObject.getString("message"),Toast.LENGTH_LONG).show();
                             if(finalresponse_mssg.equalsIgnoreCase(LOGIN_SUCCESS)){
-                                progress.dismiss();
                                 SharedPrefManager.getInstance(getApplicationContext()).userLogin(jsonObject.getString("email")
                                         ,jsonObject.getString("full_name"),jsonObject.getString("user_id")
                                 );

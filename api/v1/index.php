@@ -35,7 +35,7 @@ $app->get('/:user_id/groups', function($user_id)
         if($stmt->rowCount()==0)
         {
             $response["error"] = true;
-		    $response["errorId"] = 2; 
+			$response["errorId"] = 2; 
             $response["message"] = "No associated groups";
         }
         else
@@ -672,28 +672,149 @@ $app->post('/update/upass', function() use($app) {
 //  14. Send OTP
 /*------------------------------------------------------------------------------------*/
 
-$app->get('/otp', function() {
+$app->post('/otp/send', function() use($app) {
           
-                
-    $db = new DbConnect();
+	$db = new DbConnect();
     $conn = $db->connect();
-
-    //$user_email = $app->request->post('user_email');
-
-    $response = array();
 	
-	// The message
-	$message = "Line 1\r\nLine 2\r\nLine 3";
-
-	// In case any of our lines are larger than 70 characters, we should use wordwrap()
-	$message = wordwrap($message, 70, "\r\n");
-
-	// Send
-	mail('sunny0rajat@gmail.com', 'My Subject', $message);    
+	$response = array();
+	
+    $email = $app->request->post('email');
+	
+    $user_exist=$conn->query("select user_id from users where email='$email'");
+    
+	if($user_exist->rowCount()>0)
+    {
+		$uid = $user_exist->fetch()['user_id'];
+		$otp = mt_rand(100001,999999);        
+		$query = $conn->query("UPDATE users SET otp=$otp WHERE user_id=$uid");
+       
+        if($query->rowCount()==1){
+			$query_name = $conn->query("SELECT full_name FROM users WHERE user_id=$uid");
+			$name = $query_name->fetch()['full_name'];						
+			require dirname(__FILE__) . '../../include/send_mail.php';
+			if(!$mail->send())
+			{
+				$response["error"] = true;
+				$response["message"] = "Email could not be sent";	    
+				//echo 'Mailer Error: ' . $mail->ErrorInfo;
+			}
+			else
+			{
+			 	$response["error"] = false;
+				$response["message"] = "Email sent";
+				$response["user_id"] = $uid;
+			}
+        }
+        else
+		{
+            $response["error"]=true;
+            $response["message"]="some problem occured";
+        }
+    }
+    else
+	{
+        $response["error"]=true;
+        $response["message"]="user does not exist";
+    }
+    $conn = null;
+    $user_exist = null;
+    $query = null;
+	$query_name = null;
 
     echoRespnse(200, $response);
 });
 
+
+/*------------------------------------------------------------------------------------*/
+//  15.  OTP Password Change
+/*------------------------------------------------------------------------------------*/
+
+$app->post('/otp/password', function() use($app) {
+          
+	$db = new DbConnect();
+    $conn = $db->connect();
+
+    $otp = $app->request->post('otp');
+	$uid = $app->request->post('uid');
+	$new_pass = $app->request->post('new_pass');
+	
+    $user_exist=$conn->query("select user_id from users where user_id=$uid AND otp=$otp");
+    
+	if($user_exist->rowCount()>0)
+    {
+		$otp = mt_rand(100001,999999);        
+		$query = $conn->query("UPDATE users SET otp=$otp WHERE user_id=$uid");
+       
+        if($query->rowCount()==1)
+		{
+			$pass_hash = PassHash::hash($new_pass);
+            $query_pass = $conn->query("UPDATE users SET password = '$pass_hash' where user_id=$uid");						
+			$response["error"]=false;
+            $response["message"]="password successfully changed";   
+        }
+        else
+		{
+            $response["error"]=true;
+            $response["message"]="some problem occured";
+        }
+    }
+	
+    else{
+        $response["error"]=true;
+        $response["message"]="OTP Incorrect";
+    }
+    $conn = null;
+    $user_exist = null;
+    $query = null;
+	$query_pass = null;
+
+    echoRespnse(200, $response);
+});
+
+/*------------------------------------------------------------------------------------*/
+//  16.  OTP Email Verification
+/*------------------------------------------------------------------------------------*/
+
+$app->post('/otp/email', function() use($app) {
+          
+	$db = new DbConnect();
+    $conn = $db->connect();
+
+    $otp = $app->request->post('otp');
+	$uid = $app->request->post('uid');
+	
+    $user_exist=$conn->query("select user_id from users where user_id=$uid AND otp=$otp");
+    
+	if($user_exist->rowCount()>0)
+    {
+		$otp = mt_rand(100001,999999);        
+		$query = $conn->query("UPDATE users SET otp=$otp WHERE user_id=$uid");
+       
+        if($query->rowCount()==1)
+		{
+			$query_verify = $conn->query("UPDATE users SET verified = 1 WHERE user_id=$uid");						
+			$response["error"]=false;
+            $response["message"]="email verified";   
+        }
+        else
+		{
+            $response["error"]=true;
+            $response["message"]="some problem occured";
+        }
+    }
+	
+    else{
+        $response["error"]=true;
+        $response["message"]="OTP incorrect";
+    }
+    $conn = null;
+    $user_exist = null;
+    $query = null;
+	$query_verify = null;
+
+    echoRespnse(200, $response);
+});
 
 
 /**

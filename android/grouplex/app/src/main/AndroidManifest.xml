@@ -133,6 +133,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".startup.MyGroupsActivity" />
         </activity>
+        <activity android:name=".startup.OtpPasswordActivity"
+            android:label="Change Password"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".startup.ForgotPasswordActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -1,3 +1,4 @@
+git-ignore send_mail.php
 Sending only by Admin
 Email,Forgot Password
 Errors

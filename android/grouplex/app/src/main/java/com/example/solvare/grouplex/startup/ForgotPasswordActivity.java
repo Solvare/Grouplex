@@ -1,5 +1,6 @@
 package com.example.solvare.grouplex.startup;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -11,8 +12,21 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.example.solvare.grouplex.R;
+import com.example.solvare.grouplex.constant.Urls;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
 
@@ -45,6 +59,49 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         }
 
         final String finalEmail = fp_email.getText().toString().trim();
+
+        final ProgressDialog progress = new ProgressDialog(this);
+        progress.setMessage("Sending OTP...");
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.show();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.URL_OTP_SEND,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        progress.dismiss();
+                        try {
+                            String finalresponse_mssg;
+                            JSONObject jsonObject = new JSONObject(response);
+                            finalresponse_mssg =jsonObject.getString("error");
+
+                            Toast.makeText(getApplicationContext(),jsonObject.getString("message"),Toast.LENGTH_LONG).show();
+                            if(finalresponse_mssg.equalsIgnoreCase("false")){
+                                final String uid = jsonObject.getString("user_id");
+                                Intent intent = new Intent(ForgotPasswordActivity.this,OtpPasswordActivity.class);
+                                intent.putExtra("user_id",uid);
+                                startActivity(intent);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
+                    }
+                }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<>();
+                params.put("email", finalEmail);
+                return params;
+            }
+        };
+        RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
     }
 
     private boolean validateEmail() {

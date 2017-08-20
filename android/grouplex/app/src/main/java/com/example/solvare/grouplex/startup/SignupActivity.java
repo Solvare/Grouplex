@@ -96,13 +96,13 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        progress.dismiss();
                         try {
                             String finalresponse_mssg;
                             JSONObject jsonObject = new JSONObject(response);
                             finalresponse_mssg = jsonObject.getString("error");
                             Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
                             if (finalresponse_mssg.equalsIgnoreCase(SIGNUP_SUCCESS)) {
-                                progress.dismiss();
                                 SharedPrefManager.getInstance(getApplicationContext()).userLogin(jsonObject.getString("email")
                                         , jsonObject.getString("full_name"), jsonObject.getString("user_id")
                                 );

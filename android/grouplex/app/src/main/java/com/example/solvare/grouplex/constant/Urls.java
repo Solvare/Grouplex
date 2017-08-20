@@ -56,4 +56,7 @@ public class Urls {
     public static final String URL_CHANGE_NAME=ROOT_URL+"update/uname";
     public static final String URL_CHANGE_PASS=ROOT_URL+"update/upass";
     public static final String URL_POST_MESSAGE=ROOT_URL+"/message";
+    public static final String URL_OTP_SEND=ROOT_URL+"/otp/send";
+    public static final String URL_OTP_PASS=ROOT_URL+"/otp/password";
+    public static final String URL_OTP_EMAIL=ROOT_URL+"/otp/email";
 }
