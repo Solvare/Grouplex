@@ -98,7 +98,6 @@
             android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -133,13 +132,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".startup.MyGroupsActivity" />
         </activity>
-        <activity android:name=".startup.OtpPasswordActivity"
+        <activity
+            android:name=".startup.OtpPasswordActivity"
             android:label="Change Password"
             android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".startup.ForgotPasswordActivity" />
         </activity>
+        <activity
+            android:name=".startup.OtpEmailActivity"
+            android:label="Email Verification"
+            android:windowSoftInputMode="stateHidden">
+    </activity>
     </application>
 
 </manifest>

@@ -1,42 +1,31 @@
-git-ignore send_mail.php
 Sending only by Admin
-Email,Forgot Password
-Errors
-Security Api(Private Urls,client validation)
-Network Delay[spinner]
+Email Verification
+Errors/Warnings Android Studio
+Security Api(Private Urls,server validation)
 refersh slide down
 Notification
 Private keyword
 Group Icon
-Back Button,Group Name
-Welcoming Screen
-Multiple Taps error 
-DB foreign key connections
-Coloring,Material Desiign 
-Put mail api in v1 folder/inside index.php/create .htacess for send_mail.php to remove .php from URL
+Back Button problem(told by Varun, Sarthak)
 Refresh MyGroups' Recycler view data on back button to MyGroups
+Welcoming Screen 
+DB foreign key connections
+Coloring,Material Desiign
 Chat Activity UI problems (2)
+Unverifed user can do nothing eg.: join or create group (API update)
+Partition api file(1000 lines !!)
+Mail through ssl (not tls)
+
 --------------------------------------
+
 user_id more dynamic
 group icon
-posting of message 
-search group
-forgot password 
-Email confirmation 
-Group Settings - Change Group Name, Show Group ID, About Group, Exit Group
-Notification
+Group Settings - Change Group Name, Show Group ID, About Group, Exit Group, show Group members
 Firebase
-Group member
 Security (private urls)
 Validation - Server
 All strings in string.xml
 Remove all warnings
-CHECK public vs private vs final in all variable names.
 Logs
 SQLite
-Material Design
-Coloring
-Spinners(like gbuonline, whatsapp{updating...})
-After Sign-up, redirect to MyGroups
 Comments !!!
-DB foreign key connections

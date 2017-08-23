@@ -32,13 +32,14 @@ import java.util.Map;
 
 import com.example.solvare.grouplex.R;
 import com.example.solvare.grouplex.constant.Urls;
+import com.example.solvare.grouplex.custom.SendOtp;
 
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener{
 
     private TextInputLayout inputLayoutName, inputLayoutEmail, inputLayoutPassword, inputLayoutConfPassword;
     private EditText signup_fullName, signup_email, signup_password, signup_confPassword;
     private Button buttonRegister;
-    public static final String SIGNUP_SUCCESS = "false";
+    public static final String SUCCESS = "false";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,12 +103,19 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                             JSONObject jsonObject = new JSONObject(response);
                             finalresponse_mssg = jsonObject.getString("error");
                             Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
-                            if (finalresponse_mssg.equalsIgnoreCase(SIGNUP_SUCCESS)) {
+                            if (finalresponse_mssg.equalsIgnoreCase(SUCCESS)) {
                                 SharedPrefManager.getInstance(getApplicationContext()).userLogin(jsonObject.getString("email")
-                                        , jsonObject.getString("full_name"), jsonObject.getString("user_id")
+                                        , jsonObject.getString("full_name"), jsonObject.getString("user_id"),jsonObject.getBoolean("verified")
                                 );
-                                Intent intent = new Intent(SignupActivity.this, MyGroupsActivity.class);
-                                startActivity(intent);
+                                if(jsonObject.getBoolean("verified")){
+                                    Intent intent = new Intent(SignupActivity.this,MyGroupsActivity.class);
+                                    startActivity(intent);
+                                }
+                                else{
+                                    SendOtp.send_mail(getApplicationContext(),jsonObject.getString("email"));
+                                    Intent intent = new Intent(SignupActivity.this,OtpEmailActivity.class);
+                                    startActivity(intent);
+                                }
                                 setResult(RESULT_OK, null);
                                 finish();
                             }

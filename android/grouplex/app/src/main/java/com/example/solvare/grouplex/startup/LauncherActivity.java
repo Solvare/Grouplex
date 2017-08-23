@@ -9,13 +9,18 @@ public class LauncherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        finish();
         if(SharedPrefManager.getInstance(this).isLoggedIn()){
-            startActivity(new Intent(this,MyGroupsActivity.class));
+            if(SharedPrefManager.getInstance(this).isVerified()) {
+                startActivity(new Intent(this,MyGroupsActivity.class));
+            }
+            else {
+                startActivity(new Intent(this,OtpEmailActivity.class));
+            }
         }
         else {
             startActivity(new Intent(this,LoginActivity.class));
         }
+        finish();
         return;
     }
 }

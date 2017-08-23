@@ -44,11 +44,11 @@ $app->get('/:user_id/groups', function($user_id)
             $response["groups"] = array();
             foreach($stmt as $row)
             {	                
-		$gname = $row['group_name'];
+				$gname = $row['group_name'];
                 $members = $conn->query("SELECT count(user_id) AS members FROM master WHERE group_id IN (SELECT group_id FROM groups WHERE group_name='$gname')");
                 $tmp = array();
-		$tmp["id"] = $row["group_id"];                
-		$tmp["name"] = $row["group_name"];
+				$tmp["id"] = $row["group_id"];                
+				$tmp["name"] = $row["group_name"];
                 $tmp["level"] = ($user_id == $row["admin_id"] ? "admin" : "member");
                 $tmp["members"] = $members->fetch()['members'];
                 //$tmp["image"] = "http://"."$_SERVER[HTTP_HOST]"."/grouplex/api/images/".$row["image"];
@@ -313,6 +313,7 @@ $app->post('/user/register',function() use ($app)
                 $response["email"]=$email;
                 $response["full_name"]=$full_name;
                 $response["message"]="New user created";
+                $response["verified"]=false;
             }
             else
             {
@@ -348,7 +349,7 @@ $app->post('/user/login',function() use ($app)
     }
     else
     {
-        $user_exist=$conn->query("select user_id,email,full_name,password as passhash from users where email='$email'");
+        $user_exist=$conn->query("select user_id,email,full_name,verified,password as passhash from users where email='$email'");
         if($user_exist->rowCount()==1)
         {                       
             $row = $user_exist->fetch();        
@@ -360,6 +361,7 @@ $app->post('/user/login',function() use ($app)
                 $response["user_id"]=(int)$row['user_id'];
                 $response["email"]=$row['email'];
                 $response["full_name"]=$row['full_name'];
+                $response["verified"]=(boolean)$row['verified'];
             }
             else
             {
@@ -681,17 +683,17 @@ $app->post('/otp/send', function() use($app) {
 	
     $email = $app->request->post('email');
 	
-    $user_exist=$conn->query("select user_id from users where email='$email'");
+    $user_exist=$conn->query("select user_id,full_name from users where email='$email'");
     
-	if($user_exist->rowCount()>0)
+	if($user_exist->rowCount()==1)
     {
-		$uid = $user_exist->fetch()['user_id'];
+    	$row = $user_exist->fetch();
+		$uid = $row['user_id'];
 		$otp = mt_rand(100001,999999);        
 		$query = $conn->query("UPDATE users SET otp=$otp WHERE user_id=$uid");
        
         if($query->rowCount()==1){
-			$query_name = $conn->query("SELECT full_name FROM users WHERE user_id=$uid");
-			$name = $query_name->fetch()['full_name'];						
+			$name = $row['full_name'];						
 			require dirname(__FILE__) . '../../include/send_mail.php';
 			if(!$mail->send())
 			{
@@ -720,7 +722,6 @@ $app->post('/otp/send', function() use($app) {
     $conn = null;
     $user_exist = null;
     $query = null;
-	$query_name = null;
 
     echoRespnse(200, $response);
 });
@@ -741,36 +742,40 @@ $app->post('/otp/password', function() use($app) {
 	
     $user_exist=$conn->query("select user_id from users where user_id=$uid AND otp=$otp");
     
-	if($user_exist->rowCount()>0)
+	if($user_exist->rowCount()==1)
     {
-		$otp = mt_rand(100001,999999);        
-		$query = $conn->query("UPDATE users SET otp=$otp WHERE user_id=$uid");
-       
-        if($query->rowCount()==1)
-		{
-			$pass_hash = PassHash::hash($new_pass);
-            $query_pass = $conn->query("UPDATE users SET password = '$pass_hash' where user_id=$uid");						
+		$pass_hash = PassHash::hash($new_pass);
+		$otp = mt_rand(100001,999999);
+		
+		try{
+			$conn->beginTransaction();
+			$conn->query("UPDATE users SET password = '$pass_hash' where user_id=$uid");
+			$conn->query("UPDATE users SET otp=$otp WHERE user_id=$uid");
+			$conn->commit();
 			$response["error"]=false;
-            $response["message"]="password successfully changed";   
-        }
-        else
-		{
-            $response["error"]=true;
+            $response["message"]="password successfully changed";
+		}
+		
+		catch(Exception $e){
+			
+			//echo $e->getMessage();
+    		$conn->rollBack();
+    		$response["error"]=true;
             $response["message"]="some problem occured";
-        }
+		}
     }
 	
     else{
         $response["error"]=true;
         $response["message"]="OTP Incorrect";
     }
+    
     $conn = null;
     $user_exist = null;
-    $query = null;
-	$query_pass = null;
-
+    
     echoRespnse(200, $response);
 });
+
 
 /*------------------------------------------------------------------------------------*/
 //  16.  OTP Email Verification
@@ -779,43 +784,45 @@ $app->post('/otp/password', function() use($app) {
 $app->post('/otp/email', function() use($app) {
           
 	$db = new DbConnect();
-    $conn = $db->connect();
+	$conn = $db->connect();
 
     $otp = $app->request->post('otp');
 	$uid = $app->request->post('uid');
 	
     $user_exist=$conn->query("select user_id from users where user_id=$uid AND otp=$otp");
     
-	if($user_exist->rowCount()>0)
+	if($user_exist->rowCount()==1)
     {
 		$otp = mt_rand(100001,999999);        
-		$query = $conn->query("UPDATE users SET otp=$otp WHERE user_id=$uid");
-       
-        if($query->rowCount()==1)
-		{
-			$query_verify = $conn->query("UPDATE users SET verified = 1 WHERE user_id=$uid");						
+		
+		try{
+			$conn->beginTransaction();
+			$conn->query("UPDATE users SET verified = true WHERE user_id=$uid");
+			$conn->query("UPDATE users SET otp=$otp WHERE user_id=$uid");
+			$conn->commit();
 			$response["error"]=false;
-            $response["message"]="email verified";   
-        }
-        else
-		{
-            $response["error"]=true;
+            $response["message"]="email verified";
+		}
+		
+		catch(Exception $e){
+			
+			//echo $e->getMessage();
+    		$conn->rollBack();
+    		$response["error"]=true;
             $response["message"]="some problem occured";
-        }
+		}
     }
 	
     else{
         $response["error"]=true;
         $response["message"]="OTP incorrect";
     }
+    
     $conn = null;
     $user_exist = null;
-    $query = null;
-	$query_verify = null;
-
+    
     echoRespnse(200, $response);
 });
-
 
 /**
  * Echoing json response to client
@@ -835,4 +842,4 @@ function echoRespnse($status_code, $response) {
 
 $app->run();
 
-?>  
+?>

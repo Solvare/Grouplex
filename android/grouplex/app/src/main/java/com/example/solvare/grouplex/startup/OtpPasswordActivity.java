@@ -181,9 +181,9 @@ public class OtpPasswordActivity extends AppCompatActivity {
 
         public void afterTextChanged(Editable editable) {
             switch (view.getId()) {
-                /*case R.id.editText_cur_otp:
-                    validateCurPassword();
-                    break;*/
+                case R.id.editText_cur_otp:
+                    validateCurOtp();
+                    break;
                 case R.id.editText_new_pass:
                     validateNewPassword();
                     break;

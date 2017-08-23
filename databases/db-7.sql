@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 19, 2017 at 01:18 PM
+-- Generation Time: Aug 23, 2017 at 03:30 AM
 -- Server version: 10.1.20-MariaDB
 -- PHP Version: 7.0.8
 
@@ -56,7 +56,9 @@ INSERT INTO `groups` (`group_id`, `group_name`, `admin_id`, `created_at`, `image
 (15, 'Qween', 3, '2017-06-17 06:47:01', ''),
 (31, 'Oracle', 32, '2017-06-23 08:03:56', ''),
 (30, 'Adobe', 3, '2017-06-23 07:57:40', ''),
-(32, 'Multiverse', 3, '2017-08-19 01:55:16', '');
+(32, 'Multiverse', 3, '2017-08-19 01:55:16', ''),
+(33, 'varun', 3, '2017-08-19 19:27:34', ''),
+(34, 'xyz', 34, '2017-08-21 06:51:54', '');
 
 -- --------------------------------------------------------
 
@@ -94,7 +96,14 @@ INSERT INTO `master` (`id`, `group_id`, `user_id`, `created_at`) VALUES
 (39, 1, 32, '2017-06-23 08:02:05'),
 (38, 30, 3, '2017-06-23 07:57:40'),
 (37, 15, 3, '2017-06-23 07:54:45'),
-(41, 32, 3, '2017-08-19 01:55:16');
+(41, 32, 3, '2017-08-19 01:55:16'),
+(42, 33, 3, '2017-08-19 19:27:34'),
+(43, 2, 3, '2017-08-19 19:30:12'),
+(44, 1, 34, '2017-08-21 06:50:59'),
+(45, 34, 34, '2017-08-21 06:51:54'),
+(46, 1, 3, '2017-08-21 12:00:24'),
+(47, 3, 3, '2017-08-21 12:00:48'),
+(48, 1, 35, '2017-08-21 12:03:24');
 
 -- --------------------------------------------------------
 
@@ -129,7 +138,8 @@ INSERT INTO `messages` (`message_id`, `group_id`, `chat`, `created_at`) VALUES
 (17, 30, 's', '2017-08-19 02:01:59'),
 (18, 11, 's', '2017-08-19 02:02:06'),
 (19, 13, 'gh', '2017-08-19 02:05:25'),
-(20, 13, 'gb', '2017-08-19 02:05:32');
+(20, 13, 'gb', '2017-08-19 02:05:32'),
+(21, 11, 'varun', '2017-08-19 19:28:19');
 
 -- --------------------------------------------------------
 
@@ -153,10 +163,13 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `email`, `password`, `full_name`, `verified`, `otp`, `gcm_reg_id`, `created_at`) VALUES
-(1, 'sunny0rajat@gmail.com', '$2a$10$ba12aaeb87a96805aa756Oe1hQRESdKnjessL10EpZYhZCdnt4AYq', 'Rajat Saxena', 1, 386743, 'hahaha', '2017-08-19 13:10:19'),
-(2, 'rishabhahuja279@gmail.com', '$2a$10$ea51a4fcd9936ab52743bORE7D.JeLtQq/68SMJMIpyI91JjNOZwi', 'Rishabh Ahuja', 0, 0, 'hahaha', '2017-03-28 14:23:27'),
-(3, '', '$2a$10$ae3ef8e25c5b1d65cad39uK1z41K.59gvkuEdbRBMnwWCq1idwXR6', 'Solve Software', 1, 0, '', '2017-08-18 09:50:25'),
-(32, 'emma@watson.com', '$2a$10$6d6a97cdfd62c484b0f61uAdtRTXwtQyWBHfj4Rht2.9HO1WoqW.a', 'Emma Watson', 1, 847515, '', '2017-08-18 12:56:32');
+(1, 'sunny0rajat@gmail.com', '$2a$10$0bd430e86b141f1d29687OrwxTa97HooLQ3sn8SVtLED0tS5Li4LG', 'Rajat Saxena', 1, 623153, 'hahaha', '2017-08-22 16:41:21'),
+(2, 'rishabhahuja279@gmail.com', '$2a$10$ccc32cc9b684eb4d07ab1uSzWkZxgXQHnKfTrm6xWiBvI1dn9ETX.', 'Rishabh Ahuja', 0, 787589, 'hahaha', '2017-08-21 06:53:30'),
+(3, '', '$2a$10$ae3ef8e25c5b1d65cad39uK1z41K.59gvkuEdbRBMnwWCq1idwXR6', 'Solve Software', 1, 0, '', '2017-08-22 13:50:23'),
+(32, 'emma@watson.com', '$2a$10$6d6a97cdfd62c484b0f61uAdtRTXwtQyWBHfj4Rht2.9HO1WoqW.a', 'Emma Watson', 0, 847515, '', '2017-08-18 12:56:32'),
+(34, 'rishabhahuja2736@gmail.com', '$2a$10$a04db6f79a9555a8d585auEROyQJGnbJBhPu2fr/3K4cFA4pvVmuu', 'rishabh', 0, 0, '', '2017-08-21 06:50:28'),
+(35, 'g@g.g', '$2a$10$70d024c17f67ac4aacc05ONNj.rPD3RPp7xVU/btJdjtsy8E24I0m', 'fg', 0, 0, '', '2017-08-21 12:03:18'),
+(36, 'rajat.saxena035@gmail.com', '$2a$10$a8116df8262e777c17d2aOWZ5ET8rafUYpQPKa6.eW3c/oN7GUGla', 'q', 0, 0, '', '2017-08-22 17:03:57');
 
 --
 -- Indexes for dumped tables
@@ -198,22 +211,22 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 --
 -- AUTO_INCREMENT for table `master`
 --
 ALTER TABLE `master`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `message_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `message_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

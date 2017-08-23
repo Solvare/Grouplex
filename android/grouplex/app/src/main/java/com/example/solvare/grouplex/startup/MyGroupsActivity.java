@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -112,7 +113,8 @@ public class MyGroupsActivity extends AppCompatActivity {
         //Log.d("rishabh",jsonStr);
         if(jsonObj.getString("error").equalsIgnoreCase("true"))
         {
-            if(jsonObj.getInt("errorId")==2)
+            Resources res = getResources();
+            if(jsonObj.getInt("errorId")==res.getInteger(R.integer.no_associated_groups))
             {
                 setContentView(R.layout.activity_no_groups);
                 Button button_join = (Button) findViewById(R.id.button_dir_join_group);

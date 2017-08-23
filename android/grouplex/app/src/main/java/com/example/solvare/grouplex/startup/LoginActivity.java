@@ -73,6 +73,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         login_password.addTextChangedListener(new MyTextWatcher(login_password));
     }
 
+    /*
     public void onResume(){
         super.onResume();
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
@@ -82,6 +83,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             startActivity(intent);
         }
     }
+    */
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -132,7 +134,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         final String password = login_password.getText().toString();
 
         final ProgressDialog progress = new ProgressDialog(this);
-        //progress.setTitle("Loading");
+        progress.setTitle("Loading");
         progress.setMessage("Logging-In...");
         progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
         progress.show();
@@ -147,16 +149,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             JSONObject jsonObject = new JSONObject(response);
                             finalresponse_mssg =jsonObject.getString("error");
 
-                            Toast.makeText(getApplicationContext(),jsonObject.getString("message"),Toast.LENGTH_LONG).show();
                             if(finalresponse_mssg.equalsIgnoreCase(LOGIN_SUCCESS)){
+                                Toast.makeText(getApplicationContext(),jsonObject.getString("message"),Toast.LENGTH_LONG).show();
                                 SharedPrefManager.getInstance(getApplicationContext()).userLogin(jsonObject.getString("email")
-                                        ,jsonObject.getString("full_name"),jsonObject.getString("user_id")
+                                        ,jsonObject.getString("full_name"),jsonObject.getString("user_id"),jsonObject.getBoolean("verified")
                                 );
-                                Intent intent = new Intent(LoginActivity.this,MyGroupsActivity.class);
-                                startActivity(intent);
+                                if(jsonObject.getBoolean("verified")){
+                                    Intent intent = new Intent(LoginActivity.this,MyGroupsActivity.class);
+                                    startActivity(intent);
+                                }
+                                else{
+                                    Intent intent = new Intent(LoginActivity.this,OtpEmailActivity.class);
+                                    startActivity(intent);
+                                }
                                 finish();
                             }else{
-                                //Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_LONG).show();
+                                Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_LONG).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
