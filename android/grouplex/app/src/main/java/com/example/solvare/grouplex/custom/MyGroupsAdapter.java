@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.solvare.grouplex.R;
@@ -44,11 +45,13 @@ public class MyGroupsAdapter extends RecyclerView.Adapter<MyGroupsAdapter.MyView
         return mData.size();
     }
 
+
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView groupname,level,num_members;
         int position;
         MyGroups groups;
+        ImageView imgDelete;
         Context ctx;
         List<MyGroups> mData = new ArrayList<>();
         public MyViewHolder(View itemView, Context ctx,ArrayList<MyGroups> mData){
@@ -59,12 +62,12 @@ public class MyGroupsAdapter extends RecyclerView.Adapter<MyGroupsAdapter.MyView
             groupname=(TextView)itemView.findViewById(R.id.group_name);
             level=(TextView)itemView.findViewById(R.id.your_level);
             num_members=(TextView)itemView.findViewById(R.id.total_members);
+            imgDelete   = (ImageView) itemView.findViewById(R.id.img_row_delete);
         }
 
         public void setData(MyGroups groups,int position){
             this.groupname.setText(groups.get_groupnames().get(position));
             Log.d("Messages",groups.get_groupnames().get(position));
-
             this.level.setText(groups.getLevel().get(position));
             this.num_members.setText(groups.getNumMembers().get(position));
             this.position=position;

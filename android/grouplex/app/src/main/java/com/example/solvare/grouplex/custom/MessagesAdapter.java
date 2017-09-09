@@ -7,9 +7,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.solvare.grouplex.R;
+import com.example.solvare.grouplex.constant.Urls;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +42,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
     public void onBindViewHolder(MyViewHolder holder, int position) {
         MyMessages posts = mData.get(position);
         holder.setData(posts, position);
+        holder.setListeners();
     }
 
 
@@ -48,15 +51,27 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
         return mData.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    public void removeItem(int position) {
+        mData.remove(position);
+        notifyItemRemoved(position);
+    }
+
+
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView messages;
         int position;
         MyMessages posts;
+        ImageView imgDelete;
 
         public MyViewHolder(View itemView){
             super(itemView);
             messages=(TextView)itemView.findViewById(R.id.textView1);
+            imgDelete   = (ImageView) itemView.findViewById(R.id.img_row_delete);
+        }
+
+        public void setListeners() {
+            imgDelete.setOnClickListener(MyViewHolder.this);
         }
 
         public void setData(MyMessages posts,int position){
@@ -66,5 +81,15 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
             this.position=position;
             this.posts=posts;
         }
+
+        public void onClick(View v){
+            switch(v.getId()){
+                case R.id.img_row_delete:
+                    removeItem(position);
+                    break;
+            }
+
+        }
+
     }
 }

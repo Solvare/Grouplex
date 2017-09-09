@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -41,8 +42,9 @@ import static com.example.solvare.grouplex.constant.Urls.getGroupId;
 import static com.example.solvare.grouplex.startup.SharedPrefManager.KEY_ID;
 import static com.example.solvare.grouplex.startup.SharedPrefManager.SHARED_PREF_NAME;
 
-public class MessageDetails extends AppCompatActivity implements View.OnClickListener {
+public class MessageDetails extends AppCompatActivity implements View.OnClickListener,SwipeRefreshLayout.OnRefreshListener {
 
+    SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private EditText message;
@@ -65,7 +67,31 @@ public class MessageDetails extends AppCompatActivity implements View.OnClickLis
         message=(EditText)findViewById(R.id.message);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView2);
-        setUpRecyclerView();
+
+        // SwipeRefreshLayout
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
+                android.R.color.holo_green_dark,
+                android.R.color.holo_orange_dark,
+                android.R.color.holo_blue_dark);
+
+        /**
+         * Showing Swipe Refresh animation on activity create
+         * As animation won't start on onCreate, post runnable is used
+         */
+        mSwipeRefreshLayout.post(new Runnable() {
+
+            @Override
+            public void run() {
+
+                mSwipeRefreshLayout.setRefreshing(true);
+
+                // Fetching data from server
+                setUpRecyclerView();
+            }
+        });
+
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this); // (Context context, int spanCount)
         mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(mLinearLayoutManagerVertical);
@@ -78,30 +104,36 @@ public class MessageDetails extends AppCompatActivity implements View.OnClickLis
         //message=(TextView)findViewById(R.id.textView1);
     }
     private void setUpRecyclerView(){
+        // Showing refresh animation before making http call
+        mSwipeRefreshLayout.setRefreshing(true);
+
         Urls url = new Urls();
 
-        final ProgressDialog progress = new ProgressDialog(this);
+        /*final ProgressDialog progress = new ProgressDialog(this);
         progress.setTitle("Loading");
         progress.setMessage("Wait while loading...");
         progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
-        progress.show();
+        progress.show();*/
         StringRequest stringRequest = new StringRequest(url.readUrl(),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            progress.dismiss();
+                            //progress.dismiss();
                             parseData(response);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                        // Stopping swipe refresh
+                        mSwipeRefreshLayout.setRefreshing(false);
                         Log.d("myTag",response);
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        // Stopping swipe refresh
+                        mSwipeRefreshLayout.setRefreshing(false);
                     }
                 });
         RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
@@ -133,6 +165,10 @@ public class MessageDetails extends AppCompatActivity implements View.OnClickLis
         ArrayList<MyMessages> dataList;
         dataList = list;
         return dataList;
+    }
+    @Override
+    public void onRefresh() {
+        setUpRecyclerView();
     }
 
     @Override
@@ -188,4 +224,6 @@ public class MessageDetails extends AppCompatActivity implements View.OnClickLis
         };
         RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
     }
+
+
 }
