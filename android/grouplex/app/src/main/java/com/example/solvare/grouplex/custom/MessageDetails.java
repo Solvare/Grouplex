@@ -109,17 +109,17 @@ public class MessageDetails extends AppCompatActivity implements View.OnClickLis
 
         Urls url = new Urls();
 
-        /*final ProgressDialog progress = new ProgressDialog(this);
+        final ProgressDialog progress = new ProgressDialog(this);
         progress.setTitle("Loading");
         progress.setMessage("Wait while loading...");
         progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
-        progress.show();*/
+        progress.show();
         StringRequest stringRequest = new StringRequest(url.readUrl(),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            //progress.dismiss();
+                            progress.dismiss();
                             parseData(response);
                         } catch (JSONException e) {
                             e.printStackTrace();

@@ -96,10 +96,6 @@
         <activity
             android:name=".startup.LauncherActivity"
             android:theme="@android:style/Theme.NoDisplay">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".menu.account.ChangeNameActivity"
@@ -143,8 +139,14 @@
         <activity
             android:name=".startup.OtpEmailActivity"
             android:label="Email Verification"
-            android:windowSoftInputMode="stateHidden">
-    </activity>
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".startup.IntroActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
