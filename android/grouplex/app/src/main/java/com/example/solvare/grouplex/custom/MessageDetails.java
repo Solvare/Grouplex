@@ -4,12 +4,15 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -63,8 +66,40 @@ public class MessageDetails extends AppCompatActivity implements View.OnClickLis
         this.setTitle(extras.getString("groupName"));
 
         post=(ImageButton)findViewById(R.id.post);
+
         post.setOnClickListener(this);
+
+        post.setEnabled(false);
+
         message=(EditText)findViewById(R.id.message);
+
+        message.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if(s.toString().trim().length()==0){
+                    post.setEnabled(false);
+                } else {
+                    post.setEnabled(true);
+                }
+
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+
+            }
+        });
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView2);
 
@@ -91,6 +126,8 @@ public class MessageDetails extends AppCompatActivity implements View.OnClickLis
                 setUpRecyclerView();
             }
         });
+
+
 
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this); // (Context context, int spanCount)
         mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
@@ -175,6 +212,7 @@ public class MessageDetails extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         if(view==post){
             posting();
+            message.setText("");
         }
     }
     public void posting(){
