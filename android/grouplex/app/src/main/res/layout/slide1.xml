@@ -20,6 +20,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@string/title_slide1"
             android:textColor="@android:color/white"
             android:textSize="@dimen/slide_title"
@@ -31,6 +32,7 @@
             android:layout_marginTop="20dp"
             android:paddingLeft="@dimen/desc_padding"
             android:paddingRight="@dimen/desc_padding"
+            android:gravity="center"
             android:text="@string/desc_slide1"
             android:textAlignment="center"
             android:textColor="@android:color/white"

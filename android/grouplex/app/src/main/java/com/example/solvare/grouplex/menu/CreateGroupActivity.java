@@ -102,6 +102,7 @@ public class CreateGroupActivity extends AppCompatActivity implements View.OnCli
         };
 
         RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
+        //startActivity(new Intent(this, MyGroupsActivity.class));
         //Intent intent = new Intent(CreateGroupActivity.this, MyGroupsActivity.class);
         //startActivity(intent);
         }
@@ -110,7 +111,7 @@ public class CreateGroupActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         if(v==buttonCreateGroup){
             createGroup();
-            startActivity(new Intent(this, MyGroupsActivity.class));
+            group_name.setText("");
         }
     }
 

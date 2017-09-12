@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -49,6 +50,7 @@ public class MyGroupsActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
+
     public ArrayList<String> ids= new ArrayList<>();
 
     @Override
@@ -61,7 +63,11 @@ public class MyGroupsActivity extends AppCompatActivity {
             return;
         }
 
+
+
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+
+
 
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this); // (Context context, int spanCount)
         mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
@@ -77,6 +83,7 @@ public class MyGroupsActivity extends AppCompatActivity {
 
     private void setUpRecyclerView() {
 
+
         Urls url = new Urls(this);
         StringRequest stringRequest = new StringRequest(url.URL_GROUPS,
                 new Response.Listener<String>() {
@@ -88,6 +95,8 @@ public class MyGroupsActivity extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                        // Stopping swipe refresh
+
                     }
                 },
                 new Response.ErrorListener() {

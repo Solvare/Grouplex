@@ -2,6 +2,7 @@ package com.example.solvare.grouplex.menu;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.android.volley.toolbox.StringRequest;
 
 import com.example.solvare.grouplex.R;
 import com.example.solvare.grouplex.constant.Urls;
+import com.example.solvare.grouplex.startup.MyGroupsActivity;
 import com.example.solvare.grouplex.startup.RequestHandler;
 
 import org.json.JSONArray;
@@ -132,6 +134,10 @@ public class JoinGroupActivity extends AppCompatActivity{
 
 
         return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MyGroupsActivity.class));
     }
 
     void addGroup(final String gr_id, final String us_id)

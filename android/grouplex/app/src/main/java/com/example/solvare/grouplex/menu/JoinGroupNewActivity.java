@@ -32,6 +32,7 @@ import com.example.solvare.grouplex.menu.about.AboutActivity;
 import com.example.solvare.grouplex.menu.CreateGroupActivity;
 import com.example.solvare.grouplex.menu.JoinGroupActivity;
 import com.example.solvare.grouplex.menu.account.UserAccountActivity;
+import com.example.solvare.grouplex.startup.MyGroupsActivity;
 import com.example.solvare.grouplex.startup.RequestHandler;
 
 
@@ -90,6 +91,10 @@ public class JoinGroupNewActivity extends AppCompatActivity {
         RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
 
     }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MyGroupsActivity.class));
+    }
 
     JoinGroup groups = new JoinGroup();
 
@@ -130,7 +135,6 @@ public class JoinGroupNewActivity extends AppCompatActivity {
                 JoinGroup grp = dataList.get(position);
                 Toast.makeText(getApplicationContext(), grp.getName() + " is selected!", Toast.LENGTH_SHORT).show();
             }
-
             @Override
             public void onLongClick(View view, int position) {
 

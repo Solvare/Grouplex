@@ -49,7 +49,7 @@ public class MessageDetails extends AppCompatActivity implements View.OnClickLis
 
     SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
+    private RecyclerView.Adapter adapterMessageDetail;
     private EditText message;
     private ImageButton post;
     public static final String LOGIN_SUCCESS = "false";
@@ -121,7 +121,7 @@ public class MessageDetails extends AppCompatActivity implements View.OnClickLis
                 mSwipeRefreshLayout.setRefreshing(true);
 
                 // Fetching data from server
-                setUpRecyclerView();
+                setUpRecyclerViewMessageDetail();
             }
         });
 
@@ -138,10 +138,10 @@ public class MessageDetails extends AppCompatActivity implements View.OnClickLis
 
         //message=(TextView)findViewById(R.id.textView1);
     }
-    private void setUpRecyclerView(){
+    private void setUpRecyclerViewMessageDetail(){
         // Showing refresh animation before making http call
         //mSwipeRefreshLayout.setRefreshing(true);
-        //getSwipeRefreshLayout().setRefreshing(true);
+
 
         Urls url = new Urls();
 
@@ -191,8 +191,8 @@ public class MessageDetails extends AppCompatActivity implements View.OnClickLis
             }
 
             Log.d("MYTAG",Integer.toString(dataList.size()));
-            adapter = new MessagesAdapter(this, getData(dataList));
-            recyclerView.setAdapter(adapter);
+            adapterMessageDetail = new MessagesAdapter(this, getData(dataList));
+            recyclerView.setAdapter(adapterMessageDetail);
             recyclerView.scrollToPosition(dataList.size()-1);
 
         }
@@ -204,7 +204,7 @@ public class MessageDetails extends AppCompatActivity implements View.OnClickLis
     }
     @Override
     public void onRefresh() {
-        setUpRecyclerView();
+        setUpRecyclerViewMessageDetail();
     }
 
     @Override
@@ -215,7 +215,7 @@ public class MessageDetails extends AppCompatActivity implements View.OnClickLis
 
         }
     }
-    public void adminCeck(){
+    public void adminCheck(){
         if(!flag){
             message.setHint("Only Admin Can Post");
             post.setEnabled(true);            }
@@ -239,8 +239,8 @@ public class MessageDetails extends AppCompatActivity implements View.OnClickLis
                             finalresponse_mssg =jsonObject.getString("error");
 
                             if(finalresponse_mssg.equalsIgnoreCase(LOGIN_SUCCESS)){
-                                adapter.notifyDataSetChanged();
-                                setUpRecyclerView();
+                                adapterMessageDetail.notifyDataSetChanged();
+                                setUpRecyclerViewMessageDetail();
                             }else{
                                 //Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_LONG).show();
                             }
@@ -269,7 +269,4 @@ public class MessageDetails extends AppCompatActivity implements View.OnClickLis
     }
 
 
-    public SwipeRefreshLayout getSwipeRefreshLayout() {
-        return mSwipeRefreshLayout;
-    }
 }
