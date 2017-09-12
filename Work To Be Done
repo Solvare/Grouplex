@@ -15,7 +15,7 @@ Chat Activity UI problems (2)
 Unverifed user can do nothing eg.: join or create group (API update)
 Partition api file(1000 lines !!)
 Mail through ssl (not tls)
-
+Emoji KeyBoard
 --------------------------------------
 
 user_id more dynamic
@@ -29,3 +29,5 @@ Remove all warnings
 Logs
 SQLite
 Comments !!!
+
+Work that is done
