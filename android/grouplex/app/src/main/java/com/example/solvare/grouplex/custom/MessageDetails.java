@@ -53,6 +53,7 @@ public class MessageDetails extends AppCompatActivity implements View.OnClickLis
     private EditText message;
     private ImageButton post;
     public static final String LOGIN_SUCCESS = "false";
+    Boolean flag=false;
 
     MyGroups groups = new MyGroups();
     ArrayList<String> list=groups.getIds();
@@ -66,13 +67,10 @@ public class MessageDetails extends AppCompatActivity implements View.OnClickLis
         this.setTitle(extras.getString("groupName"));
 
         post=(ImageButton)findViewById(R.id.post);
-
         post.setOnClickListener(this);
-
         post.setEnabled(false);
 
         message=(EditText)findViewById(R.id.message);
-
         message.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -142,21 +140,22 @@ public class MessageDetails extends AppCompatActivity implements View.OnClickLis
     }
     private void setUpRecyclerView(){
         // Showing refresh animation before making http call
-        mSwipeRefreshLayout.setRefreshing(true);
+        //mSwipeRefreshLayout.setRefreshing(true);
+        //getSwipeRefreshLayout().setRefreshing(true);
 
         Urls url = new Urls();
 
-        final ProgressDialog progress = new ProgressDialog(this);
+        /*final ProgressDialog progress = new ProgressDialog(this);
         progress.setTitle("Loading");
         progress.setMessage("Wait while loading...");
         progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
-        progress.show();
+        progress.show();*/
         StringRequest stringRequest = new StringRequest(url.readUrl(),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            progress.dismiss();
+                            //progress.dismiss();
                             parseData(response);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -213,7 +212,13 @@ public class MessageDetails extends AppCompatActivity implements View.OnClickLis
         if(view==post){
             posting();
             message.setText("");
+
         }
+    }
+    public void adminCeck(){
+        if(!flag){
+            message.setHint("Only Admin Can Post");
+            post.setEnabled(true);            }
     }
     public void posting(){
         Log.d("Final","rishabh");
@@ -264,4 +269,7 @@ public class MessageDetails extends AppCompatActivity implements View.OnClickLis
     }
 
 
+    public SwipeRefreshLayout getSwipeRefreshLayout() {
+        return mSwipeRefreshLayout;
+    }
 }

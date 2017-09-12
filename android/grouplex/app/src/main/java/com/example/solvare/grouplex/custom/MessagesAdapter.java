@@ -54,6 +54,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
     public void removeItem(int position) {
         mData.remove(position);
         notifyItemRemoved(position);
+        notifyItemRangeChanged(position,mData.size());
     }
 
 

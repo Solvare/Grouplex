@@ -84,6 +84,7 @@ public class MyGroupsActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         try {
                             parseData(response);
+                            adapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -99,6 +100,8 @@ public class MyGroupsActivity extends AppCompatActivity {
         RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
 
     }
+
+
 
     MyGroups groups = new MyGroups();
 

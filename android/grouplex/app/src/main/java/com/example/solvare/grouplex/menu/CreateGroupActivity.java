@@ -1,5 +1,6 @@
 package com.example.solvare.grouplex.menu;
 
+import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.content.SharedPreferences;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +28,7 @@ import java.util.Map;
 
 import com.example.solvare.grouplex.R;
 import com.example.solvare.grouplex.constant.Urls;
+import com.example.solvare.grouplex.startup.MyGroupsActivity;
 import com.example.solvare.grouplex.startup.RequestHandler;
 
 import static com.example.solvare.grouplex.startup.SharedPrefManager.KEY_ID;
@@ -49,6 +52,10 @@ public class CreateGroupActivity extends AppCompatActivity implements View.OnCli
         buttonCreateGroup.setOnClickListener(this);
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MyGroupsActivity.class));
+    }
     public void createGroup()
     {
         if (!validateName()) {
@@ -73,6 +80,7 @@ public class CreateGroupActivity extends AppCompatActivity implements View.OnCli
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             Toast.makeText(getApplicationContext(),jsonObject.getString("message"),Toast.LENGTH_LONG).show();
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -102,6 +110,7 @@ public class CreateGroupActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         if(v==buttonCreateGroup){
             createGroup();
+            startActivity(new Intent(this, MyGroupsActivity.class));
         }
     }
 
