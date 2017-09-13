@@ -82,8 +82,10 @@ public class MyGroupsAdapter extends RecyclerView.Adapter<MyGroupsAdapter.MyView
             Log.d("position1",Integer.toString(Integer.parseInt(groups.getIds().get(position))));
             int groupId=Integer.parseInt(groups.getIds().get(position));
             String groupName=groups.get_groupnames().get(position);
+            String userLevel=groups.getLevel().get(position);
             intent.putExtra("integerValue",groupId);
             intent.putExtra("groupName",groupName);
+            intent.putExtra("userLevel",userLevel);
             this.ctx.startActivity(intent);
             Urls url = new Urls();
             url.setGroupId(groupId);

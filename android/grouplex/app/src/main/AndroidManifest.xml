@@ -122,8 +122,7 @@
                 android:value=".startup.MyGroupsActivity" />
         </activity>
         <activity
-            android:name=".custom.MessageDetails"
-            android:windowSoftInputMode="adjustPan">
+            android:name=".custom.MessageDetails">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".startup.MyGroupsActivity" />

@@ -52,9 +52,10 @@ public class MessageDetails extends AppCompatActivity implements View.OnClickLis
     private RecyclerView.Adapter adapterMessageDetail;
     private EditText message;
     private ImageButton post;
+    private TextView permit_space;
     public static final String LOGIN_SUCCESS = "false";
     Boolean flag=false;
-
+    int data_size;
     MyGroups groups = new MyGroups();
     ArrayList<String> list=groups.getIds();
 
@@ -66,11 +67,19 @@ public class MessageDetails extends AppCompatActivity implements View.OnClickLis
         Bundle extras = getIntent().getExtras();
         this.setTitle(extras.getString("groupName"));
 
-        post=(ImageButton)findViewById(R.id.post);
+        message = (EditText) findViewById(R.id.message);
+        post = (ImageButton) findViewById(R.id.post);
+        permit_space = (TextView) findViewById(R.id.no_permit);
+        if(extras.getString("userLevel").equalsIgnoreCase("member"))
+        {
+            message.setVisibility(View.GONE);
+            post.setVisibility(View.GONE);
+            permit_space.setVisibility(View.VISIBLE);
+        }
+
         post.setOnClickListener(this);
         post.setEnabled(false);
 
-        message=(EditText)findViewById(R.id.message);
         message.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -126,7 +135,6 @@ public class MessageDetails extends AppCompatActivity implements View.OnClickLis
         });
 
 
-
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this); // (Context context, int spanCount)
         mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(mLinearLayoutManagerVertical);
@@ -135,6 +143,19 @@ public class MessageDetails extends AppCompatActivity implements View.OnClickLis
                 DefaultItemAnimator()
 
         );
+
+        // for scrolling down the recycler view after the keyboard appears
+        recyclerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+
+            public void onLayoutChange(View v, int left, int top, int right,int bottom, int oldLeft, int oldTop,int oldRight, int oldBottom)
+            {
+
+                recyclerView.scrollToPosition(data_size-1);
+
+            }
+        });
+
 
         //message=(TextView)findViewById(R.id.textView1);
     }
@@ -177,7 +198,6 @@ public class MessageDetails extends AppCompatActivity implements View.OnClickLis
     public void parseData(String jsonStr) throws JSONException {
         ArrayList<MyMessages> dataList = new ArrayList<>();
 
-
         JSONObject jsonObject = new JSONObject(jsonStr);
         JSONArray jsonArray = jsonObject.getJSONArray("messages");
 
@@ -194,6 +214,7 @@ public class MessageDetails extends AppCompatActivity implements View.OnClickLis
             adapterMessageDetail = new MessagesAdapter(this, getData(dataList));
             recyclerView.setAdapter(adapterMessageDetail);
             recyclerView.scrollToPosition(dataList.size()-1);
+            data_size = dataList.size();
 
         }
     }
@@ -215,11 +236,14 @@ public class MessageDetails extends AppCompatActivity implements View.OnClickLis
 
         }
     }
+    /*
     public void adminCheck(){
         if(!flag){
             message.setHint("Only Admin Can Post");
-            post.setEnabled(true);            }
+            post.setEnabled(true);
+        }
     }
+    */
     public void posting(){
         Log.d("Final","rishabh");
         Urls url = new Urls();
@@ -239,7 +263,7 @@ public class MessageDetails extends AppCompatActivity implements View.OnClickLis
                             finalresponse_mssg =jsonObject.getString("error");
 
                             if(finalresponse_mssg.equalsIgnoreCase(LOGIN_SUCCESS)){
-                                adapterMessageDetail.notifyDataSetChanged();
+                                //adapterMessageDetail.notifyDataSetChanged();
                                 setUpRecyclerViewMessageDetail();
                             }else{
                                 //Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_LONG).show();

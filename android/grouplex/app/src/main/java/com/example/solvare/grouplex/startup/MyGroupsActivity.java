@@ -1,19 +1,15 @@
 package com.example.solvare.grouplex.startup;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,28 +19,20 @@ import android.widget.Button;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-
 import com.example.solvare.grouplex.R;
 import com.example.solvare.grouplex.constant.Urls;
-import com.example.solvare.grouplex.custom.MessageDetails;
-import com.example.solvare.grouplex.custom.MyGroupsAdapter;
 import com.example.solvare.grouplex.custom.MyGroups;
-import com.example.solvare.grouplex.menu.JoinGroupNewActivity;
-import com.example.solvare.grouplex.menu.about.AboutActivity;
+import com.example.solvare.grouplex.custom.MyGroupsAdapter;
 import com.example.solvare.grouplex.menu.CreateGroupActivity;
 import com.example.solvare.grouplex.menu.JoinGroupActivity;
+import com.example.solvare.grouplex.menu.about.AboutActivity;
 import com.example.solvare.grouplex.menu.account.UserAccountActivity;
-
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-
-
-import static com.example.solvare.grouplex.startup.SharedPrefManager.KEY_ID;
-import static com.example.solvare.grouplex.startup.SharedPrefManager.SHARED_PREF_NAME;
 
 public class MyGroupsActivity extends AppCompatActivity {
 
@@ -57,13 +45,17 @@ public class MyGroupsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_groups);
+
         if(!SharedPrefManager.getInstance(this).isLoggedIn()){
             finish();
             startActivity(new Intent(this,LoginActivity.class));
             return;
         }
 
-
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setIcon(R.mipmap.ic_launcher);
+        getSupportActionBar().setTitle("  Grouplex  ");
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
@@ -91,7 +83,7 @@ public class MyGroupsActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         try {
                             parseData(response);
-                            adapter.notifyDataSetChanged();
+                            //adapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
