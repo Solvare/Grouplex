@@ -5,11 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.solvare.grouplex.R;
-import com.example.solvare.grouplex.startup.LauncherActivity;
 
 public class IntroActivity extends Activity {
 
@@ -130,7 +128,7 @@ public class IntroActivity extends Activity {
             }
             //dots[i].setText(Html.fromHtml("&#8226;"));
             dots[i].setTextSize(35);
-            dots[i].setTextColor(ContextCompat.getColor(this,R.color.dot_inactive));
+            dots[i].setTextColor(ContextCompat.getColor(this, R.color.dot_inactive));
             //dots[i].setTextColor(getResources().getColor(R.color.dot_inactive));
             dotsLayout.addView(dots[i]);
         }

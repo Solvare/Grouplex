@@ -3,11 +3,10 @@ package com.example.solvare.grouplex.menu.account;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
@@ -31,7 +30,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.example.solvare.grouplex.startup.SharedPrefManager.KEY_ID;
-import static com.example.solvare.grouplex.startup.SharedPrefManager.KEY_USERNAME;
 import static com.example.solvare.grouplex.startup.SharedPrefManager.SHARED_PREF_NAME;
 
 public class ChangePasswordActivity extends AppCompatActivity {
@@ -82,8 +80,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
         final SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         final String user_id = sharedPreferences.getString(KEY_ID, null);
 
-        final String final_cur_pass=cur_pass.getText().toString();
-        final String final_new_pass=new_pass.getText().toString();
+        final String final_cur_pass = cur_pass.getText().toString();
+        final String final_new_pass = new_pass.getText().toString();
 
         final ProgressDialog progress = new ProgressDialog(this);
         progress.setMessage("Updating...");

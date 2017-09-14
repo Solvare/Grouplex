@@ -24,12 +24,12 @@
             android:layout_marginTop="40dp"
             android.support.design:hintAnimationEnabled="false">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:id="@+id/editText_change_name"
-            android:hint="Full Name" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:id="@+id/editText_change_name"
+                android:hint="Full Name" />
 
         </android.support.design.widget.TextInputLayout>
 

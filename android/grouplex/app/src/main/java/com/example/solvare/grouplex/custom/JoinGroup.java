@@ -19,9 +19,9 @@ public class JoinGroup {
         return groups;
     }
 
-    public void setGroups(ArrayList<MyGroups> groups){
+    public void setGroups(ArrayList<MyGroups> groups) {
 
-        this.groups=groups;
+        this.groups = groups;
     }
 
     public ArrayList<String> getIds() {
@@ -29,19 +29,19 @@ public class JoinGroup {
         return ids;
     }
 
-    public void setIds(ArrayList<String> ids){
+    public void setIds(ArrayList<String> ids) {
 
-        this.ids=ids;
+        this.ids = ids;
     }
 
-    public ArrayList<String> getNames(){
+    public ArrayList<String> getNames() {
 
         return names;
     }
 
-    public void setNames(ArrayList<String> names){
+    public void setNames(ArrayList<String> names) {
 
-        this.names=names;
+        this.names = names;
     }
 
     public ArrayList<String> getMembers() {
@@ -49,9 +49,9 @@ public class JoinGroup {
         return members;
     }
 
-    public void setMembers(ArrayList<String> members){
+    public void setMembers(ArrayList<String> members) {
 
-        this.members=members;
+        this.members = members;
     }
 
     public String getId() {
@@ -59,18 +59,19 @@ public class JoinGroup {
         return id;
     }
 
-    public void setId(String id){
+    public void setId(String id) {
 
-        this.id=id;
+        this.id = id;
     }
 
-    public String getName(){
+    public String getName() {
 
-        return  name;
+        return name;
     }
-    public void setName(String name){
 
-        this.name=name;
+    public void setName(String name) {
+
+        this.name = name;
     }
 
     public String getMember() {
@@ -78,9 +79,9 @@ public class JoinGroup {
         return member;
     }
 
-    public void setMember(String member){
+    public void setMember(String member) {
 
-        this.member=member;
+        this.member = member;
     }
 
 }

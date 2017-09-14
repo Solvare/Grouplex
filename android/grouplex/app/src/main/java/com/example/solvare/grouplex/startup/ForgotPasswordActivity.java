@@ -2,9 +2,9 @@ package com.example.solvare.grouplex.startup;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -52,8 +52,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     }
 
-    public void sendMail()
-    {
+    public void sendMail() {
         if (!validateEmail()) {
             return;
         }
@@ -73,13 +72,13 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                         try {
                             String finalresponse_mssg;
                             JSONObject jsonObject = new JSONObject(response);
-                            finalresponse_mssg =jsonObject.getString("error");
+                            finalresponse_mssg = jsonObject.getString("error");
 
-                            Toast.makeText(getApplicationContext(),jsonObject.getString("message"),Toast.LENGTH_LONG).show();
-                            if(finalresponse_mssg.equalsIgnoreCase("false")){
+                            Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
+                            if (finalresponse_mssg.equalsIgnoreCase("false")) {
                                 final String uid = jsonObject.getString("user_id");
-                                Intent intent = new Intent(ForgotPasswordActivity.this,OtpPasswordActivity.class);
-                                intent.putExtra("user_id",uid);
+                                Intent intent = new Intent(ForgotPasswordActivity.this, OtpPasswordActivity.class);
+                                intent.putExtra("user_id", uid);
                                 startActivity(intent);
                             }
                         } catch (JSONException e) {
@@ -91,12 +90,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
                     }
-                }){
+                }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params = new HashMap<>();
+                Map<String, String> params = new HashMap<>();
                 params.put("email", finalEmail);
                 return params;
             }

@@ -3,9 +3,9 @@ package com.example.solvare.grouplex.menu.account;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -61,12 +61,12 @@ public class ChangeNameActivity extends AppCompatActivity {
 
     public void changeName(final SharedPreferences sharedPreferences) {
 
-    if (!validateName()) {
-        return;
-    }
+        if (!validateName()) {
+            return;
+        }
 
-    final String user_id = sharedPreferences.getString(KEY_ID, null);
-    final String finalFull_name = new_name.getText().toString().trim();
+        final String user_id = sharedPreferences.getString(KEY_ID, null);
+        final String finalFull_name = new_name.getText().toString().trim();
 
         final ProgressDialog progress = new ProgressDialog(this);
         progress.setMessage("Updating...");

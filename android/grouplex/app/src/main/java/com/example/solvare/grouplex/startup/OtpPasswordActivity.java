@@ -1,12 +1,10 @@
 package com.example.solvare.grouplex.startup;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -74,12 +72,12 @@ public class OtpPasswordActivity extends AppCompatActivity {
             return;
         }
 
-        final String final_cur_otp=cur_otp.getText().toString();
-        final String final_new_pass=new_pass.getText().toString();
+        final String final_cur_otp = cur_otp.getText().toString();
+        final String final_new_pass = new_pass.getText().toString();
 
         Bundle extras = getIntent().getExtras();
         final String user_id = extras.getString("user_id");
-        
+
         final ProgressDialog progress = new ProgressDialog(this);
         progress.setMessage("Changing...");
         progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
@@ -93,8 +91,8 @@ public class OtpPasswordActivity extends AppCompatActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
-                            if(jsonObject.getString("error").equalsIgnoreCase("false")){
-                                Intent intent = new Intent(OtpPasswordActivity.this,LoginActivity.class);
+                            if (jsonObject.getString("error").equalsIgnoreCase("false")) {
+                                Intent intent = new Intent(OtpPasswordActivity.this, LoginActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
                             }
@@ -193,6 +191,6 @@ public class OtpPasswordActivity extends AppCompatActivity {
             }
         }
     }
-    
+
 }
 

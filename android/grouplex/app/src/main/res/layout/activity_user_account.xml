@@ -26,8 +26,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#d9d9d9"
-            />
+            android:background="#d9d9d9" />
 
         <TextView
             android:layout_width="match_parent"
@@ -38,7 +37,7 @@
             android:onClick="changePassword"
             android:clickable="true"
             android:background="?android:attr/selectableItemBackground"
-            android:text="Change Password"/>
+            android:text="Change Password" />
 
         <View
             android:layout_width="match_parent"

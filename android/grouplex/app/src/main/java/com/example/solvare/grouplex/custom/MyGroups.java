@@ -1,9 +1,5 @@
 package com.example.solvare.grouplex.custom;
 
-import android.util.Log;
-
-import com.example.solvare.grouplex.R;
-
 import java.util.ArrayList;
 
 public class MyGroups {
@@ -38,25 +34,30 @@ public class MyGroups {
 
         return groups;
     }
-    public void setGroups(ArrayList<MyGroups> groups){
 
-        this.groups=groups;
+    public void setGroups(ArrayList<MyGroups> groups) {
+
+        this.groups = groups;
     }
+
     public ArrayList<String> getLevel() {
 
         return level;
     }
-    public void setLevel(ArrayList<String> level){
 
-        this.level=level;
+    public void setLevel(ArrayList<String> level) {
+
+        this.level = level;
     }
-    public ArrayList<String> get_groupnames(){
+
+    public ArrayList<String> get_groupnames() {
 
         return group_name;
     }
-    public void set_groupnames(ArrayList<String> group_name){
 
-        this.group_name=group_name;
+    public void set_groupnames(ArrayList<String> group_name) {
+
+        this.group_name = group_name;
     }
 
     public String s_getLevel() {
@@ -64,17 +65,19 @@ public class MyGroups {
         return s_level;
     }
 
-    public void s_setLevel(String s_level){
+    public void s_setLevel(String s_level) {
 
-        this.s_level=s_level;
+        this.s_level = s_level;
     }
-    public String s_get_groupnames(){
 
-        return  s_group_name;
+    public String s_get_groupnames() {
+
+        return s_group_name;
     }
-    public void s_set_groupnames(String s_group_name){
 
-        this.s_group_name=s_group_name;
+    public void s_set_groupnames(String s_group_name) {
+
+        this.s_group_name = s_group_name;
     }
 
 
@@ -82,9 +85,10 @@ public class MyGroups {
 
         return num_members;
     }
-    public void setNumMembers(ArrayList<String> num_members){
 
-        this.num_members=num_members;
+    public void setNumMembers(ArrayList<String> num_members) {
+
+        this.num_members = num_members;
     }
 
     public String s_getNumMembers() {
@@ -92,9 +96,9 @@ public class MyGroups {
         return s_num_members;
     }
 
-    public void s_setNumMembers(String s_num_members){
+    public void s_setNumMembers(String s_num_members) {
 
-        this.s_num_members=s_num_members;
+        this.s_num_members = s_num_members;
     }
 
 

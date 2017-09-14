@@ -31,7 +31,7 @@
             android:padding="16dp"
             android:textColor="#000000"
             android:textAppearance="?android:textAppearanceMedium"
-            android:text="Stack Overflow"/>
+            android:text="Stack Overflow" />
 
         <View
             android:layout_width="fill_parent"
@@ -44,7 +44,7 @@
             android:padding="16dp"
             android:textColor="#000000"
             android:textAppearance="?android:textAppearanceMedium"
-            android:text="Android Hive"/>
+            android:text="Android Hive" />
 
         <View
             android:layout_width="fill_parent"

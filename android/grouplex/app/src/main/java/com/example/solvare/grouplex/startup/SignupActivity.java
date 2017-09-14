@@ -3,13 +3,12 @@ package com.example.solvare.grouplex.startup;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -18,11 +17,12 @@ import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import com.example.solvare.grouplex.R;
+import com.example.solvare.grouplex.constant.Urls;
+import com.example.solvare.grouplex.custom.SendOtp;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,11 +30,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.example.solvare.grouplex.R;
-import com.example.solvare.grouplex.constant.Urls;
-import com.example.solvare.grouplex.custom.SendOtp;
-
-public class SignupActivity extends AppCompatActivity implements View.OnClickListener{
+public class SignupActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextInputLayout inputLayoutName, inputLayoutEmail, inputLayoutPassword, inputLayoutConfPassword;
     private EditText signup_fullName, signup_email, signup_password, signup_confPassword;
@@ -56,7 +52,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         signup_password = (EditText) findViewById(R.id.editText_signup_password);
         signup_confPassword = (EditText) findViewById(R.id.editText_signup_confPassword);
 
-        buttonRegister=(Button)findViewById(R.id.buttonRegister);
+        buttonRegister = (Button) findViewById(R.id.buttonRegister);
         buttonRegister.setOnClickListener(this);
 
         signup_fullName.addTextChangedListener(new MyTextWatcher(signup_fullName));
@@ -66,7 +62,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
-    public void registerUser(){
+    public void registerUser() {
 
         if (!validateName()) {
             return;
@@ -105,22 +101,20 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                             Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
                             if (finalresponse_mssg.equalsIgnoreCase(SUCCESS)) {
                                 SharedPrefManager.getInstance(getApplicationContext()).userLogin(jsonObject.getString("email")
-                                        , jsonObject.getString("full_name"), jsonObject.getString("user_id"),jsonObject.getBoolean("verified")
+                                        , jsonObject.getString("full_name"), jsonObject.getString("user_id"), jsonObject.getBoolean("verified")
                                 );
-                                if(jsonObject.getBoolean("verified")){
-                                    Intent intent = new Intent(SignupActivity.this,MyGroupsActivity.class);
+                                if (jsonObject.getBoolean("verified")) {
+                                    Intent intent = new Intent(SignupActivity.this, MyGroupsActivity.class);
                                     startActivity(intent);
-                                }
-                                else{
-                                    SendOtp.send_mail(getApplicationContext(),jsonObject.getString("email"));
-                                    Intent intent = new Intent(SignupActivity.this,OtpEmailActivity.class);
+                                } else {
+                                    SendOtp.send_mail(getApplicationContext(), jsonObject.getString("email"));
+                                    Intent intent = new Intent(SignupActivity.this, OtpEmailActivity.class);
                                     startActivity(intent);
                                 }
                                 setResult(RESULT_OK, null);
                                 finish();
                             }
-                        }
-                        catch (JSONException e) {
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
@@ -128,12 +122,12 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
                     }
-                }){
+                }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params = new HashMap<>();
+                Map<String, String> params = new HashMap<>();
                 params.put("email", finalEmail);
                 params.put("password", finalPassword);
                 params.put("full_name", finalFull_name);
@@ -146,7 +140,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        if(v==buttonRegister){
+        if (v == buttonRegister) {
             registerUser();
         }
     }

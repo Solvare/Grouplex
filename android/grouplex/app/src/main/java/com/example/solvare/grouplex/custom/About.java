@@ -6,7 +6,7 @@ package com.example.solvare.grouplex.custom;
 
 public class About {
 
-    private String heading,content;
+    private String heading, content;
 
     public About() {
     }

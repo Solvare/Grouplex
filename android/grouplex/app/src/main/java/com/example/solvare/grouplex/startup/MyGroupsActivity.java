@@ -39,16 +39,16 @@ public class MyGroupsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
 
-    public ArrayList<String> ids= new ArrayList<>();
+    public ArrayList<String> ids = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_groups);
 
-        if(!SharedPrefManager.getInstance(this).isLoggedIn()){
+        if (!SharedPrefManager.getInstance(this).isLoggedIn()) {
             finish();
-            startActivity(new Intent(this,LoginActivity.class));
+            startActivity(new Intent(this, LoginActivity.class));
             return;
         }
 
@@ -58,7 +58,6 @@ public class MyGroupsActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("  Grouplex  ");
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-
 
 
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this); // (Context context, int spanCount)
@@ -74,7 +73,6 @@ public class MyGroupsActivity extends AppCompatActivity {
     }
 
     private void setUpRecyclerView() {
-
 
         Urls url = new Urls(this);
         StringRequest stringRequest = new StringRequest(url.URL_GROUPS,
@@ -103,7 +101,6 @@ public class MyGroupsActivity extends AppCompatActivity {
     }
 
 
-
     MyGroups groups = new MyGroups();
 
     private void parseData(String jsonStr) throws JSONException {
@@ -115,11 +112,9 @@ public class MyGroupsActivity extends AppCompatActivity {
         ArrayList<String> num_members = new ArrayList<String>();
         JSONObject jsonObj = new JSONObject(jsonStr);
         //Log.d("rishabh",jsonStr);
-        if(jsonObj.getString("error").equalsIgnoreCase("true"))
-        {
+        if (jsonObj.getString("error").equalsIgnoreCase("true")) {
             Resources res = getResources();
-            if(jsonObj.getInt("errorId")==res.getInteger(R.integer.no_associated_groups))
-            {
+            if (jsonObj.getInt("errorId") == res.getInteger(R.integer.no_associated_groups)) {
                 setContentView(R.layout.activity_no_groups);
                 Button button_join = (Button) findViewById(R.id.button_dir_join_group);
                 Button button_create = (Button) findViewById(R.id.button_dir_create_group);
@@ -135,10 +130,7 @@ public class MyGroupsActivity extends AppCompatActivity {
                 });
                 return;
             }
-        }
-
-        else
-        {
+        } else {
             JSONArray jsonarray = jsonObj.getJSONArray("groups");
             for (int i = 0; i < jsonarray.length(); i++) {
                 JSONObject jsonobject = jsonarray.getJSONObject(i);

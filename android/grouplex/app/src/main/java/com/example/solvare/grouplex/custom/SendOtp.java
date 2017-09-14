@@ -1,6 +1,5 @@
 package com.example.solvare.grouplex.custom;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.widget.Toast;
 
@@ -24,7 +23,7 @@ import java.util.Map;
 
 public class SendOtp {
 
-    public static void send_mail(final Context context, final String email){
+    public static void send_mail(final Context context, final String email) {
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.URL_OTP_SEND,
                 new Response.Listener<String>() {
@@ -34,8 +33,7 @@ public class SendOtp {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             Toast.makeText(context, jsonObject.getString("message"), Toast.LENGTH_LONG).show();
-                        }
-                        catch (JSONException e) {
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
@@ -43,12 +41,12 @@ public class SendOtp {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(context,error.getMessage(),Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
                     }
-                }){
+                }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params = new HashMap<>();
+                Map<String, String> params = new HashMap<>();
                 params.put("email", email);
                 return params;
             }

@@ -1,18 +1,14 @@
 package com.example.solvare.grouplex.startup;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,12 +16,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import com.example.solvare.grouplex.R;
+import com.example.solvare.grouplex.constant.Urls;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,16 +30,13 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.example.solvare.grouplex.R;
-import com.example.solvare.grouplex.constant.Urls;
-
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextInputLayout inputLayoutEmail, inputLayoutPassword;
-    private EditText login_email,login_password;
+    private EditText login_email, login_password;
     private Button buttonlogin;
     private TextView signup_page, forgot_password;
-    private Boolean loggedin=false;
+    private Boolean loggedin = false;
     public static final int REQUEST_EXIT = 1;
     public static final String LOGIN_SUCCESS = "false";
     public static final String SHARED_PREF_NAME = "myloginapp";
@@ -54,19 +48,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        login_email=(EditText)findViewById(R.id.editText_login_email);
-        login_password=(EditText)findViewById(R.id.editText_login_password);
+        login_email = (EditText) findViewById(R.id.editText_login_email);
+        login_password = (EditText) findViewById(R.id.editText_login_password);
 
-        inputLayoutEmail=(TextInputLayout) findViewById(R.id.input_layout_login_email);
-        inputLayoutPassword=(TextInputLayout) findViewById(R.id.input_layout_login_password);
+        inputLayoutEmail = (TextInputLayout) findViewById(R.id.input_layout_login_email);
+        inputLayoutPassword = (TextInputLayout) findViewById(R.id.input_layout_login_password);
 
-        buttonlogin=(Button)findViewById(R.id.buttonlogin);
+        buttonlogin = (Button) findViewById(R.id.buttonlogin);
         buttonlogin.setOnClickListener(this);
 
-        signup_page=(TextView) findViewById(R.id.textView_signup);
+        signup_page = (TextView) findViewById(R.id.textView_signup);
         signup_page.setOnClickListener(this);
 
-        forgot_password=(TextView) findViewById(R.id.textView_forgotPassword);
+        forgot_password = (TextView) findViewById(R.id.textView_forgotPassword);
         forgot_password.setOnClickListener(this);
 
         login_email.addTextChangedListener(new MyTextWatcher(login_email));
@@ -98,29 +92,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        if(v==buttonlogin) login();
-        else if(v==signup_page) signup();
-        else if(v==forgot_password) forgot();
+        if (v == buttonlogin) login();
+        else if (v == signup_page) signup();
+        else if (v == forgot_password) forgot();
     }
 
-    public void signup()
-    {
+    public void signup() {
         Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
         startActivityForResult(intent, REQUEST_EXIT);
     }
 
-    public void forgot()
-    {
+    public void forgot() {
         Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
         startActivity(intent);
     }
 
-    private void login(){
+    private void login() {
 
         boolean dev_mode = true;
 
-        if(!dev_mode)
-        {
+        if (!dev_mode) {
             if (!validateEmail()) {
                 return;
             }
@@ -130,13 +121,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         }
 
-        final String email= login_email.getText().toString().trim();
+        final String email = login_email.getText().toString().trim();
         final String password = login_password.getText().toString();
 
         final ProgressDialog progress = new ProgressDialog(this);
         progress.setTitle("Loading");
         progress.setMessage("Logging-In...");
-        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.setCancelable(true); // disable dismiss by tapping outside of the dialog
         progress.show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.URL_LOGIN,
@@ -147,23 +138,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         try {
                             String finalresponse_mssg;
                             JSONObject jsonObject = new JSONObject(response);
-                            finalresponse_mssg =jsonObject.getString("error");
+                            finalresponse_mssg = jsonObject.getString("error");
 
-                            if(finalresponse_mssg.equalsIgnoreCase(LOGIN_SUCCESS)){
-                                Toast.makeText(getApplicationContext(),jsonObject.getString("message"),Toast.LENGTH_LONG).show();
+                            if (finalresponse_mssg.equalsIgnoreCase(LOGIN_SUCCESS)) {
+                                Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
                                 SharedPrefManager.getInstance(getApplicationContext()).userLogin(jsonObject.getString("email")
-                                        ,jsonObject.getString("full_name"),jsonObject.getString("user_id"),jsonObject.getBoolean("verified")
+                                        , jsonObject.getString("full_name"), jsonObject.getString("user_id"), jsonObject.getBoolean("verified")
                                 );
-                                if(jsonObject.getBoolean("verified")){
-                                    Intent intent = new Intent(LoginActivity.this,MyGroupsActivity.class);
+                                if (jsonObject.getBoolean("verified")) {
+                                    Intent intent = new Intent(LoginActivity.this, MyGroupsActivity.class);
                                     startActivity(intent);
-                                }
-                                else{
-                                    Intent intent = new Intent(LoginActivity.this,OtpEmailActivity.class);
+                                } else {
+                                    Intent intent = new Intent(LoginActivity.this, OtpEmailActivity.class);
                                     startActivity(intent);
                                 }
                                 finish();
-                            }else{
+                            } else {
                                 Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_LONG).show();
                             }
                         } catch (JSONException e) {
@@ -175,12 +165,31 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
+                        String message = null;
+                        if (error instanceof NetworkError) {
+                            message = "Cannot connect to Internet.\nPlease check your connection!";
+                            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                        }
+                        /*else if (error instanceof ServerError) {
+                            message = "The server could not be found. Please try again after some time!!";
+                        } else if (error instanceof AuthFailureError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof ParseError) {
+                            message = "Parsing error!";
+                        } else if (error instanceof NoConnectionError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof TimeoutError) {
+                            message = "Connection TimeOut! Please check your internet connection.";
+                        }*/
+                        else{
+                            Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                        progress.dismiss();
                     }
-                }){
+                }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params = new HashMap<>();
+                Map<String, String> params = new HashMap<>();
                 params.put("email", email);
                 params.put("password", password);
                 return params;

@@ -95,8 +95,7 @@
         <activity android:name=".startup.LoginMessage" />
         <activity
             android:name=".startup.LauncherActivity"
-            android:theme="@android:style/Theme.NoDisplay">
-        </activity>
+            android:theme="@android:style/Theme.NoDisplay"></activity>
         <activity
             android:name=".menu.account.ChangeNameActivity"
             android:label="Change Name"
@@ -121,8 +120,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".startup.MyGroupsActivity" />
         </activity>
-        <activity
-            android:name=".custom.MessageDetails">
+        <activity android:name=".custom.MessageDetails">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".startup.MyGroupsActivity" />

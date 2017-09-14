@@ -4,8 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,7 +21,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-
 import com.example.solvare.grouplex.R;
 import com.example.solvare.grouplex.constant.Urls;
 import com.example.solvare.grouplex.startup.MyGroupsActivity;
@@ -38,19 +37,20 @@ import java.util.Map;
 import static com.example.solvare.grouplex.startup.SharedPrefManager.KEY_ID;
 import static com.example.solvare.grouplex.startup.SharedPrefManager.SHARED_PREF_NAME;
 
-public class JoinGroupActivity extends AppCompatActivity{
+public class JoinGroupActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join_group);
 
-        final ListView lv = (ListView)findViewById(R.id.listViewgroups);
+        final ListView lv = (ListView) findViewById(R.id.listViewgroups);
         final ArrayList<String> arrayList = new ArrayList<>();
         final ArrayList<String> arrayListId = new ArrayList<>();
         final ArrayList<String> arrayListMem = new ArrayList<>();
-        SharedPreferences sharedPreferences =getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        final String uid=sharedPreferences.getString(KEY_ID,null);
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        final String uid = sharedPreferences.getString(KEY_ID, null);
         Urls url = new Urls(this);
 
         final ProgressDialog progress = new ProgressDialog(this);
@@ -82,7 +82,7 @@ public class JoinGroupActivity extends AppCompatActivity{
                                         //Toast.makeText(getApplicationContext(),lv.getItemAtPosition(position).toString(),Toast.LENGTH_SHORT).show();
                                         String sel_grp = lv.getItemAtPosition(position).toString();
                                         int index = arrayList.indexOf(sel_grp);
-                                        addGroup(arrayListId.get(index),uid);
+                                        addGroup(arrayListId.get(index), uid);
                                     }
                                 });
                             }
@@ -101,6 +101,7 @@ public class JoinGroupActivity extends AppCompatActivity{
         RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
 
     }
+
     private void parseData(String jsonStr) throws JSONException {
 
         JSONObject jsonObj = new JSONObject(jsonStr);
@@ -116,7 +117,7 @@ public class JoinGroupActivity extends AppCompatActivity{
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.search, menu);
         MenuItem item = menu.findItem(R.id.menuSearch);
-        SearchView searchView = (SearchView)item.getActionView();
+        SearchView searchView = (SearchView) item.getActionView();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -135,13 +136,13 @@ public class JoinGroupActivity extends AppCompatActivity{
 
         return super.onCreateOptionsMenu(menu);
     }
+
     @Override
     public void onBackPressed() {
         startActivity(new Intent(this, MyGroupsActivity.class));
     }
 
-    void addGroup(final String gr_id, final String us_id)
-    {
+    void addGroup(final String gr_id, final String us_id) {
         final ProgressDialog progress = new ProgressDialog(this);
         progress.setMessage("Joining...");
         progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
@@ -154,7 +155,7 @@ public class JoinGroupActivity extends AppCompatActivity{
                         progress.dismiss();
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            Toast.makeText(getApplicationContext(),jsonObject.getString("message"),Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -163,12 +164,12 @@ public class JoinGroupActivity extends AppCompatActivity{
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
                     }
-                }){
+                }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params = new HashMap<>();
+                Map<String, String> params = new HashMap<>();
                 params.put("group_id", gr_id);
                 params.put("user_id", us_id);
                 return params;

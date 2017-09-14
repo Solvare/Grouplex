@@ -1,7 +1,5 @@
 package com.example.solvare.grouplex.custom;
 
-import java.util.List;
-
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.solvare.grouplex.R;
+
+import java.util.List;
 
 public class JoinGroupAdapter extends RecyclerView.Adapter<JoinGroupAdapter.MyViewHolder> {
 
@@ -22,12 +22,14 @@ public class JoinGroupAdapter extends RecyclerView.Adapter<JoinGroupAdapter.MyVi
         this.context = context;
         this.mData = data;
     }
+
     @Override
     public JoinGroupAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_join_group_new, parent, false);
         MyViewHolder holder = new MyViewHolder(view);
         return holder;
     }
+
     @Override
     public void onBindViewHolder(JoinGroupAdapter.MyViewHolder holder, int position) {
         JoinGroup groups = mData.get(position);
@@ -47,16 +49,16 @@ public class JoinGroupAdapter extends RecyclerView.Adapter<JoinGroupAdapter.MyVi
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            name=(TextView)itemView.findViewById(R.id.join_group_name);
-            members=(TextView)itemView.findViewById(R.id.join_num_members);
+            name = (TextView) itemView.findViewById(R.id.join_group_name);
+            members = (TextView) itemView.findViewById(R.id.join_num_members);
         }
 
-        public void setData(JoinGroup groups,int position){
+        public void setData(JoinGroup groups, int position) {
             this.name.setText(groups.getNames().get(position));
             Log.d("SIZRAJAT", Integer.toString(mData.size()));
             this.members.setText(groups.getMembers().get(position) + " members");
-            this.position=position;
-            this.groups=groups;
+            this.position = position;
+            this.groups = groups;
         }
     }
 

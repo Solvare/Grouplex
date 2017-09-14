@@ -21,13 +21,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:id="@+id/editText_group_name"
-            android:hint="Choose Group Name"
-            android:layout_gravity="center_horizontal" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:id="@+id/editText_group_name"
+                android:hint="Choose Group Name"
+                android:layout_gravity="center_horizontal" />
 
         </android.support.design.widget.TextInputLayout>
 

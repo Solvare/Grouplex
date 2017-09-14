@@ -6,18 +6,18 @@
     tools:context="com.example.solvare.grouplex.startup.MyGroupsActivity"
     android:orientation="vertical">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/swipe_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="10dp">
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="50dp"
-            android:scrollbars="vertical"/>
+            android:scrollbars="vertical" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
 
@@ -39,8 +39,7 @@
             android:layout_weight="1"
             android:textColorHint="#CFD8DC"
             android:textColor="#CFD8DC"
-            android:hint="Write a message"
-            />
+            android:hint="Write a message" />
 
         <ImageButton
             android:id="@+id/post"
@@ -58,6 +57,6 @@
             android:padding="5dp"
             android:visibility="gone"
             android:gravity="center"
-            android:text="You can't send messages to this group because you're not an Admin."/>
+            android:text="You can't send messages to this group because you're not an Admin." />
     </LinearLayout>
 </RelativeLayout>

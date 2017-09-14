@@ -4,10 +4,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,15 +29,13 @@ import java.util.Map;
 
 import static com.example.solvare.grouplex.startup.SharedPrefManager.KEY_EMAIL;
 import static com.example.solvare.grouplex.startup.SharedPrefManager.KEY_ID;
-import static com.example.solvare.grouplex.startup.SharedPrefManager.KEY_USERNAME;
-import static com.example.solvare.grouplex.startup.SharedPrefManager.KEY_VERIFIED;
 import static com.example.solvare.grouplex.startup.SharedPrefManager.SHARED_PREF_NAME;
 
 public class OtpEmailActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextInputLayout inputLayoutOtp;
     private EditText otp;
-    private Button button_verify,button_resend;
+    private Button button_verify, button_resend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +56,9 @@ public class OtpEmailActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         final SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         String email = sharedPreferences.getString(KEY_EMAIL, null);
-        if(v==button_verify) verifyEmail(sharedPreferences);
-        else if(v==button_resend)
-        {
-            SendOtp.send_mail(getApplicationContext(),email);
+        if (v == button_verify) verifyEmail(sharedPreferences);
+        else if (v == button_resend) {
+            SendOtp.send_mail(getApplicationContext(), email);
         }
     }
 
@@ -90,7 +86,7 @@ public class OtpEmailActivity extends AppCompatActivity implements View.OnClickL
                             Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
                             if (jsonObject.getString("error").equalsIgnoreCase("false")) {
                                 SharedPrefManager.getInstance(getApplicationContext()).verifyEmail(true);
-                                Intent intent = new Intent(OtpEmailActivity.this,MyGroupsActivity.class);
+                                Intent intent = new Intent(OtpEmailActivity.this, MyGroupsActivity.class);
                                 startActivity(intent);
                                 finish();
                             }
@@ -129,8 +125,7 @@ public class OtpEmailActivity extends AppCompatActivity implements View.OnClickL
         return true;
     }
 
-    public void resendOtp()
-    {
+    public void resendOtp() {
 
     }
 }

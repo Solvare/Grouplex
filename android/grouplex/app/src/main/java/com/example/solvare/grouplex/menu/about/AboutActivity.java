@@ -1,6 +1,5 @@
 package com.example.solvare.grouplex.menu.about;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,11 +7,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.solvare.grouplex.R;
 import com.example.solvare.grouplex.custom.About;
@@ -46,8 +41,7 @@ public class AboutActivity extends AppCompatActivity {
             @Override
             public void onClick(View view, int position) {
                 About about = aboutList.get(position);
-                if(about.getHeading() == "Open Source Credits")
-                {
+                if (about.getHeading() == "Open Source Credits") {
                     openSource();
                 }
             }
@@ -75,7 +69,7 @@ public class AboutActivity extends AppCompatActivity {
         about = new About("Contact Us", "rishabhahuja279@gmail.com\nrajat24saxena@gmail.com");
         aboutList.add(about);
 
-        about = new About("Version", "1.8");
+        about = new About("Version", getString(R.string.version_name));
         aboutList.add(about);
 
         about = new About("Open Source Credits", "Tap Here !!");
@@ -85,8 +79,7 @@ public class AboutActivity extends AppCompatActivity {
         mAdapter.notifyDataSetChanged();
     }
 
-    public void openSource()
-    {
+    public void openSource() {
         Intent intent = new Intent(AboutActivity.this, OpenSourceActivity.class);
         startActivity(intent);
     }
