@@ -57,10 +57,13 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     private void prepareAboutData() {
-        About about = new About("Aim", "To facilitate Official Group Chats.");
+        About about = new About("Aim", "To facilitate Official Group Messaging.");
         aboutList.add(about);
 
         about = new About("Licence", "Open Source");
+        aboutList.add(about);
+
+        about = new About("Version", getString(R.string.version_name));
         aboutList.add(about);
 
         about = new About("Developers", "Rishabh Ahuja\nRajat Saxena");
@@ -69,12 +72,8 @@ public class AboutActivity extends AppCompatActivity {
         about = new About("Contact Us", "rishabhahuja279@gmail.com\nrajat24saxena@gmail.com");
         aboutList.add(about);
 
-        about = new About("Version", getString(R.string.version_name));
-        aboutList.add(about);
-
         about = new About("Open Source Credits", "Tap Here !!");
         aboutList.add(about);
-
 
         mAdapter.notifyDataSetChanged();
     }

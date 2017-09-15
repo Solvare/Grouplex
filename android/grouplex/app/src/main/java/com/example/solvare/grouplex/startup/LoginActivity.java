@@ -17,8 +17,12 @@ import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.solvare.grouplex.R;
@@ -109,7 +113,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void login() {
 
-        boolean dev_mode = true;
+        boolean dev_mode = false;
 
         if (!dev_mode) {
             if (!validateEmail()) {
@@ -167,23 +171,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     public void onErrorResponse(VolleyError error) {
                         String message = null;
                         if (error instanceof NetworkError) {
-                            message = "Cannot connect to Internet.\nPlease check your connection!";
-                            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                            message = "Cannot connect to Internet!\nPlease check your connection.";
                         }
-                        /*else if (error instanceof ServerError) {
-                            message = "The server could not be found. Please try again after some time!!";
+                        else if (error instanceof ServerError) {
+                            message = "The server could not be found!\nPlease try again after some time.";
                         } else if (error instanceof AuthFailureError) {
-                            message = "Cannot connect to Internet...Please check your connection!";
+                            message = "Cannot connect to Internet!\nPlease check your connection.";
                         } else if (error instanceof ParseError) {
                             message = "Parsing error!";
                         } else if (error instanceof NoConnectionError) {
-                            message = "Cannot connect to Internet...Please check your connection!";
+                            message = "Cannot connect to Internet!\nPlease check your connection.";
                         } else if (error instanceof TimeoutError) {
-                            message = "Connection TimeOut! Please check your internet connection.";
-                        }*/
-                        else{
-                            Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+                            message = "Connection TimeOut!\nPlease check your internet connection.";
                         }
+                        else{
+                            message = error.getMessage();
+                        }
+                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
                         progress.dismiss();
                     }
                 }) {

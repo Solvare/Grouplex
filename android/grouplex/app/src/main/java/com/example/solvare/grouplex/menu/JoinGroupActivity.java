@@ -94,7 +94,8 @@ public class JoinGroupActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+                        progress.dismiss();
                     }
                 });
 
@@ -138,8 +139,11 @@ public class JoinGroupActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        startActivity(new Intent(this, MyGroupsActivity.class));
+    public void onBackPressed()
+    {
+        Intent intent =new Intent(this, MyGroupsActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
     void addGroup(final String gr_id, final String us_id) {
@@ -165,6 +169,7 @@ public class JoinGroupActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+                        progress.dismiss();
                     }
                 }) {
             @Override

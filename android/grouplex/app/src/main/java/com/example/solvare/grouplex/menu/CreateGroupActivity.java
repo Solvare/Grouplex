@@ -51,7 +51,9 @@ public class CreateGroupActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this, MyGroupsActivity.class));
+        Intent intent =new Intent(this, MyGroupsActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
     public void createGroup() {
@@ -66,7 +68,7 @@ public class CreateGroupActivity extends AppCompatActivity implements View.OnCli
 
         final ProgressDialog progress = new ProgressDialog(this);
         progress.setMessage("Creating...");
-        progress.setCancelable(true); // disable dismiss by tapping outside of the dialog
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
         progress.show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.URL_CREATE_GROUP,
@@ -87,6 +89,7 @@ public class CreateGroupActivity extends AppCompatActivity implements View.OnCli
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+                        progress.dismiss();
                     }
                 }) {
             @Override
